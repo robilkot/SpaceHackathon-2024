@@ -9,21 +9,32 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style 
-                x:Key="TicketTitle"
+                x:Key="NewsTitle"
                 TargetType="Label">
                 <Setter
                     Property="FontSize"
                     Value="18"/>
             </Style>
             <Style 
-                x:Key="TicketDetail"
+                x:Key="NewsDetail"
                 TargetType="Label">
                 <Setter
                     Property="FontSize"
                     Value="14"/>
             </Style>
             <DataTemplate x:Key="NewsTile">
-                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="0" Grid.RowSpan="2" />
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
