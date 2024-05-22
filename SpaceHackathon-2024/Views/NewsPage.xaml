@@ -2,6 +2,9 @@
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+    xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
+    x:DataType="local:NewsViewModel"
     x:Class="SpaceHackathon_2024.Views.NewsPage"         
     xmlns:extensions="clr-namespace:SpaceHackathon_2024.Helpers.Extensions"
     Title="News">
@@ -22,7 +25,7 @@
                     Property="FontSize"
                     Value="14"/>
             </Style>
-            <DataTemplate x:Key="NewsTile">
+            <DataTemplate x:Key="NewsTile" x:DataType="models:News">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60"/>
@@ -33,13 +36,17 @@
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Column="0" Grid.RowSpan="2" />
+                    <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding ImageURL}"/>
+                    <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource NewsTitle}" Text="{Binding Title}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource NewsDetail}" Text="{Binding Description}"/>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView>
-        
-    </ScrollView>
+    <CollectionView ItemsSource="{Binding News}" ItemTemplate="{StaticResource NewsTile}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" SnapPointsType="None"/>
+        </CollectionView.ItemsLayout>
+    </CollectionView>
 </ContentPage>
