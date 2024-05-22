@@ -87,7 +87,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Services\" />
-	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -95,6 +94,12 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesView.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AllNewsPage.xaml.cs">
+	    <DependentUpon>AllNewsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewsPage.xaml.cs">
+	    <DependentUpon>NewsPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\TicketsPage.xaml.cs">
 	    <DependentUpon>TicketsPage.xaml</DependentUpon>
@@ -110,6 +115,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\NewsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AllNewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 

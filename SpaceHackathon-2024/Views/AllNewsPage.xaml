@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
     xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
-    x:Class="SpaceHackathon_2024.Views.NewsPage"         
+    x:DataType="local:NewsViewModel"
+    x:Class="SpaceHackathon_2024.Views.AllNewsPage"         
     xmlns:extensions="clr-namespace:SpaceHackathon_2024.Helpers.Extensions"
     Title="News">
     
@@ -31,8 +32,7 @@
                         <Image 
                             Grid.Row="0"
                             Aspect="AspectFill"
-                            Source="https://content.jdmagicbox.com/comp/chittorgarh/s3/9999p1472.1472.160624111734.k6s3/catalogue/mts-office-meera-market-chittorgarh-mobile-phone-dealers-1rxz1t0.jpg"/>
-
+                            Source="https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"/>
                         <BoxView
                             Grid.Row="0">
                             <BoxView.Background>
@@ -108,17 +108,50 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!--todo: binding news model to this stuff-->
-    <ScrollView>
-        <Grid
-            RowDefinitions="auto,*">
+    <RefreshView>
+        <ScrollView>
+                <!--BindableLayout.ItemsSource="{Binding News}"-->
             <VerticalStackLayout
                 Padding="10"
-                Spacing="10">
-                <Image
-                    Source="https://fastly.4sqi.net/img/general/600x600/35109551_JuqAcvozIAbbsC4RN-mo3WtgKWUGR0U0K9g1zKbokCA.jpg"
-                            />
+                Spacing="10"
+                BindableLayout.ItemTemplate="{StaticResource NewsTemplate}">
+                <BindableLayout.EmptyViewTemplate>
+                    <DataTemplate>
+                        <!--todo-->
+                        <Grid
+                            Padding="0,120"
+                            RowDefinitions="*,auto,*">
+                            <Grid
+                                Grid.Row="1"
+                                Opacity="0.4"
+                                RowDefinitions="auto,auto"
+                                RowSpacing="15">
+                                <Image
+                                    Grid.Row="0"
+                                    WidthRequest="60"
+                                    Source="drag_down_arrows"/>
+
+                                <Label
+                                    Grid.Row="1"
+                                    FontAttributes="Bold"
+                                    Style="{StaticResource NewsTitle}"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Новостей нет&#x0a;Потяните вниз для обновления"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.EmptyViewTemplate>
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
             </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>
