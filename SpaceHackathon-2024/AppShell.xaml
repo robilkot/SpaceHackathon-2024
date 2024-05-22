@@ -12,7 +12,7 @@
             Padding="0,5,15,5"
             HeightRequest="50"
             ColumnSpacing="25"
-            ColumnDefinitions="auto,*,auto,auto">
+            ColumnDefinitions="auto,*,auto,auto,auto">
             <Image
                 Grid.Column="0"
                 Source="mts_logo"/>
@@ -24,6 +24,11 @@
                 Source="bell"/>
             <Image
                 Grid.Column="3"
+                WidthRequest="40"
+                HeightRequest="40"
+                Source="coin"/>
+            <Image
+                Grid.Column="4"
                 WidthRequest="25"
                 Source="envelope">
                 <Image.GestureRecognizers>

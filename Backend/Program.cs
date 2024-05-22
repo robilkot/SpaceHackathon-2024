@@ -1,12 +1,12 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Backend.Hubs;
 using Backend.Models;
 using Backend.Models.Dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 // условная бд с пользователями
 var users = new List<User>
@@ -156,7 +156,6 @@ app.MapPost("/signUp",  (SignUpDto signUpDto) =>
 });
 
 app.Run();
-
 
 public class AuthOptions
 {
