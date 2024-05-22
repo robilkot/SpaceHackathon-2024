@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SpaceHackathon_2024.Models;
 
 namespace SpaceHackathon_2024.Services
@@ -20,7 +21,12 @@ namespace SpaceHackathon_2024.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=sh.db");
+            var config = new ConfigurationBuilder()
+                        .AddJsonFile("ApplicationSettings.json")
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .Build();
+
+            optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
         }
     }
 }
