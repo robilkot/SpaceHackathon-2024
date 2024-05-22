@@ -15,6 +15,19 @@ public class AccountService
         _client = httpClient;
     }
     
+    public async Task<ProfileDto> GetProfileInfo(string token)
+    {
+        _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        
+        using HttpResponseMessage response = await _client.GetAsync($"{_url}/profile");
+
+        string jsonInfo = await response.Content.ReadAsStringAsync();
+        
+        ProfileDto profileDto = JsonConvert.DeserializeObject<ProfileDto>(jsonInfo);
+        
+        return profileDto;
+    }
+    
     public async Task<AuthResponseDto> SignIn(string phoneNumber, string password)
     {
         var authData = new

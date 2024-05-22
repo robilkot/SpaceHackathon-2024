@@ -40,8 +40,17 @@ public partial class SignUpViewModel : ObservableObject
         if (response != null)
         {
             Preferences.Default.Set("AccessToken", response.AccessToken);
+
+            ProfileDto profileDto = await _accountService.GetProfileInfo(response.AccessToken);
+            
+            var navigationParameter = new Dictionary<string, object>
+            {
+                {"Profile", profileDto},
+            };
+            
+            Preferences.Default.Set("AccessToken", response.AccessToken);
         
-            await Shell.Current.GoToAsync($"ProfilePage");
+            await Shell.Current.GoToAsync($"ProfilePage", navigationParameter);
         }
     }
 

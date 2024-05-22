@@ -41,12 +41,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             OnMessageReceived = context =>
             {
                 var accessToken = context.Request.Query["access_token"];
- 
-                // если запрос направлен хабу
+                
                 var path = context.HttpContext.Request.Path;
                 if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chat"))
                 {
-                    // получаем токен из строки запроса
                     context.Token = accessToken;
                 }
                 return Task.CompletedTask;
@@ -81,9 +79,24 @@ app.MapGet("/auth", [Authorize] () =>
     return "You are successfully authorized!";
 });
 
-app.MapGet("/profile", [Authorize]() =>
+
+app.MapGet("/profile", [Authorize] (HttpContext context) =>
 {
-    return new ProfileDto();
+    string? phoneNumber = context.User.FindFirst(ClaimTypes.Name)?.Value;
+    
+    if (string.IsNullOrEmpty(phoneNumber))
+        return Results.Unauthorized();
+    
+    var user = users.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+    
+    if (user == null)
+        return Results.NotFound();
+    
+    return Results.Ok(new
+    {
+        name = user.Name,
+        phoneNumber = user.PhoneNumber
+    });
 });
 
 
