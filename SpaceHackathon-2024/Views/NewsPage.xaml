@@ -68,7 +68,7 @@
                                         <!--todo: binding background color to IsSelected-->
                                         <Border
                                             Padding="5"
-                                            BackgroundColor="{StaticResource Gray100}">
+                                            BackgroundColor="#EEEEEE">
                                             <Border.Shadow>
                                                 <Shadow Opacity="0"/>
                                             </Border.Shadow>
@@ -145,8 +145,6 @@
                 </BindableLayout.EmptyViewTemplate>
                 <BindableLayout.ItemsSource>
                     <x:Array Type="{x:Type x:Int32}">
-                        <x:Int32>1</x:Int32>
-                        <x:Int32>1</x:Int32>
                         <x:Int32>1</x:Int32>
                         <x:Int32>1</x:Int32>
                         <x:Int32>1</x:Int32>
