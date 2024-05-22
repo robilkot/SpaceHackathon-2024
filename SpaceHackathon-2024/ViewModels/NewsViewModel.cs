@@ -14,10 +14,7 @@ namespace SpaceHackathon_2024.ViewModels
 
         private const int PageSize = 10;
 
-        [ObservableProperty]
-        private List<News> _news = new();
-
-        public ObservableCollection<News> News1 { get; } = new();
+        public ObservableCollection<News> News { get; } = new();
 
         public ICommand LoadMoreCommand { get; }
 
@@ -41,12 +38,14 @@ namespace SpaceHackathon_2024.ViewModels
             IsBusy = true;
 
             var newsItems = await _appContext.GetNewsAsync(_pageNumber, PageSize);
+
             foreach (var news in newsItems)
             {
-                _appContext.News.Add(news);
+                News.Add(news);
             }
 
             _pageNumber++;
+
             IsBusy = false;
         }
 
