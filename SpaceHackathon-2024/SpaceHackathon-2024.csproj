@@ -73,6 +73,8 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="EmailValidation" Version="1.2.0" />
 		<PackageReference Include="IdentityModel" Version="7.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.5" />
@@ -80,11 +82,11 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Services\" />
-	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -92,6 +94,12 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesView.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AllNewsPage.xaml.cs">
+	    <DependentUpon>AllNewsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewsPage.xaml.cs">
+	    <DependentUpon>NewsPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\TicketsPage.xaml.cs">
 	    <DependentUpon>TicketsPage.xaml</DependentUpon>
@@ -107,6 +115,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\NewsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AllNewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 

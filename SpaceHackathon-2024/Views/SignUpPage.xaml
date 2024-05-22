@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:Class="SpaceHackathon_2024.Views.SignUpPage"
+             x:DataType="viewmodels:SignUpViewModel">
+    
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+
+            <Image Source="logo.png" HeightRequest="100" HorizontalOptions="Center" />
+
+            <Entry Placeholder="Имя пользователя" Text="{Binding Username}" />
+            <Entry Placeholder="Номер телефона" Text="{Binding PhoneNumber}" Keyboard="Email" />
+            <Entry Placeholder="Пароль" IsPassword="True" Text="{Binding Password}" />
+            <Entry Placeholder="Повторите пароль" IsPassword="True" Text="{Binding ConfirmPassword}" />
+
+            <Button Text="Зарегистрироваться" Command="{Binding SignUpCommand}" HorizontalOptions="Fill" />
+
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Уже есть аккаунт? " />
+                        <Span Text="Войти" TextColor="Blue" 
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToSignInPageCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

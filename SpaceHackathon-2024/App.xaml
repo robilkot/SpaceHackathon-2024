@@ -8,6 +8,9 @@
         <ResourceDictionary>
             <converters:BoolInverter x:Key="BoolInverter" />
             <converters:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <converters:BoolToValueConverter x:Key="TextColorConverter" FalseValue="{StaticResource Gray400}" TrueValue="{StaticResource Gray600}" />
+            <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

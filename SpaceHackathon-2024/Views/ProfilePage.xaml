@@ -33,11 +33,11 @@
     <ContentPage.Content>
         <ScrollView>
             <VerticalStackLayout
-                Spacing="20"
+                Spacing="10"
                 Padding="10">
                 <Border>
                     <Grid
-                        Padding="10"
+                        Padding="10, 20"
                         ColumnSpacing="20"
                         ColumnDefinitions="auto,*">
                         <Image
@@ -85,7 +85,35 @@
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
+                
+                 <!--Achievments-->
+                <Label
+                    Margin="0,20,0,0"
+                    HorizontalOptions="Center"
+                    FontSize="14"
+                    Text="Ваши достижения:"/>
+                <HorizontalStackLayout
+                    Margin="0,0,0,20"
+                    Spacing="10"
+                    HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Source="grat_1mo"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                    <BindableLayout.ItemsSource>
+                        <x:Array Type="{x:Type x:Int32}">
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>1</x:Int32>
+                        </x:Array>
+                    </BindableLayout.ItemsSource>
+                </HorizontalStackLayout>
 
+                <!-- Working info -->
                 <Border>
                     <Grid
                         RowDefinitions="auto,*"
@@ -103,21 +131,20 @@
                                 WidthRequest="20"
                                 Grid.Column="1"
                                 Source="angle_right"
-                                Rotation="90">
+                                Rotation="{Binding WorkInfoExpandedRotation}">
                             </Image>
 
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                    Command="{Binding }"/>
+                                    Command="{Binding WorkInfoHeaderTappedCommand}"/>
                             </Grid.GestureRecognizers>
                         </Grid>
                         <!--Body-->
-                        <!--TODO: Bind visible to expanded-->
                         <!--TODO: Binding data-->
                         <VerticalStackLayout
                             Margin="0,10,0,0"
                             Padding="10"
-                            IsVisible="True"
+                            IsVisible="{Binding WorkInfoExpanded}"
                             Spacing="10"
                             Grid.Row="1">
                             <BindableLayout.ItemTemplate>
@@ -141,6 +168,68 @@
                                 <x:Array Type="{x:Type x:Int32}">
                                     <x:Int32>1</x:Int32>
                                     <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                </x:Array>
+                            </BindableLayout.ItemsSource>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Rating -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource CollapsableHeaderText}"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Показатели эффективности"/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding RatingExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding RatingHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding RatingExpanded}"
+                            Spacing="10"
+                            Grid.Row="1">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        Spacing="5">
+                                        <Label 
+                                            Text="Какой-то столбец"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="Какое-то значение"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                            <BindableLayout.ItemsSource>
+                                <x:Array Type="{x:Type x:Int32}">
                                     <x:Int32>1</x:Int32>
                                     <x:Int32>1</x:Int32>
                                     <x:Int32>1</x:Int32>
