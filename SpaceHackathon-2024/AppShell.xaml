@@ -25,7 +25,11 @@
             <Image
                 Grid.Column="3"
                 WidthRequest="25"
-                Source="envelope"/>
+                Source="envelope">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnEnvelopeTapped" />
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </Shell.TitleView>
 
