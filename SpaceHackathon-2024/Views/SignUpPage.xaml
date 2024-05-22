@@ -25,7 +25,7 @@
                         <Span Text="Войти" TextColor="Blue" 
                               TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SignInCommand}" />
+                                <TapGestureRecognizer Command="{Binding GoToSignInPageCommand}" />
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

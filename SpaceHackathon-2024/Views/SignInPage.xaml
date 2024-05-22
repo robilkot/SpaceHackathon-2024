@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
 
-            <Entry Placeholder="Имя пользователя" Text="{Binding Username }" />
+            <Entry Placeholder="Имя пользователя" Text="{Binding PhoneNumber }" />
             <Entry Placeholder="Пароль" IsPassword="True" Text="{Binding Password }" />
 
             <Button Text="Войти" Command="{Binding SignInCommand}" HorizontalOptions="Fill" />
@@ -21,7 +21,7 @@
                         <Span Text="Зарегистрироваться" TextColor="Blue" 
                               TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SignUpCommand}" />
+                                <TapGestureRecognizer Command="{Binding GoToSignUpPageCommand}" />
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

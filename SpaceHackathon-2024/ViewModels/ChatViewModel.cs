@@ -47,7 +47,7 @@ namespace SpaceHackathon_2024.ViewModels
 
         private async void SendMessageAsync()
         {
-            if(!string.IsNullOrEmpty(NewMessage))
+            if (!string.IsNullOrEmpty(NewMessage))
             {
                 await _hubConnection.SendAsync("Send", NewMessage);
                 Messages.Add(new Message {Author  = null, Text = NewMessage, IsUserMessage = true });

@@ -6,7 +6,7 @@ namespace SpaceHackathon_2024.ViewModels;
 public partial class SignInViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string _username;
+    private string _phoneNumber;
 
     [ObservableProperty]
     private string _password;
@@ -14,12 +14,11 @@ public partial class SignInViewModel : ObservableObject
     [RelayCommand]
     private void SignIn()
     {
-        // Здесь можно добавить логику для выполнения входа в систему
-        // с использованием Username и Password
+        
     }
 
     [RelayCommand]
-    private async void SignUp()
+    private async void GoToSignUpPage()
     {
         await Shell.Current.GoToAsync($"SignUpPage");
     }

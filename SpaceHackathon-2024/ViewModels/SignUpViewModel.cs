@@ -25,7 +25,7 @@ public partial class SignUpViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void SignIn()
+    private async void GoToSignInPage()
     {
         await Shell.Current.GoToAsync("..", animate:true);
     }
