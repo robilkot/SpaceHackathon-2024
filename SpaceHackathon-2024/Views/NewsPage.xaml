@@ -2,6 +2,9 @@
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+    xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
+    x:DataType="local:NewsViewModel"
     x:Class="SpaceHackathon_2024.Views.NewsPage"         
     xmlns:extensions="clr-namespace:SpaceHackathon_2024.Helpers.Extensions"
     Title="News">
@@ -11,35 +14,145 @@
             <Style 
                 x:Key="NewsTitle"
                 TargetType="Label">
-                <Setter
-                    Property="FontSize"
-                    Value="18"/>
+                <Setter Property="FontSize" Value="18"/>
             </Style>
             <Style 
                 x:Key="NewsDetail"
                 TargetType="Label">
-                <Setter
-                    Property="FontSize"
-                    Value="14"/>
+                <Setter Property="FontSize" Value="14"/>
             </Style>
-            <DataTemplate x:Key="NewsTile">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
+            
+            <DataTemplate 
+                x:Key="NewsTemplate">
+                <Border>
+                    <Grid
+                        RowDefinitions="200, auto"
+                        RowSpacing="10">
 
-                    <Image Grid.Column="0" Grid.RowSpan="2" />
-                </Grid>
+                        <Image 
+                            Grid.Row="0"
+                            Aspect="AspectFill"
+                            Source="https://content.jdmagicbox.com/comp/chittorgarh/s3/9999p1472.1472.160624111734.k6s3/catalogue/mts-office-meera-market-chittorgarh-mobile-phone-dealers-1rxz1t0.jpg"/>
+
+                        <BoxView
+                            Grid.Row="0">
+                            <BoxView.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#00000000"
+                                        Offset="0.7" />
+                                    <GradientStop Color="#80000000"
+                                        Offset="1.0" />     
+                                </LinearGradientBrush>
+                            </BoxView.Background>
+                        </BoxView>
+                        <Label  
+                            Margin="10,8"
+                            Grid.Row="0"
+                            VerticalOptions="End"
+                            LineBreakMode="TailTruncation"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource White}"
+                            Style="{StaticResource NewsTitle}" 
+                            Text="Название новости"/>
+
+                        <Grid 
+                            Grid.Row="1"
+                            Padding="10,0,10,10"
+                            ColumnDefinitions="auto, *, auto">
+
+                            <HorizontalStackLayout
+                                Grid.Column="0"
+                                Spacing="10">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--todo: binding background color to IsSelected-->
+                                        <Border
+                                            Padding="5"
+                                            BackgroundColor="#EEEEEE">
+                                            <Border.Shadow>
+                                                <Shadow Opacity="0"/>
+                                            </Border.Shadow>
+                                            <Grid
+                                                ColumnSpacing="5"
+                                                ColumnDefinitions="auto,auto">
+                                                <Image
+                                                    Grid.Column="0"
+                                                    Source="star"
+                                                    HeightRequest="15"/>
+                                                <Label
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1"
+                                                    Text="42"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.ItemsSource>
+                                    <x:Array Type="{x:Type x:Int32}">
+                                        <x:Int32>1</x:Int32>
+                                        <x:Int32>1</x:Int32>
+                                    </x:Array>
+                                </BindableLayout.ItemsSource>
+                            </HorizontalStackLayout>
+                            <Label
+                                FontSize="14"
+                                Grid.Column="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                TextColor="{StaticResource Gray500}"
+                                Style="{StaticResource NewsTitle}" 
+                                Text="25.31.2024"/>
+                        </Grid>
+                    </Grid>
+                </Border>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView>
-        
-    </ScrollView>
+    <RefreshView>
+        <ScrollView>
+                <!--BindableLayout.ItemsSource="{Binding News}"-->
+            <VerticalStackLayout
+                Padding="10"
+                Spacing="10"
+                BindableLayout.ItemTemplate="{StaticResource NewsTemplate}">
+                <BindableLayout.EmptyViewTemplate>
+                    <DataTemplate>
+                        <!--todo-->
+                        <Grid
+                            Padding="0,120"
+                            RowDefinitions="*,auto,*">
+                            <Grid
+                                Grid.Row="1"
+                                Opacity="0.4"
+                                RowDefinitions="auto,auto"
+                                RowSpacing="15">
+                                <Image
+                                    Grid.Row="0"
+                                    WidthRequest="60"
+                                    Source="drag_down_arrows"/>
+
+                                <Label
+                                    Grid.Row="1"
+                                    FontAttributes="Bold"
+                                    Style="{StaticResource NewsTitle}"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Новостей нет&#x0a;Потяните вниз для обновления"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.EmptyViewTemplate>
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                        <x:Int32>1</x:Int32>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

@@ -5,22 +5,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SpaceHackathon_2024.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="SpaceHackathon 2024" >
+    Title="SpaceHackathon 2024">
+
+    <Shell.TitleView>
+        <Grid
+            Padding="0,5,15,5"
+            HeightRequest="50"
+            ColumnSpacing="25"
+            ColumnDefinitions="auto,*,auto,auto">
+            <Image
+                Grid.Column="0"
+                Source="mts_logo"/>
+
+            <Image
+                Grid.Column="2"
+                WidthRequest="25"
+                HeightRequest="25"
+                Source="bell"/>
+            <Image
+                Grid.Column="3"
+                WidthRequest="25"
+                Source="envelope"/>
+        </Grid>
+    </Shell.TitleView>
+
     <TabBar>
-        <ShellContent 
-            Title="Чат сука"
-            Icon="pornhub.svg"
-            ContentTemplate="{DataTemplate views:ChatPage}"
-            Route="ChatPage" />
-        <ShellContent 
-            Title="Профиль"
-            Icon="profile.png"
-            ContentTemplate="{DataTemplate views:SignInPage}"
-            Route="SignInPage" />
-        <ShellContent 
-            Title="Еще"
-            Icon="menu.png"
-            ContentTemplate="{DataTemplate views:ProfilePage}"
-            Route="ProfilePage" />
+        <ShellContent Route="news" Icon="envelope" Title="Новости" ContentTemplate="{DataTemplate views:NewsPage}"/>
+        <ShellContent Route="rating" Icon="stats" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
+        <ShellContent Route="schedule" Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
+        <ShellContent Route="profile" Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}"/>
     </TabBar>
 </Shell>

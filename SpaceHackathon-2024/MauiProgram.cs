@@ -14,8 +14,8 @@ namespace SpaceHackathon_2024
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("MTSText-Regular.ttf", "MTSTextRegular");
+                    fonts.AddFont("MTSText-Bold.ttf", "MTSTextBold");
                 });
             
             var services = builder.Services;
@@ -24,6 +24,8 @@ namespace SpaceHackathon_2024
 
 #if DEBUG
     		builder.Logging.AddDebug();
+
+            var ac = new ApplicationContext();
 #endif
 
             return builder.Build();
@@ -35,6 +37,8 @@ namespace SpaceHackathon_2024
             services.AddHttpClient<AccountService>();
             
             // Pages configuration
+            services.AddSingleton<ApplicationContext>();
+
             services.AddTransient<SignInPage>();
             services.AddTransient<SignInViewModel>();
 
@@ -43,10 +47,13 @@ namespace SpaceHackathon_2024
             
             services.AddTransient<ChatViewModel>();
             services.AddTransient<ChatPage>();
-            
+
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<ProfilePage>();
-            
+
+            services.AddTransient<NewsViewModel>();
+
+            services.AddTransient<StoreViewModel>();
         }
     }
 }

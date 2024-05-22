@@ -3,7 +3,153 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpaceHackathon_2024.Views.ProfilePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Name" TargetType="Label">
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray900}"/>
+                <Setter Property="FontFamily" Value="MTSSansBold"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="ProfileBold" TargetType="Label" BasedOn="{StaticResource Name}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="None"/>
+            </Style>
+
+            <Style x:Key="CollapsableHeaderContainer" TargetType="Grid">
+                <Setter Property="ColumnDefinitions" Value="*,auto"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="Padding" Value="10,5"/>
+            </Style>
+
+            <Style x:Key="CollapsableHeaderText" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray900}"/>
+                <Setter Property="FontFamily" Value="MTSSansRegular"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        
+        <ScrollView>
+            <VerticalStackLayout
+                Spacing="20"
+                Padding="10">
+                <Border>
+                    <Grid
+                        Padding="10"
+                        ColumnSpacing="20"
+                        ColumnDefinitions="auto,*">
+                        <Image
+                            Source="https://fastly.4sqi.net/img/general/600x600/35109551_JuqAcvozIAbbsC4RN-mo3WtgKWUGR0U0K9g1zKbokCA.jpg"
+                            Grid.Column="0"
+                            WidthRequest="110"
+                            Aspect="AspectFit"
+                            VerticalOptions="Center">
+                            <Image.Clip>
+                                <EllipseGeometry 
+                                    RadiusX="55"
+                                    RadiusY="55"
+                                    Center="55,55">
+                                </EllipseGeometry>
+                            </Image.Clip>
+                        </Image>
+                        <VerticalStackLayout
+                            VerticalOptions="Center"
+                            Spacing="0"
+                            Grid.Column="1">
+                            <Label
+                                Margin="0,0,0,10"
+                                Style="{StaticResource Name}"
+                                Text="Никита Калабан"/>
+                            <Label
+                                Style="{StaticResource ProfileBold}"
+                                Text="Старший программист"/>
+                            <Label
+                                Style="{StaticResource ProfileBold}"
+                                Text="Отдел маркетинга"/>
+
+                            <HorizontalStackLayout
+                                Spacing="8"
+                                Margin="0,15,0,0">
+                                <Label
+                                    Style="{StaticResource ProfileBold}"
+                                    TextColor="{StaticResource Gray500}"
+                                    FontAttributes="Bold"   
+                                    Text="В отпуске"/>
+                                <Ellipse 
+                                    Fill="{StaticResource Gray500}"
+                                    WidthRequest="12"
+                                    HeightRequest="12"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource CollapsableHeaderText}"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Рабочая информация"/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="90">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding }"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Bind visible to expanded-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="True"
+                            Spacing="10"
+                            Grid.Row="1">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        Spacing="5">
+                                        <Label 
+                                            Text="Какой-то столбец"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="Какое-то значение"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                            <BindableLayout.ItemsSource>
+                                <x:Array Type="{x:Type x:Int32}">
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                </x:Array>
+                            </BindableLayout.ItemsSource>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
