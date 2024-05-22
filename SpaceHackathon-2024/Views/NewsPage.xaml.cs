@@ -1,8 +1,8 @@
 namespace SpaceHackathon_2024.Views;
 
-public partial class MainPage : ContentPage
+public partial class NewsPage : ContentPage
 {
-	public MainPage()
+	public NewsPage()
 	{
 		InitializeComponent();
 	}

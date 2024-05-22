@@ -73,6 +73,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesView.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\NewsPage.xaml.cs">
+	    <DependentUpon>NewsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -83,7 +86,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\MainPage.xaml">
+	  <MauiXaml Update="Views\NewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
