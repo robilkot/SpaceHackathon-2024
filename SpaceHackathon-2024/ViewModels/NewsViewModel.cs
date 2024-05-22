@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SpaceHackathon_2024.Models;
+using SpaceHackathon_2024.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -8,21 +9,27 @@ namespace SpaceHackathon_2024.ViewModels
     public partial class NewsViewModel : ObservableObject
     {
         private bool _isBusy;
-        private int _pageNumber = 1;
-        private const int PageSize = 10;
-        [ObservableProperty]
-        private List<News> _news = new() { new("test", "test", "test"), new("test", "test", "test"), new("test", "test", "test") };
 
-        public ObservableCollection<News> News1 { get; }
+        private int _pageNumber = 1;
+
+        private const int PageSize = 10;
+
+        [ObservableProperty]
+        private List<News> _news = new();
+
+        public ObservableCollection<News> News1 { get; } = new();
+
         public ICommand LoadMoreCommand { get; }
+
+        private ApplicationContext _appContext;
 
         [ObservableProperty]
         public bool isBusy;
 
-        public NewsViewModel(string dbPath)
+        public NewsViewModel(ApplicationContext appContext)
         {
-            //_newsDatabase = new NewsDatabase(dbPath);
-            News1 = new ObservableCollection<News>();
+            _appContext = appContext;
+
             LoadMoreCommand = new Command(async () => await LoadMoreNewsAsync());
         }
 
@@ -33,10 +40,10 @@ namespace SpaceHackathon_2024.ViewModels
 
             IsBusy = true;
 
-            var newsItems = await _newsDatabase.GetNewsAsync(_pageNumber, PageSize);
+            var newsItems = await _appContext.GetNewsAsync(_pageNumber, PageSize);
             foreach (var news in newsItems)
             {
-                NewsItems.Add(news);
+                _appContext.News.Add(news);
             }
 
             _pageNumber++;

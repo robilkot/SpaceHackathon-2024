@@ -37,7 +37,7 @@ namespace SpaceHackathon_2024.Services
 
             // Query the database for news items
             var newsItems = await News
-                .OrderByDescending(n => n.PublishedDate) // Order by published date (you can adjust this as needed)
+                .OrderByDescending(n => n.PublishDate) // Order by published date (you can adjust this as needed)
                 .Skip(skipCount)
                 .Take(pageSize)
                 .ToListAsync();
