@@ -12,7 +12,7 @@
             <Image Source="logo.png" HeightRequest="100" HorizontalOptions="Center" />
 
             <Entry Placeholder="Имя пользователя" Text="{Binding Username}" />
-            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
+            <Entry Placeholder="Номер телефона" Text="{Binding PhoneNumber}" Keyboard="Email" />
             <Entry Placeholder="Пароль" IsPassword="True" Text="{Binding Password}" />
             <Entry Placeholder="Повторите пароль" IsPassword="True" Text="{Binding ConfirmPassword}" />
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SpaceHackathon_2024.Services;
 using SpaceHackathon_2024.ViewModels;
 using SpaceHackathon_2024.Views;
 
@@ -30,8 +31,10 @@ namespace SpaceHackathon_2024
         
         public static void ConfigureServices(IServiceCollection services)
         {
+            // Services configuration
+            services.AddHttpClient<AccountService>();
+            
             // Pages configuration
-
             services.AddTransient<SignInPage>();
             services.AddTransient<SignInViewModel>();
 

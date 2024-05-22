@@ -1,5 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SpaceHackathon_2024.Models.Dtos;
+using SpaceHackathon_2024.Services;
 
 namespace SpaceHackathon_2024.ViewModels;
 
@@ -10,11 +12,25 @@ public partial class SignInViewModel : ObservableObject
 
     [ObservableProperty]
     private string _password;
+    
+    public readonly AccountService _accountService;
+
+    public SignInViewModel(AccountService accountService)
+    {
+        _accountService = accountService;
+    }
 
     [RelayCommand]
-    private void SignIn()
+    private async void SignIn()
     {
+        AuthResponseDto response = await _accountService.SignIn(_phoneNumber, _password);
+
+        if (response is not null)
+        {
+            Preferences.Default.Set("AccessToken", response.AccessToken);
         
+            await Shell.Current.GoToAsync($"ProfilePage");
+        }
     }
 
     [RelayCommand]

@@ -6,10 +6,10 @@ public partial class SignUpPage : ContentPage
 {
     private readonly SignUpViewModel _viewModel;
     
-    public SignUpPage()
+    public SignUpPage(SignUpViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = new SignUpViewModel();
-        BindingContext = _viewModel;
+        BindingContext = _viewModel = viewModel;
+        AppShell.SetNavBarIsVisible(this, false);
     }
 }

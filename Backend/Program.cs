@@ -8,14 +8,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
-
 // условная бд с пользователями
 var users = new List<User>
 {
     new User("Nikita", "+911","12345"),
     new User("Egor", "+112","qwerty"),
 };
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +69,7 @@ app.UseStaticFiles();
  
 app.MapHub<ChatHub>("/chatHub");
 
+
 app.MapGet("/test", () =>
 {
     return "hello";
@@ -80,6 +79,11 @@ app.MapGet("/test", () =>
 app.MapGet("/auth", [Authorize] () =>
 {
     return "You are successfully authorized!";
+});
+
+app.MapGet("/profile", [Authorize]() =>
+{
+    return new ProfileDto();
 });
 
 
@@ -138,8 +142,8 @@ app.MapPost("/signUp",  (SignUpDto signUpDto) =>
     return Results.Json(response);
 });
 
-
 app.Run();
+
 
 public class AuthOptions
 {
