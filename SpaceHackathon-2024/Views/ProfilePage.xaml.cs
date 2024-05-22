@@ -1,3 +1,4 @@
+using SpaceHackathon_2024.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,11 @@ namespace SpaceHackathon_2024.Views;
 
 public partial class ProfilePage : ContentPage
 {
-    public ProfilePage()
+    private readonly ProfileViewModel viewModel;
+    public ProfilePage(ProfileViewModel profileViewModel)
     {
         InitializeComponent();
+
+        BindingContext = viewModel = profileViewModel;
     }
 }
