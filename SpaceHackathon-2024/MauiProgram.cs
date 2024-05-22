@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SpaceHackathon_2024.Services;
 using SpaceHackathon_2024.ViewModels;
 using SpaceHackathon_2024.Views;
 
@@ -23,6 +24,8 @@ namespace SpaceHackathon_2024
 
 #if DEBUG
     		builder.Logging.AddDebug();
+
+            var ac = new ApplicationContext();
 #endif
 
             return builder.Build();
