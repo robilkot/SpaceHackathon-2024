@@ -20,7 +20,7 @@
                                Margin="5"
                                Padding="10"
                                HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                            <Label Text="{Binding Text}" TextColor="White"/>
+                            <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

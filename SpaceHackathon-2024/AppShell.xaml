@@ -15,8 +15,8 @@
         <ShellContent 
             Title="Профиль"
             Icon="profile.png"
-            ContentTemplate="{DataTemplate views:ProfilePage}"
-            Route="ProfilePage" />
+            ContentTemplate="{DataTemplate views:SignInPage}"
+            Route="SignInPage" />
         <ShellContent 
             Title="Еще"
             Icon="menu.png"
