@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:models="clr-namespace:SpaceHackathon_2024.Models"
+             x:Class="SpaceHackathon_2024.Views.ChatPage"
+             x:DataType="viewmodels:ChatViewModel"
+             Title="Chat">
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, Auto" Padding="10">
+            <CollectionView x:Name="MessagesCollectionView"
+                            ItemsSource="{Binding Messages}"
+                            SelectionMode="None"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Message">
+                        <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
+                               CornerRadius="15"
+                               Margin="5"
+                               Padding="10"
+                               HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                            <Label Text="{Binding Text}" TextColor="White"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout Orientation="Horizontal" Grid.Row="1" Padding="5,0" Spacing="10">
+                <Entry x:Name="MessageEntry" Placeholder="Enter your message" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Send" Clicked="SendMessageButton_Clicked"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

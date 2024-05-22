@@ -8,6 +8,8 @@
         <ResourceDictionary>
             <converters:BoolInverter x:Key="BoolInverter" />
             <converters:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

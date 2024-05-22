@@ -31,6 +31,9 @@ namespace SpaceHackathon_2024
         public static void ConfigureServices(IServiceCollection services)
         {
             // Pages configuration
+            services.AddTransient<ChatViewModel>();
+            services.AddTransient<ChatPage>();
+            
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<ProfilePage>();
         }
