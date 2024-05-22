@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using SpaceHackathon_2024.ViewModels;
+using SpaceHackathon_2024.Views;
 
 namespace SpaceHackathon_2024
 {
@@ -14,12 +16,23 @@ namespace SpaceHackathon_2024
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            
+            var services = builder.Services;
+
+            ConfigureServices(services);
 
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+        
+        public static void ConfigureServices(IServiceCollection services)
+        {
+            // Pages configuration
+            services.AddTransient<ProfileViewModel>();
+            services.AddTransient<ProfilePage>();
         }
     }
 }
