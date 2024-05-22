@@ -34,10 +34,11 @@ namespace SpaceHackathon_2024
         public static void ConfigureServices(IServiceCollection services)
         {
             // Pages configuration
+            services.AddSingleton<ApplicationContext>();
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<ProfilePage>();
-            services.AddSingleton<ApplicationContext>();
             services.AddTransient<NewsViewModel>();
+            services.AddTransient<StoreViewModel>();
         }
     }
 }

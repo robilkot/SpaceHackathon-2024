@@ -8,8 +8,6 @@ namespace SpaceHackathon_2024.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        private bool _isBusy;
-
         private int _pageNumber = 1;
 
         private const int PageSize = 10;

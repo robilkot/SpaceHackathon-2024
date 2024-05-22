@@ -32,17 +32,28 @@ namespace SpaceHackathon_2024.Services
 
         public async Task<List<News>> GetNewsAsync(int pageNumber, int pageSize)
         {
-            // Calculate the skip count based on the page number and page size
             int skipCount = (pageNumber - 1) * pageSize;
 
-            // Query the database for news items
             var newsItems = await News
-                .OrderByDescending(n => n.PublishDate) // Order by published date (you can adjust this as needed)
+                .OrderByDescending(n => n.PublishDate)
                 .Skip(skipCount)
                 .Take(pageSize)
                 .ToListAsync();
 
             return newsItems;
+        }
+
+        public async Task<List<StoreItem>> GetStoreItemsAsync(int pageNumber, int pageSize)
+        {
+            int skipCount = (pageNumber - 1) * pageSize;
+
+            var storeItems = await StoreItems
+                .OrderByDescending(n => n.Name)
+                .Skip(skipCount)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return storeItems;
         }
     }
 }
