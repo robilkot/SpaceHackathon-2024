@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using SpaceHackathon_2024.Models;
+using System.Diagnostics;
 
 namespace SpaceHackathon_2024.Services
 {
@@ -21,12 +21,13 @@ namespace SpaceHackathon_2024.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                        .AddJsonFile("ApplicationSettings.json")
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .Build();
+            var sqlitePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"SpaceHakathon");
+            Debug.WriteLine(sqlitePath);
+            Directory.CreateDirectory(sqlitePath); var fileName = $"{sqlitePath}\fsh.db";
+            if (!File.Exists(fileName))
+                File.Create(fileName);
 
-            optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlite($"Data Source={fileName}");
         }
     }
 }
