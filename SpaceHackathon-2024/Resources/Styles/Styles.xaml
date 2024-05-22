@@ -14,8 +14,18 @@
     </Style>
 
     <Style TargetType="Border">
-        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
-        <Setter Property="StrokeShape" Value="Rectangle"/>
+        <!--<Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />-->
+        <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow
+                    Opacity="0.35"
+                    Radius="20"
+                    Offset="0,5"
+                    />
+            </Setter.Value>
+        </Setter>
         <Setter Property="StrokeThickness" Value="1"/>
     </Style>
 

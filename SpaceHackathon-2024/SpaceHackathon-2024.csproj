@@ -56,6 +56,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\mail_white.svg" />
+	  <None Remove="Resources\Images\person_white.svg" />
+	  <None Remove="Resources\Images\tasks_white.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="EmailValidation" Version="1.2.0" />
 		<PackageReference Include="IdentityModel" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -74,6 +80,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesView.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\TicketsPage.xaml.cs">
+	    <DependentUpon>TicketsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,7 +93,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\MainPage.xaml">
+	  <MauiXaml Update="Views\TicketsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
