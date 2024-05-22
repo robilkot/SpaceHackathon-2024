@@ -13,8 +13,8 @@ namespace SpaceHackathon_2024
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("MTSText-Regular.ttf", "MTSTextRegular");
+                    fonts.AddFont("MTSText-Bold.ttf", "MTSTextBold");
                 });
             
             var services = builder.Services;

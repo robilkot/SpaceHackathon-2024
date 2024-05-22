@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="86.98" height="152.991" viewBox="0 0 86.98 152.991">
+  <g id="drag_down_arrows" data-name="drag down arrows" transform="translate(2.475 2.475)">
+    <path id="arrow_down" d="M-13485.684-16323.344l41.012,41.016,41.02-41.016" transform="translate(13485.684 16323.344)" fill="none" stroke="#ff0032" stroke-linejoin="round" stroke-width="7"/>
+    <path id="arrow_down-2" data-name="arrow_down" d="M-13485.684-16323.344l41.012,41.016,41.02-41.016" transform="translate(13485.684 16376.344)" fill="none" stroke="#ff0032" stroke-linejoin="round" stroke-width="7" opacity="0.35"/>
+    <path id="arrow_down-3" data-name="arrow_down" d="M-13485.684-16323.344l41.012,41.016,41.02-41.016" transform="translate(13485.684 16429.344)" fill="none" stroke="#ff0032" stroke-linejoin="round" stroke-width="7" opacity="0.1"/>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-ios;net8.0-maccatalyst;net8.0-android34.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
@@ -37,10 +37,6 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
-	  <AndroidLinkTool>r8</AndroidLinkTool>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -60,12 +56,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\angle_left.svg" />
+	  <None Remove="Resources\Images\angle_right.svg" />
+	  <None Remove="Resources\Images\bell.svg" />
+	  <None Remove="Resources\Images\cross_circle.svg" />
+	  <None Remove="Resources\Images\envelope.svg" />
+	  <None Remove="Resources\Images\mail_white.svg" />
+	  <None Remove="Resources\Images\person_white.svg" />
+	  <None Remove="Resources\Images\search.svg" />
+	  <None Remove="Resources\Images\settings_sliders.svg" />
+	  <None Remove="Resources\Images\tasks_white.svg" />
+	  <None Remove="Resources\Images\user.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="EmailValidation" Version="1.2.0" />
 		<PackageReference Include="IdentityModel" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Services\" />
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,8 +89,8 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ResourcesView.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\NewsPage.xaml.cs">
-	    <DependentUpon>NewsPage.xaml</DependentUpon>
+	  <Compile Update="Views\TicketsPage.xaml.cs">
+	    <DependentUpon>TicketsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -90,6 +105,11 @@
 	  <MauiXaml Update="Views\NewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\TicketsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionSpaceHackathon2024HideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>
