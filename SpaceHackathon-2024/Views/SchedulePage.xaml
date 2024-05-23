@@ -43,18 +43,33 @@
                                 Padding="10,0"
                                 RowSpacing="10"
                                 RowDefinitions="auto,*">
-                                <Label
-                                    Style="{StaticResource SubHeader}"
+                                <Grid
+                                    ColumnDefinitions="auto,*,auto"
                                     Grid.Row="0">
-                                    <Label.Text>
-                                        <MultiBinding StringFormat="{}{0} - {1}">
-                                            <Binding Path="StartDay"
-                                                     StringFormat='{}{0:dd.mm.yy}' />
-                                            <Binding Path="EndDay" 
-                                                     StringFormat='{}{0:dd.mm.yy}'/>
-                                        </MultiBinding>
-                                    </Label.Text>
-                                </Label>
+                                    <Image
+                                        Grid.Column="0"
+                                        WidthRequest="15"
+                                        HeightRequest="15"
+                                        Source="angle_left"/>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource SubHeader}"
+                                        Grid.Column="1">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="StartDay"
+                                                         StringFormat='{}{0:dd.mm.yy}' />
+                                                <Binding Path="EndDay" 
+                                                         StringFormat='{}{0:dd.mm.yy}'/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Image
+                                        Grid.Column="2"
+                                        WidthRequest="15"
+                                        HeightRequest="15"
+                                        Source="angle_right"/>
+                                </Grid>
 
                                 <VerticalStackLayout
                                     Grid.Row="1"

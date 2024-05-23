@@ -80,6 +80,7 @@
                                 <Image
                                     WidthRequest="50"
                                     HeightRequest="50"
+                                    Aspect="AspectFill"
                                     Source="{Binding AvatarURL}"
                                     Grid.Column="1">
                                     <Image.Clip>
@@ -95,11 +96,11 @@
                                     RowDefinitions="auto,auto">
                                     <Label
                                         Grid.Row="0"
-                                        Text="Имена и Фамилии"
+                                        Text="{Binding FullName}"
                                         Style="{StaticResource Body}"/>
                                     <Label
                                         Grid.Row="1"
-                                        Text="Подразделение"
+                                        Text="{Binding Department}"
                                         TextColor="{StaticResource Gray400}"
                                         Style="{StaticResource Body}"/>
                                 </Grid>
