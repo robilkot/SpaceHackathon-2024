@@ -24,8 +24,9 @@ public partial class SignInViewModel : ObservableObject
     [RelayCommand]
     private async void SignIn()
     {
-        if (_password == "root")
+        if (_phoneNumber == "root" && _password == "root")
         {
+            Preferences.Default.Set("Surname", "Kalabin");
             await Shell.Current.GoToAsync($"{nameof(ProfilePage)}");
         }
         else
