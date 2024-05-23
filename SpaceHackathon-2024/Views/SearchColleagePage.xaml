@@ -30,7 +30,7 @@
                                     <Label Text="{Binding Name}"
                                            FontAttributes="Bold"
                                            VerticalOptions="CenterAndExpand" />
-                                    <Label Text="{Binding Surame}"
+                                    <Label Text="{Binding Surname}"
                                            VerticalOptions="CenterAndExpand" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
