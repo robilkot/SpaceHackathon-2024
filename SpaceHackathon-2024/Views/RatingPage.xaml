@@ -95,11 +95,11 @@
                                     RowDefinitions="auto,auto">
                                     <Label
                                         Grid.Row="0"
-                                        Text="Имена и Фамилии"
+                                        Text="{Binding FullName}"
                                         Style="{StaticResource Body}"/>
                                     <Label
                                         Grid.Row="1"
-                                        Text="Подразделение"
+                                        Text="{Binding Department}"
                                         TextColor="{StaticResource Gray400}"
                                         Style="{StaticResource Body}"/>
                                 </Grid>
