@@ -98,7 +98,7 @@
                     HorizontalOptions="End"
                     TextColor="Gray"
                     Style="{StaticResource NewsTitle}" 
-                    Text="{Binding SelectedNews.PublishDate, StringFormat='{}{0:dd.mm.yy}'}"/>
+                    Text="{Binding SelectedNews.PublishDate}"/>
             </Grid>
         </Grid>
     </ScrollView>

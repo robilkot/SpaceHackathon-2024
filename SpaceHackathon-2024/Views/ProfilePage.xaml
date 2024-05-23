@@ -117,70 +117,6 @@
                     </BindableLayout.ItemsSource>
                 </HorizontalStackLayout>
 
-                <!-- Working info -->
-                <Border>
-                    <Grid
-                        RowDefinitions="auto,*"
-                        Padding="5,0">
-                        <!--Header-->
-                        <Grid
-                            Grid.Row="0"
-                            Style="{StaticResource CollapsableHeaderContainer}">
-                            <Label
-                                Style="{StaticResource CollapsableHeaderText}"
-                                VerticalOptions="Center"
-                                Grid.Column="0"
-                                Text="Рабочая информация"/>
-                            <Image
-                                WidthRequest="20"
-                                Grid.Column="1"
-                                Source="angle_right"
-                                Rotation="{Binding WorkInfoExpandedRotation}">
-                            </Image>
-
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    Command="{Binding WorkInfoHeaderTappedCommand}"/>
-                            </Grid.GestureRecognizers>
-                        </Grid>
-                        <!--Body-->
-                        <!--TODO: Binding data-->
-                        <VerticalStackLayout
-                            Margin="0,10,0,0"
-                            Padding="10"
-                            IsVisible="{Binding WorkInfoExpanded}"
-                            Spacing="10"
-                            Grid.Row="1">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <VerticalStackLayout
-                                        Spacing="5">
-                                        <Label 
-                                            Text="Какой-то столбец"/>
-                                        <Label 
-                                            FontSize="16"
-                                            TextColor="{StaticResource Primary}"
-                                            Text="Какое-то значение"/>
-                                        <BoxView
-                                            HeightRequest="1"
-                                            Color="{StaticResource Gray200}"/>
-                                    </VerticalStackLayout>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-
-                            <BindableLayout.ItemsSource>
-                                <x:Array Type="{x:Type x:Int32}">
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                </x:Array>
-                            </BindableLayout.ItemsSource>
-                        </VerticalStackLayout>
-                    </Grid>
-                </Border>
-
                 <!-- Rating -->
                 <Border>
                     <Grid
@@ -214,34 +150,142 @@
                             Padding="10"
                             IsVisible="{Binding RatingExpanded}"
                             Spacing="10"
-                            Grid.Row="1">
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding KpiItems}">
                             <BindableLayout.ItemTemplate>
-                                <DataTemplate>
+                                <DataTemplate >
                                     <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
                                         Spacing="5">
                                         <Label 
-                                            Text="Какой-то столбец"/>
+                                            Text="{Binding Key}"/>
                                         <Label 
                                             FontSize="16"
                                             TextColor="{StaticResource Primary}"
-                                            Text="Какое-то значение"/>
+                                            Text="{Binding Value}"/>
                                         <BoxView
                                             HeightRequest="1"
                                             Color="{StaticResource Gray200}"/>
                                     </VerticalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
-
-                            <BindableLayout.ItemsSource>
-                                <x:Array Type="{x:Type x:Int32}">
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                </x:Array>
-                            </BindableLayout.ItemsSource>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
+
+                <!-- Working info -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource CollapsableHeaderText}"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Персональная информация "/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding WorkInfoExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding WorkInfoHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding WorkInfoExpanded}"
+                            Spacing="10"
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding PersonalItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
+                                        Spacing="5">
+                                        <Label 
+                                            Text="{Binding Key}"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="{Binding Value}"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Contact info -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource CollapsableHeaderText}"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Контактная информация"/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding ContactInfoExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding ContactInfoHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding ContactInfoExpanded}"
+                            Spacing="10"
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding ContactItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
+                                        Spacing="5">
+                                        <Label 
+                                            Text="{Binding Key}"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="{Binding Value}"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
