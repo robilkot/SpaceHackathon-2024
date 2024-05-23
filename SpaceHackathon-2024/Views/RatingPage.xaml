@@ -19,7 +19,21 @@
                     Text="Ваш KPI за последний месяц"
                     Style="{StaticResource SubHeader}"/>
 
-                <Border
+                <Grid>
+                    <Image 
+                        Margin="0,-5,0,0"
+                        WidthRequest="140"
+                        HeightRequest="70"
+                        Source="brush_stroke1"/>
+                    <Label
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FontSize="24"
+                        TextColor="{StaticResource White}"
+                        Text="{Binding LastMonthKpi, StringFormat='{0}%'}"
+                        Style="{StaticResource Header}"/>
+                </Grid>
+                <!--<Border
                     StrokeShape="RoundRectangle 25"
                     WidthRequest="100"
                     HeightRequest="50"
@@ -28,15 +42,8 @@
                         <Shadow
                             Opacity="0"/>
                     </Border.Shadow>
-                    <Label
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        FontSize="24"
-                        TextColor="{StaticResource White}"
-                        Text="{Binding LastMonthKpi, StringFormat='{0}%'}"
-                        Style="{StaticResource Header}"/>
-                </Border>
-                
+                </Border>-->
+
                 <micro:ChartView 
                     x:Name="chartView" 
                     Margin="20,0"
@@ -81,7 +88,7 @@
                                             RadiusX="25"
                                             RadiusY="25"/>
                                     </Image.Clip>
-                                    </Image>
+                                </Image>
                                 <Grid
                                     Grid.Column="2"
                                     VerticalOptions="Center"
