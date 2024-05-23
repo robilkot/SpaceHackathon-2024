@@ -12,8 +12,8 @@ public partial class ProfilePage : ContentPage
     private readonly ProfileViewModel _viewModel;
     public ProfilePage(ProfileViewModel profileViewModel)
     {
+        BindingContext = _viewModel = profileViewModel;
         InitializeComponent();
 
-        BindingContext = _viewModel = profileViewModel;
     }
 }

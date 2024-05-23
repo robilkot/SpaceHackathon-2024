@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Services;
@@ -15,17 +15,49 @@ public partial class ProfileViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<Hobby> hobbies;
+    [ObservableProperty]
+    private IList<KeyValueItem> _kpiItems;
 
+    [ObservableProperty]
+    private IList<KeyValueItem> _contactItems;
+
+    [ObservableProperty]
+    private IList<KeyValueItem> _personalItems;
     public ProfileViewModel(ApplicationContext context)
     {
         _context = context;
+
         Hobbies = new ObservableCollection<Hobby>();
+
         LoadRandomUserAsync().ConfigureAwait(false);
+
+        KpiItems = new ObservableCollection<KeyValueItem>() { 
+            new KeyValueItem("KPI за поледний месяц", CurrentUser.KPI.ToString()),
+            new KeyValueItem("KPI за последнии 6 месяцев", CurrentUser.KPI.ToString()),
+            new KeyValueItem("Позиция", CurrentUser.Position),
+        };
+
+        ContactItems = new ObservableCollection<KeyValueItem>() {
+            new KeyValueItem("Email", CurrentUser.Email),
+            new KeyValueItem("Мобильный телефон", CurrentUser.Phone.ToString()),
+            new KeyValueItem("Telegram", CurrentUser.Telegram.ToString()),
+            new KeyValueItem("Адрес офиса", CurrentUser.BranchOffice.ToString()),
+        };
+
+        PersonalItems = new ObservableCollection<KeyValueItem>() {
+            new KeyValueItem("Имя", CurrentUser.Name.ToString()),
+            new KeyValueItem("Фамилия", CurrentUser.Surname.ToString()),
+            new KeyValueItem("Отчество", CurrentUser.ThirdName.ToString()),
+            new KeyValueItem("Пол", CurrentUser.Gender.ToString()),
+            new KeyValueItem("Дата рождения", CurrentUser.DateOfBirth.ToString()),
+        };
+
     }
 
     public ProfileViewModel(User user)
     {
         CurrentUser = user;
+
         Hobbies = new ObservableCollection<Hobby>(user.Hobbies);
     }
 
@@ -72,4 +104,17 @@ public partial class ProfileViewModel : ObservableObject
         RatingExpanded = !RatingExpanded;
         RatingExpandedRotation = RatingExpanded ? 270 : 90;
     }
+
+    [ObservableProperty]
+    private bool _contactInfoExpanded;
+    [ObservableProperty]
+    private double _contactInfoExpandedRotation = 90;
+
+    [RelayCommand]
+    public void ContactInfoHeaderTapped()
+    {
+        ContactInfoExpanded = !ContactInfoExpanded;
+        ContactInfoExpandedRotation = ContactInfoExpanded ? 270 : 90;
+    }
 }
+
