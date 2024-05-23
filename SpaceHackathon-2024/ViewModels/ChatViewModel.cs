@@ -32,7 +32,8 @@ namespace SpaceHackathon_2024.ViewModels
 
             _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
             {
-                Messages.Add(new Message { Author = user, Text = message, IsUserMessage = false });
+                bool isCurrentUser = (user == "я");
+                Messages.Add(new Message { Author = user, Text = message, IsUserMessage = isCurrentUser });
             });
 
             try
@@ -49,7 +50,7 @@ namespace SpaceHackathon_2024.ViewModels
         {
             if (!string.IsNullOrEmpty(NewMessage))
             {
-                await _hubConnection.SendAsync("SendPrivateMessage", "me", NewMessage);
+                await _hubConnection.SendAsync("SendPrivateMessage", "я", NewMessage);
                 NewMessage = string.Empty;
             }
         }

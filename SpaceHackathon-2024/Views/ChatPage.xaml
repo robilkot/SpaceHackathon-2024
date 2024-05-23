@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
@@ -16,8 +14,15 @@
             <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto, *, Auto" Padding="10">
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
             <!-- User Info Bar -->
             <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="Start" BackgroundColor="LightGray">
                 <Image Source="https://cdn.forbes.ru/forbes-static/new/2022/04/IMG-10983445-624a99e258c99.jpg" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" 

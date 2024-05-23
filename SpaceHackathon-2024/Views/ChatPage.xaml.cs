@@ -19,7 +19,6 @@ namespace SpaceHackathon_2024.Views
         {
             MessageEntry.Unfocus();
             _viewModel.SendMessageCommand.Execute(null);
-            //MessagesCollectionView.ScrollTo(viewModel.Messages.Count - 1, -1, ScrollToPosition.End, true);
         }
     }
 }
