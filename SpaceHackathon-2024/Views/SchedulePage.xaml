@@ -2,11 +2,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpaceHackathon_2024.Views.SchedulePage"
+             xmlns:model="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:viewModels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:DataType="viewModels:ScheduleViewModel"
              Title="SchedulePage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <!-- Weekly schedule -->
+        <CarouselView
+            ItemsSource="{Binding Weeks}">
+            <CarouselView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="model:WeeklySchedule">
+                    <Border>
+                        <Grid
+                            Padding="10,0"
+                            RowSpacing="10"
+                            RowDefinitions="auto,*">
+                            <Label
+                                TextColor="Black"
+                                Grid.Row="0">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="StartDay" />
+                                        <Binding Path="EndDay" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                            <VerticalStackLayout
+                                Grid.Row="1"
+                                Spacing="5"
+                                BindableLayout.ItemsSource="{Binding Days}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            HeightRequest="30">
+                                            <Grid>
+                                                <Label
+                                                    Text="Day of week"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
     </VerticalStackLayout>
 </ContentPage>

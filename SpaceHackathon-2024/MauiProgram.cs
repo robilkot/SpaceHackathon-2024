@@ -52,6 +52,9 @@ namespace SpaceHackathon_2024
             services.AddTransient<ProfilePage>();
 
             services.AddTransient<NewsViewModel>();
+            
+            services.AddTransient<SchedulePage>();
+            services.AddTransient<ScheduleViewModel>();
 
             services.AddTransient<StoreViewModel>();
         }
