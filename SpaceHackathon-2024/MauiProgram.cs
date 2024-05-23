@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 #if ANDROID
 using SpaceHackathon_2024.Platforms.Android;
-
+#endif
 namespace SpaceHackathon_2024
 {
     public static class MauiProgram
