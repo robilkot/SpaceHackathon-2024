@@ -30,6 +30,12 @@ namespace SpaceHackathon_2024.Services
             optionsBuilder.UseSqlite($"Data Source={fileName}");
         }
 
+        public async Task AddNewsAsync(News news)
+        {
+            News.Add(news);
+            await SaveChangesAsync();
+        }
+
         public async Task<List<News>> GetNewsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -43,6 +49,11 @@ namespace SpaceHackathon_2024.Services
             return newsItems;
         }
 
+        public async Task AddStoreItemAsync(StoreItem storeItem)
+        {
+            StoreItems.Add(storeItem);
+            await SaveChangesAsync();
+        }
         public async Task<List<StoreItem>> GetStoreItemsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -54,6 +65,23 @@ namespace SpaceHackathon_2024.Services
                 .ToListAsync();
 
             return storeItems;
+        }
+
+        public async Task InitializeTestDataAsync()
+        {
+            if (!News.Any())
+            {
+                string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+            }
+
+            if (!StoreItems.Any())
+            {
+                await AddStoreItemAsync(new StoreItem { Name = "Test Item 1", Description = "This is a test item.", Cost = 9, ImageURL = " " });
+                await AddStoreItemAsync(new StoreItem { Name = "Test Item 2", Description = "This is another test item.", Cost = 19, ImageURL = " " });
+            }
+
+            await SaveChangesAsync();
         }
     }
 }

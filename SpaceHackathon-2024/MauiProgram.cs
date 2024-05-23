@@ -2,6 +2,7 @@
 using SpaceHackathon_2024.Services;
 using SpaceHackathon_2024.ViewModels;
 using SpaceHackathon_2024.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SpaceHackathon_2024
 {
@@ -17,25 +18,28 @@ namespace SpaceHackathon_2024
                     fonts.AddFont("MTSText-Regular.ttf", "MTSTextRegular");
                     fonts.AddFont("MTSText-Bold.ttf", "MTSTextBold");
                 });
-            
+
             var services = builder.Services;
 
             ConfigureServices(services);
 
 #if DEBUG
-    		builder.Logging.AddDebug();
-
-            var ac = new ApplicationContext();
+            builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build();
+
+            // Initialize test data
+            InitializeTestData(app.Services);
+
+            return app;
         }
-        
+
         public static void ConfigureServices(IServiceCollection services)
         {
             // Services configuration
             services.AddHttpClient<AccountService>();
-            
+
             // Pages configuration
             services.AddSingleton<ApplicationContext>();
 
@@ -44,7 +48,7 @@ namespace SpaceHackathon_2024
 
             services.AddTransient<SignUpPage>();
             services.AddTransient<SignUpViewModel>();
-            
+
             services.AddTransient<ChatViewModel>();
             services.AddTransient<ChatPage>();
 
@@ -54,6 +58,15 @@ namespace SpaceHackathon_2024
             services.AddTransient<NewsViewModel>();
 
             services.AddTransient<StoreViewModel>();
+        }
+
+        private static void InitializeTestData(IServiceProvider services)
+        {
+            using (var scope = services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+                context.InitializeTestDataAsync().Wait();
+            }
         }
     }
 }
