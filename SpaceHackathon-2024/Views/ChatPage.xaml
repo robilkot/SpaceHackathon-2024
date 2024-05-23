@@ -14,53 +14,128 @@
             <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <ContentPage.Content>
-        <Grid Padding="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            
-            <!-- User Info Bar -->
-            <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="Start" BackgroundColor="LightGray">
-                <Image Source="https://cdn.forbes.ru/forbes-static/new/2022/04/IMG-10983445-624a99e258c99.jpg" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" 
-                       VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,10,0" />
-                <Label Text="Павел Дуров" VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="Medium"/>
-            </StackLayout>
 
-            <!-- Messages CollectionView -->
-            <ScrollView Grid.Row="1">
-                <CollectionView x:Name="MessagesCollectionView"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- User Info Bar -->
+        <Border
+            Margin="10"
+            Grid.Row="0"
+            Padding="10"
+            VerticalOptions="Start">
+            <Grid
+                ColumnSpacing="10"
+                ColumnDefinitions="auto,*">
+                <Image 
+                    Grid.Column="0"
+                    Source="https://cdn.forbes.ru/forbes-static/new/2022/04/IMG-10983445-624a99e258c99.jpg" 
+                    WidthRequest="50"
+                    HeightRequest="50" 
+                    Aspect="AspectFill"        
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start">
+                    <Image.Clip>
+                        <EllipseGeometry 
+                            Center="25,25"
+                            RadiusX="25"
+                            RadiusY="25"/>
+                    </Image.Clip>
+                </Image>
+                <Grid
+                    Grid.Column="2"
+                    VerticalOptions="Center"
+                    RowDefinitions="auto,auto">
+                    <Label
+                        Grid.Row="0"
+                        Text="Имя и Фамилии Коллеги"
+                        Style="{StaticResource SubHeader}"/>
+                    <Label
+                        Grid.Row="1"
+                        Text="Подразделение"
+                        TextColor="{StaticResource Gray400}"
+                        Style="{StaticResource Body}"/>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <!-- Messages CollectionView -->
+        <ScrollView Grid.Row="0">
+            <CollectionView x:Name="MessagesCollectionView"
                                 ItemsSource="{Binding Messages}"
                                 SelectionMode="None"
                                 VerticalScrollBarVisibility="Always">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Message">
-                            <StackLayout Orientation="Vertical" Margin="5">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Author}" FontAttributes="Bold" TextColor="Gray"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Message">
+                        <StackLayout Orientation="Vertical" Margin="5">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Author}" FontAttributes="Bold" TextColor="Gray"
                                            HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"/>
-                                    <Label Text=":" FontAttributes="Bold" TextColor="Gray"/>
-                                </StackLayout>
-                                <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
+                                <Label Text=":" FontAttributes="Bold" TextColor="Gray"/>
+                            </StackLayout>
+                            <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
                                        CornerRadius="15"
                                        Padding="10"
                                        HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                                    <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
-                                </Frame>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
+                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-            <!-- Message Input Bar -->
-            <StackLayout Grid.Row="2" Orientation="Horizontal" Padding="5,0" Spacing="10">
-                <Entry x:Name="MessageEntry" Text="{Binding NewMessage, Mode=TwoWay}" Placeholder="Enter your message" HorizontalOptions="FillAndExpand"/>
-                <Button Text="Send" Clicked="SendMessageButton_Clicked"/>
-            </StackLayout>
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Opacity="0.5"
+                            VerticalOptions="Center"
+                            RowSpacing="20"
+                            RowDefinitions="auto,auto">
+                            <Image
+                                Grid.Row="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                Source="envelope">
+                                
+                            </Image>
+                            <Label
+                                Grid.Row="1"
+                                Style="{StaticResource Body}"
+                                Text="Отправьте первое сообщение">
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- Message Input Bar -->
+        <Grid
+            Padding="10"
+            BackgroundColor="White"
+            ColumnSpacing="10"
+            ColumnDefinitions="*,auto"
+            Grid.Row="2"
+            Shadow="{StaticResource ContainerShadow}">
+
+            <Entry
+                HeightRequest="50"
+                Grid.Column="0"
+                x:Name="MessageEntry" 
+                Text="{Binding NewMessage, Mode=TwoWay}"
+                Placeholder="Enter your message"
+                />
+            <Image
+                Grid.Column="1"
+                Source="send"
+                WidthRequest="40"
+                HeightRequest="40">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SendMessageButton_Clicked"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>
