@@ -11,6 +11,7 @@ namespace SpaceHackathon_2024.ViewModels
 
         [ObservableProperty]
         private News _selectedNews;
+
         public NewsViewModel(ApplicationContext appContext)
         {
             _appContext = appContext;
