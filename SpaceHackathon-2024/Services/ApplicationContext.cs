@@ -8,6 +8,7 @@ namespace SpaceHackathon_2024.Services
     {
         public ApplicationContext()
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -125,13 +126,13 @@ namespace SpaceHackathon_2024.Services
 
         public async Task InitializeTestDataAsync()
         {
-            string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
             if (!News.Any())
             {
-                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
-                await AddNewsAsync(new News("Test News 2", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
-                await AddNewsAsync(new News("Test News 3", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
-                await AddNewsAsync(new News("Test News 4", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Space Hakathon 2024!", "2024/05/22", "Трёхдневный конкурс инновационных решений", "https://optim.tildacdn.biz/tild3232-6366-4137-a334-333639306433/-/format/webp/10-2.jpeg"));
+                await AddNewsAsync(new News("Новая линейка корпоративных планов!", "2024/05/18", "Бизнес S/M/L", "https://www.mts.by/upload/resize_cache/webp/iblock/b2e/d5lqk9luyh22jasilx5l26mcvdx5v9gi/1380_414_1/sml_tablet_1.webp"));
+                await AddNewsAsync(new News("МТС Опрос", "2024/04/28", "Сервис для проведения маркетинговых исследований.", "https://www.mts.by/upload/resize_cache/webp/iblock/897/zu0fy5uupu20782rysewl0fvns48t6iu/Tablet-Resolution.webp"));
+                await AddNewsAsync(new News("МТС Коммуникатор", currentDate, "SMS и Viber рассылки.", "https://www.mts.by/upload/resize_cache/webp/iblock/c69/1380_414_1/kommunikator_1200x463.webp"));
                 await AddNewsAsync(new News("Test News 5", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 6", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 7", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
