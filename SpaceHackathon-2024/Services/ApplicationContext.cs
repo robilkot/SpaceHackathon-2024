@@ -36,6 +36,12 @@ namespace SpaceHackathon_2024.Services
             await SaveChangesAsync();
         }
 
+        public async Task AddUserAsync(User user)
+        {
+            Users.Add(user);
+            await SaveChangesAsync();
+        }
+
         public async Task<List<News>> GetNewsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -53,6 +59,7 @@ namespace SpaceHackathon_2024.Services
             StoreItems.Add(storeItem);
             await SaveChangesAsync();
         }
+        
         public async Task<List<StoreItem>> GetStoreItemsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -66,12 +73,28 @@ namespace SpaceHackathon_2024.Services
             return storeItems;
         }
 
+        public async Task InitUsersDb()
+        {
+            var users = new List<User>
+            {
+                new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" },
+                new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" },
+                new User { Name = "Bob", Surame = "Johnson", AvatarURL = "https://example.com/avatar3.jpg", Position = "Manager", Department = "Management", BranchOffice = "Tokyo" },
+                new User { Name = "Emily", Surame = "Williams", AvatarURL = "https://example.com/avatar4.jpg", Position = "Analyst", Department = "Finance", BranchOffice = "Sydney" },
+                new User { Name = "Michael", Surame = "Brown", AvatarURL = "https://example.com/avatar5.jpg", Position = "Engineer", Department = "Engineering", BranchOffice = "Berlin" }
+            };
+
+            foreach (var user in users)
+            {
+                await AddUserAsync(user);
+            }
+        }
+
         public async Task InitializeTestDataAsync()
         {
             string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             if (!News.Any())
             {
-                
                 await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 2", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 3", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
@@ -82,6 +105,8 @@ namespace SpaceHackathon_2024.Services
                 await AddNewsAsync(new News("Test News 8", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 9", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
             }
+
+            await InitUsersDb();
 
             if (!StoreItems.Any())
             {

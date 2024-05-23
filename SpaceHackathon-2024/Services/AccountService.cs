@@ -79,9 +79,14 @@ public class AccountService
     {
         using HttpResponseMessage response = await _client.GetAsync($"{_url}/search?name={name}");
 
-        string jsonInfo = await response.Content.ReadAsStringAsync();
+        List<UserDto> res = new List<UserDto>();
         
-        List<UserDto> res = JsonConvert.DeserializeObject<List<UserDto>>(jsonInfo);
+        if (response is not null)
+        {
+            string jsonInfo = await response.Content.ReadAsStringAsync();
+
+            res = JsonConvert.DeserializeObject<List<UserDto>>(jsonInfo);
+        }
         
         return res;
     }

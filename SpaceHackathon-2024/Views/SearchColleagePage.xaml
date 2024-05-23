@@ -2,10 +2,13 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SpaceHackathon_2024.Views.SearchColleagePage">
+             x:Class="SpaceHackathon_2024.Views.SearchColleagePage"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:Dtos ="clr-namespace:SpaceHackathon_2024.Models.Dtos"
+             x:DataType="local:SearchColleageViewModel">
     <ContentPage.Content>
         <StackLayout Padding="20">
-
+            
             <!-- Поле ввода имени для поиска -->
             <Entry Placeholder="Введите имя"
                    x:Name="NameEntry"
@@ -23,7 +26,7 @@
                       HasUnevenRows="True"
                       ItemsSource="{Binding SearchResults}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="Dtos:UserDto">
                         <TextCell Text="{Binding Name}"
                                   Detail="{Binding PhoneNumber}" />
                     </DataTemplate>
