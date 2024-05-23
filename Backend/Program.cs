@@ -11,10 +11,10 @@ using System.Text;
 
 var users = new List<User>
 {
-    new User("Никита", "Хорошун" ,"+911","123"),
-    new User("Никита", "Калабин" ,"+112","123"),
+    new User("Nikita", "Kharashun" ,"+911","123"),
+    new User("Nikita", "Kalabin" ,"+112","123"),
     new User("Тимур",  "Робилко","+234","123"),
-    new User("Егор",  "Гоков","+119","123")
+    new User("Egor",  "Gokov","+119","123")
 };
 
 var builder = WebApplication.CreateBuilder(args);
