@@ -8,6 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using Backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 var users = new List<User>
 {
@@ -23,6 +25,9 @@ builder.WebHost.UseUrls("http://0.0.0.0:10010");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddCors(options =>
 {

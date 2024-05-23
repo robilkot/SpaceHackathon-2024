@@ -65,7 +65,6 @@ namespace SpaceHackathon_2024.ViewModels
             }
             catch (Exception ex)
             {
-                // Handle connection errors
             }
         }
 
