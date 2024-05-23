@@ -30,7 +30,7 @@ namespace SpaceHackathon_2024
             if (Shell.Current.CurrentPage is not AllNewsPage)
             {
                 _isOnAllNewsPage = true;
-                await Shell.Current.GoToAsync($"{nameof(AllNewsPage)}");
+                await Shell.Current.GoToAsync($"//news", animate:true);
             }
             else
                 _isOnAllNewsPage = false;

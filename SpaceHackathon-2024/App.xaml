@@ -2,6 +2,8 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SpaceHackathon_2024"
+             android:Application.WindowSoftInputModeAdjust="Resize"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
              x:Class="SpaceHackathon_2024.App">
     <Application.Resources>

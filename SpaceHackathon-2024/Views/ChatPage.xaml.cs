@@ -17,8 +17,8 @@ namespace SpaceHackathon_2024.Views
 
         private void SendMessageButton_Clicked(object sender, EventArgs e)
         {
-            _viewModel.SendMessageCommand.Execute(null);
             MessageEntry.Unfocus();
+            _viewModel.SendMessageCommand.Execute(null);
             //MessagesCollectionView.ScrollTo(viewModel.Messages.Count - 1, -1, ScrollToPosition.End, true);
         }
     }

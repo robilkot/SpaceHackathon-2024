@@ -8,25 +8,36 @@
              x:DataType="viewmodels:ChatViewModel"
              Title="Chat">
     <ContentPage.Content>
-        <Grid RowDefinitions="*, Auto" Padding="10">
-            <CollectionView x:Name="MessagesCollectionView"
-                            ItemsSource="{Binding Messages}"
-                            SelectionMode="None"
-                            VerticalScrollBarVisibility="Always">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Message">
-                        <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                               CornerRadius="15"
-                               Margin="5"
-                               Padding="10"
-                               HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                            <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <Grid RowDefinitions="Auto, *, Auto" Padding="10">
+            <!-- User Info Bar -->
+            <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="Start" BackgroundColor="LightGray">
+                <Image Source="https://cdn.forbes.ru/forbes-static/new/2022/04/IMG-10983445-624a99e258c99.jpg" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" 
+                       VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,10,0" />
+                <Label Text="Павел Дуров" VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="Medium"/>
+            </StackLayout>
 
-            <StackLayout Orientation="Horizontal" Grid.Row="1" Padding="5,0" Spacing="10">
+            <!-- Messages CollectionView -->
+            <ScrollView Grid.Row="1">
+                <CollectionView x:Name="MessagesCollectionView"
+                                ItemsSource="{Binding Messages}"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Message">
+                            <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
+                                   CornerRadius="15"
+                                   Margin="5"
+                                   Padding="10"
+                                   HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+
+            <!-- Message Input Bar -->
+            <StackLayout Grid.Row="2" Orientation="Horizontal" Padding="5,0" Spacing="10">
                 <Entry x:Name="MessageEntry" Text="{Binding NewMessage, Mode=TwoWay}" Placeholder="Enter your message" HorizontalOptions="FillAndExpand"/>
                 <Button Text="Send" Clicked="SendMessageButton_Clicked"/>
             </StackLayout>

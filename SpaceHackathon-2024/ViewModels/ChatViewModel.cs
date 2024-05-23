@@ -30,7 +30,7 @@ namespace SpaceHackathon_2024.ViewModels
                 .WithUrl("http://10.0.2.2:5040/chatHub")
                 .Build();
 
-            _hubConnection.On<string>("Receive", (message) =>
+            _hubConnection.On<string>("ReceiveMessage", (message) =>
             {
                 Messages.Add(new Message { Text = message, IsUserMessage = false });
             });
