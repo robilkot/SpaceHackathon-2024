@@ -28,11 +28,10 @@ namespace SpaceHackathon_2024.ViewModels
         public AllNewsViewModel(ApplicationContext appContext)
         {
             _appContext = appContext;
-            LoadMoreCommand = new Command(async () => await LoadMoreNewsAsync());
-            RefreshCommand = new Command(async () => await RefreshNewsAsync());
-            /*            string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                        News.Add((new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg")));*/
+            LoadMoreCommand = new Command(async () => await LoadMoreNewsAsync());
+
+            RefreshCommand = new Command(async () => await RefreshNewsAsync());
         }
 
         private async Task LoadMoreNewsAsync()

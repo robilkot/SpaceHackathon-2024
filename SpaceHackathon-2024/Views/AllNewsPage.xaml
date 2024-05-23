@@ -111,7 +111,6 @@
 
     <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
         <ScrollView Scrolled="ScrollView_Scrolled">
-                <!--BindableLayout.ItemsSource="{Binding News}"-->
             <VerticalStackLayout
                 Padding="10"
                 Spacing="10"
@@ -119,7 +118,6 @@
                 BindableLayout.ItemTemplate="{StaticResource NewsTemplate}">
                 <BindableLayout.EmptyViewTemplate>
                     <DataTemplate>
-                        <!--todo-->
                         <Grid
                             Padding="0,120"
                             RowDefinitions="*,auto,*">
