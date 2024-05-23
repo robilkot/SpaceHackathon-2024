@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="SpaceHackathon_2024.Views.RatingPage"
+             x:DataType="local:RatingViewModel"
              Title="RatingPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <micro:ChartView x:Name="chartView" HeightRequest="500" />
+            <micro:ChartView x:Name="chartView1" HeightRequest="500" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
