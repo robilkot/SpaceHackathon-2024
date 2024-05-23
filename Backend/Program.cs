@@ -9,7 +9,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-// условная бд с пользователями
 var users = new List<User>
 {
     new User("Nikita", "+911","12345"),
@@ -113,11 +112,8 @@ app.MapGet("/profile", [Authorize] (HttpContext context) =>
 });
 
 
-app.MapGet("/search", (string? name) =>
+app.MapGet("/search", (string name) =>
 {
-    if (string.IsNullOrWhiteSpace(name))
-        return Results.BadRequest("Имя не может быть пустым.");
-
     var matchingUsers = users.Where(u => u.Name.ToLower().Contains(name.ToLower())).ToList();
 
     if (matchingUsers.Count == 0)

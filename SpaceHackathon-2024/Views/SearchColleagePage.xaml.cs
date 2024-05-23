@@ -21,8 +21,9 @@ namespace SpaceHackathon_2024.Views
             }
         }
 
-        private void ProfileButton_Clicked(object sender, EventArgs e)
+        private async void ProfileButton_Clicked(object sender, EventArgs e)
         {
+            await Shell.Current.GoToAsync("ProfilePage", animate:true);
         }
         
         private void MessageButton_Clicked(object sender, EventArgs e)

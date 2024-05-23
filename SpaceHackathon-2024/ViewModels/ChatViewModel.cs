@@ -10,7 +10,9 @@ namespace SpaceHackathon_2024.ViewModels
     {
         private HubConnection _hubConnection;
         
-        private const string hostAddr = "192.168.43.95";
+        private const string hostAddr = "192.168.191.95";
+        
+        private const string _url = "http://10.0.2.2:5040";
     
         private const string _extendedUrl = $"http://{hostAddr}:5040";
 

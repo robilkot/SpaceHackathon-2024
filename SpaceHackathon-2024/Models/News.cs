@@ -12,7 +12,7 @@ namespace SpaceHackathon_2024.Models
         public string Title { get; private set; } = title;
 
         public string PublishDate { get; private set; } = publishDate;
-
+        
         public string Description { get; private set; } = description;
 
         public string ImageURL { get; private set; } = imageURL;
