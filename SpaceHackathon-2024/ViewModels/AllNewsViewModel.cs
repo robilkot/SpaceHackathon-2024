@@ -44,7 +44,7 @@ namespace SpaceHackathon_2024.ViewModels
             if (selectedNews == null)
                 return;
 
-            await Shell.Current.GoToAsync($"{nameof(NewsPage)}", true, new Dictionary<string, object>
+            await Shell.Current.GoToAsync(nameof(NewsPage), true, new Dictionary<string, object>
             {
                 { "SelectedNews", selectedNews }
             });
