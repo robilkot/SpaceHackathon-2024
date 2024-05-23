@@ -11,8 +11,5 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
 
         BindingContext = _viewModel = profileViewModel;
-
-        Shell.SetBackButtonBehavior(this, new() { IsVisible = false });
-
     }
 }
