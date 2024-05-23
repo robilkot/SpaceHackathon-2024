@@ -10,9 +10,9 @@ public class AccountService
 
     private const string hostAddr = "192.168.191.95";
 
-    private const string _url = "http://10.0.2.2:5040";
+    private const string _url = "http://10.0.2.2:10010";
     
-    private const string _extendedUrl = $"http://{hostAddr}:5040";
+    private const string _extendedUrl = $"http://{hostAddr}:10010";
     
     public AccountService(HttpClient httpClient)
     {
