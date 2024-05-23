@@ -6,7 +6,7 @@
              x:Class="SpaceHackathon_2024.Views.ChatPage"
              x:DataType="viewmodels:ChatViewModel"
              Title="Chat"
-             Shell.NavBarIsVisible="True"
+             Shell.BackButtonBehavior="{Binding ShowBackButton, Converter={StaticResource BoolToBackButtonBehaviorConverter}}"
              Shell.TabBarIsVisible="False">
     
     <ContentPage.Resources>

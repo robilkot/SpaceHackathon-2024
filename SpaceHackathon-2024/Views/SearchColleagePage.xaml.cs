@@ -36,7 +36,13 @@ namespace SpaceHackathon_2024.Views
         
         private async void MessageButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync($"{nameof(ChatPage)}", animate:true);
+            var navigationParameter = new Dictionary<string, object>
+            {
+                {"ShowBackButton", true },
+                {"TargetUser", (User)(sender as Button).CommandParameter }
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(ChatPage)}", true, navigationParameter);
         }
     }
 }

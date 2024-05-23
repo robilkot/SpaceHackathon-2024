@@ -8,8 +8,16 @@ using SpaceHackathon_2024.Services;
 
 namespace SpaceHackathon_2024.ViewModels
 {
+    [QueryProperty(nameof(ShowBackButton), "ShowBackButton")]
+    [QueryProperty(nameof(TargetUser), "TargetUser")]
     public partial class ChatViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private bool _showBackButton = false;
+
+        [ObservableProperty]
+        private User _targetUser;
+
         private HubConnection _hubConnection;
 
         private readonly ApplicationContext _context;
