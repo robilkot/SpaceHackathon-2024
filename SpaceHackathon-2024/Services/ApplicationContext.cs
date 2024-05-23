@@ -179,10 +179,10 @@ namespace SpaceHackathon_2024.Services
                 await AddNewsAsync(new News("Test News 6", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
             }
 
-            await AddUserAsync(new User { KPI = 0.85d, Name = "Nikita", Surname = "Kalabin", AvatarURL = "https://distribution.faceit-cdn.net/images/f9b1e39c-bab2-49e6-8018-7ca56c33986b.jpeg", BranchOffice = "Департамент Пиццы", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Никита Калабин" });
-            await AddUserAsync(new User { KPI = 0.88d, Name = "Nikita", Surname = "Kharashun", AvatarURL = "https://fikiwiki.com/uploads/posts/2022-02/1645019125_27-fikiwiki-com-p-kartinki-dlya-stima-na-avu-28.jpg", BranchOffice = "На галере", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Никита Хорошун" });
-            await AddUserAsync(new User { KPI = 0.8d, Name = "Egor", Surname = "Gokov", AvatarURL = "https://masterpiecer-images.s3.yandex.net/dc54f7f494f211ee8d7f7a2f0d1382ba:upscaled", BranchOffice = "Офис", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Егор Гоков" });
-            await AddUserAsync(new User { KPI = 0.92d, Name = "Timur", Surname = "Robilko", AvatarURL = "https://ru-static.z-dn.net/files/d3b/3cc3216ecef61bd569d2250340f708a0.png", BranchOffice = "Дома :)", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Тимур Робилко" });
+            await AddUserAsync(new User { KPI = 91d, Name = "Nikita", Surname = "Kalabin", AvatarURL = "https://distribution.faceit-cdn.net/images/f9b1e39c-bab2-49e6-8018-7ca56c33986b.jpeg", BranchOffice = "Департамент Пиццы", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Никита Калабин" });
+            await AddUserAsync(new User { KPI = 93d, Name = "Nikita", Surname = "Kharashun", AvatarURL = "https://fikiwiki.com/uploads/posts/2022-02/1645019125_27-fikiwiki-com-p-kartinki-dlya-stima-na-avu-28.jpg", BranchOffice = "На галере", Department = "Заушановский пер. 12, Минск", Position = "Программист", FullName = "Никита Хорошун" });
+            await AddUserAsync(new User { KPI = 90d, Name = "Egor", Surname = "Gokov", AvatarURL = "https://masterpiecer-images.s3.yandex.net/dc54f7f494f211ee8d7f7a2f0d1382ba:upscaled", BranchOffice = "Офис", Department = "Белинского 54, Минск", Position = "Программист", FullName = "Егор Гоков" });
+            await AddUserAsync(new User { KPI = 110d, Name = "Timur", Surname = "Robilko", AvatarURL = "https://ru-static.z-dn.net/files/d3b/3cc3216ecef61bd569d2250340f708a0.png", BranchOffice = "Дома :)", Department = "Секрет, Минск", Position = "Программист", FullName = "Тимур Робилко" });
 
 
             if (!StoreItems.Any())
