@@ -24,11 +24,6 @@
                 HeightRequest="25"
                 Source="bell"/>
             <Image
-                Grid.Column="3"
-                WidthRequest="40"
-                HeightRequest="40"
-                Source="coin"/>
-            <Image
                 Grid.Column="4"
                 WidthRequest="25"
                 Source="envelope">

@@ -23,7 +23,8 @@
 
     <ScrollView>
         <Grid
-            RowDefinitions="auto,*,auto">
+            RowSpacing="10"
+            RowDefinitions="auto,auto,auto">
             <Image 
                 Grid.Row="0"
                 Aspect="AspectFill"
@@ -53,13 +54,14 @@
 
             <Label
                 Grid.Row="1"
-                HeightRequest="100"
+                Padding="10"
+                Style="{StaticResource Body}"
                 Text="{Binding SelectedNews.Description}"/>
 
             <Grid 
                 Grid.Row="2"
                 Padding="10,0,10,10"
-                ColumnDefinitions="auto, auto, auto, *">
+                ColumnDefinitions="auto, auto, *, auto">
 
                 <HorizontalStackLayout
                     Grid.Column="0"
