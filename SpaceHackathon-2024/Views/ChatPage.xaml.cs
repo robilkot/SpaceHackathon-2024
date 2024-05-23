@@ -12,7 +12,7 @@ namespace SpaceHackathon_2024.Views
             _viewModel = new ChatViewModel();
             BindingContext = _viewModel;
 
-            MessageEntry.SetBinding(Entry.TextProperty, new Binding("NewMessage", BindingMode.TwoWay));
+            AppShell.SetBackButtonBehavior(this, new() { IsVisible = false });
         }
 
         private void SendMessageButton_Clicked(object sender, EventArgs e)

@@ -27,7 +27,7 @@
             </CollectionView>
 
             <StackLayout Orientation="Horizontal" Grid.Row="1" Padding="5,0" Spacing="10">
-                <Entry x:Name="MessageEntry" Placeholder="Enter your message" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="MessageEntry" Text="{Binding NewMessage, Mode=TwoWay}" Placeholder="Enter your message" HorizontalOptions="FillAndExpand"/>
                 <Button Text="Send" Clicked="SendMessageButton_Clicked"/>
             </StackLayout>
         </Grid>
