@@ -9,30 +9,46 @@
     <ContentPage.Content>
         <StackLayout Padding="20">
             
-            <!-- Поле ввода имени для поиска -->
             <Entry Placeholder="Введите имя"
                    x:Name="NameEntry"
                    HorizontalOptions="FillAndExpand" />
-
-            <!-- Кнопка для запуска поиска -->
+            
             <Button Text="Поиск"
                     Clicked="SearchButton_Clicked"
                     HorizontalOptions="FillAndExpand"
                     Margin="0,10,0,0" />
-
-            <!-- Список результатов поиска -->
+            
             <ListView x:Name="ResultsListView"
                       Margin="0,10,0,0"
                       HasUnevenRows="True"
                       ItemsSource="{Binding SearchResults}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:User">
-                        <TextCell Text="{Binding Name}"
-                                  Detail="{Binding Surame}" />
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding Surame}"
+                                           VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                    <Button Text="Профиль"
+                                            Clicked="ProfileButton_Clicked"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" />
+                                    <Button Text="Сообщение"
+                                            Clicked="MessageButton_Clicked"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -16,5 +16,13 @@ namespace SpaceHackathon_2024.Views
         {
             _viewModel.SearchColleage(NameEntry.Text);
         }
+        
+        private void ProfileButton_Clicked(object sender, EventArgs e)
+        {
+        }
+        
+        private void MessageButton_Clicked(object sender, EventArgs e)
+        {
+        }
     }
 }
