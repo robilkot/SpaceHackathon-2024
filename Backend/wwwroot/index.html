@@ -125,7 +125,7 @@
             .then(data => {
                 if (data.access_token) {
                     accessToken = data.access_token;
-                    currentUser = data.username;
+                    currentUser = "Никита";
                     showChatForm();
                 } else {
                     alert("Неверные учетные данные");
