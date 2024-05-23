@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Services;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace SpaceHackathon_2024.ViewModels
 {

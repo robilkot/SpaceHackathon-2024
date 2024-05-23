@@ -9,6 +9,10 @@ namespace SpaceHackathon_2024.ViewModels
     public partial class ChatViewModel : ObservableObject
     {
         private HubConnection _hubConnection;
+        
+        private const string hostAddr = "192.168.43.95";
+    
+        private const string _extendedUrl = $"http://{hostAddr}:5040";
 
         public ObservableCollection<Message> Messages { get; } = new();
 
@@ -27,7 +31,7 @@ namespace SpaceHackathon_2024.ViewModels
         private async void InitializeSignalR()
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl("http://10.0.2.2:5040/chatHub")
+                .WithUrl($"{_extendedUrl}/chatHub")
                 .Build();
 
             _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
