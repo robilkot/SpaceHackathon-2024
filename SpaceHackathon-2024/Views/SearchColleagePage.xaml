@@ -80,6 +80,7 @@
                                     </Grid>
                                     <ImageButton
                                         Clicked="ProfileButton_Clicked"
+                                        CommandParameter="{Binding .}"
                                         Grid.Column="2"
                                         Margin="0,0,5,0"
                                         Source="angle_right"

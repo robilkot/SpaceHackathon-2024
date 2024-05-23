@@ -28,7 +28,7 @@ namespace SpaceHackathon_2024.Views
             var navigationParameter = new Dictionary<string, object>
             {
                 {"ShowBackButton", true },
-                {"UserSurname", ((sender as Button).CommandParameter as User).Surname }
+                {"UserSurname", ((sender as ImageButton).CommandParameter as User).Surname }
             };
 
             await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", true, navigationParameter);
