@@ -10,7 +10,7 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
 
         BindingContext = _viewModel = profileViewModel;
-        
-        AppShell.SetBackButtonBehavior(this, new() { IsVisible = false });
+
+        Shell.SetBackButtonBehavior(this, new() { IsVisible = false });
     }
 }

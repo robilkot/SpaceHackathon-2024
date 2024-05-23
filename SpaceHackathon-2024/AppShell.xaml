@@ -45,6 +45,6 @@
             <ShellContent Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
         </Tab>
         <ShellContent Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
-        <ShellContent Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:SignInPage}"/>
+        <ShellContent Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}"/>
     </TabBar>
 </Shell>
