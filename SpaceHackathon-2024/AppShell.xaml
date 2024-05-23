@@ -16,13 +16,12 @@
             ColumnDefinitions="auto,*,auto,auto,auto">
             <Image
                 Grid.Column="0"
-                Source="mts_logo">
+                HeightRequest="25"
+                Source="mts_logo3">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnLogoTapped" />
                 </Image.GestureRecognizers>
             </Image>
-                HeightRequest="25"
-                Source="mts_logo3"/>
             <Image
                 Grid.Column="2"
                 WidthRequest="25"
