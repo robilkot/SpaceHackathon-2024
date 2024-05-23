@@ -9,6 +9,7 @@ namespace SpaceHackathon_2024.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public double KPI { get; set; }
+        public string FullName { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
         public string ThirdName { get; set; } = string.Empty;

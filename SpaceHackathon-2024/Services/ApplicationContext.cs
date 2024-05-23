@@ -141,9 +141,9 @@ namespace SpaceHackathon_2024.Services
 
             if (!Users.Any())
             {
-                await AddUserAsync(new User{ Name = "Никита", Surame = "Калабин", AvatarURL = "", Position = "", Department = "", BranchOffice = ""});
-                await AddUserAsync(new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
-                await AddUserAsync(new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
+                await AddUserAsync(new User{ Name = "Никита", Surname = "Калабин", AvatarURL = "", Position = "", Department = "", BranchOffice = ""});
+                await AddUserAsync(new User { Name = "John", Surname = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
+                await AddUserAsync(new User { Name = "Alice", Surname = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
             }
 
             if (!StoreItems.Any())
