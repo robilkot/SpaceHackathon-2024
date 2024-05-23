@@ -11,8 +11,6 @@ namespace SpaceHackathon_2024.Views
             InitializeComponent();
             
             BindingContext = _viewModel = viewModel;
-
-            AppShell.SetBackButtonBehavior(this, new() { IsVisible = false });
         }
 
         private void SendMessageButton_Clicked(object sender, EventArgs e)

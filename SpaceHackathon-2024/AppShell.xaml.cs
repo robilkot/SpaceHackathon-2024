@@ -16,6 +16,7 @@ namespace SpaceHackathon_2024
             Routing.RegisterRoute(nameof(ChatPage), typeof(ChatPage));
             Routing.RegisterRoute(nameof(EventsPage), typeof(EventsPage));
             Routing.RegisterRoute(nameof(RatingPage), typeof(RatingPage));
+            Routing.RegisterRoute(nameof(AllChatsPage), typeof(AllChatsPage));
         }
         
         private async void OnLogoTapped(object sender, EventArgs e)
@@ -26,8 +27,8 @@ namespace SpaceHackathon_2024
     
         private async void OnEnvelopeTapped(object sender, EventArgs e)
         {
-            if (Shell.Current.CurrentPage is not ChatPage)
-                await Shell.Current.GoToAsync($"{nameof(ChatPage)}");
+            if (Shell.Current.CurrentPage is not AllChatsPage)
+                await Shell.Current.GoToAsync(nameof(AllChatsPage));
         }
     }
 }
