@@ -8,7 +8,11 @@ public class AccountService
 {
     private readonly HttpClient _client;
 
-    private const string _url = "http://10.0.2.2:5100";
+    private const string hostAddr = "146.70.202.4";
+
+    private const string _url = "http://10.0.2.2:5040";
+    
+    private const string _extendedUrl = $"http://{hostAddr}:5040";
     
     public AccountService(HttpClient httpClient)
     {
@@ -67,6 +71,22 @@ public class AccountService
         string jsonInfo = await response.Content.ReadAsStringAsync();
         
         AuthResponseDto res = JsonConvert.DeserializeObject<AuthResponseDto>(jsonInfo);
+        
+        return res;
+    }
+    
+    public async Task<List<UserDto>> SearchColleage(string name)
+    {
+        using HttpResponseMessage response = await _client.GetAsync($"{_url}/search?name={name}");
+
+        List<UserDto> res = new List<UserDto>();
+        
+        if (response is not null)
+        {
+            string jsonInfo = await response.Content.ReadAsStringAsync();
+
+            res = JsonConvert.DeserializeObject<List<UserDto>>(jsonInfo);
+        }
         
         return res;
     }

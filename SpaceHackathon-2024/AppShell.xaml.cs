@@ -6,10 +6,15 @@ namespace SpaceHackathon_2024
     {
         public bool _isOnChatPage = false;
 
+        public bool _isOnAllNewsPage = false;
+
         public AppShell()
         {
             InitializeComponent();
             
+            Routing.RegisterRoute(nameof(AllNewsPage), typeof(AllNewsPage));
+            Routing.RegisterRoute(nameof(SearchColleagePage), typeof(SearchColleagePage));
+            Routing.RegisterRoute(nameof(NewsPage), typeof(NewsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(SignInPage), typeof(SignInPage));
             Routing.RegisterRoute(nameof(NewsPage), typeof(NewsPage));
@@ -20,6 +25,17 @@ namespace SpaceHackathon_2024
             Routing.RegisterRoute(nameof(RatingPage), typeof(RatingPage));
         }
         
+        private async void OnLogoTapped(object sender, EventArgs e)
+        {
+            if (Shell.Current.CurrentPage is not AllNewsPage)
+            {
+                _isOnAllNewsPage = true;
+                await Shell.Current.GoToAsync($"{nameof(AllNewsPage)}");
+            }
+            else
+                _isOnAllNewsPage = false;
+        }
+    
         private async void OnEnvelopeTapped(object sender, EventArgs e)
         {
             if (Shell.Current.CurrentPage is not ChatPage)

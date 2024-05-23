@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpaceHackathon_2024.Views.SearchColleagePage"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
+             x:DataType="local:SearchColleageViewModel">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            
+            <Entry Placeholder="Введите имя"
+                   x:Name="NameEntry"
+                   HorizontalOptions="FillAndExpand" />
+            
+            <Button Text="Поиск"
+                    Clicked="SearchButton_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="0,10,0,0" />
+            
+            <ListView x:Name="ResultsListView"
+                      Margin="0,10,0,0"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding SearchResults}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="CenterAndExpand" />
+                                    <Label Text="{Binding Surame}"
+                                           VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                    <Button Text="Профиль"
+                                            Clicked="ProfileButton_Clicked"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" />
+                                    <Button Text="Сообщение"
+                                            Clicked="MessageButton_Clicked"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

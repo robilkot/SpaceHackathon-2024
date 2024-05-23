@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -13,6 +14,7 @@ var users = new List<User>
 {
     new User("Nikita", "+911","12345"),
     new User("Egor", "+112","qwerty"),
+    new User("Egorka", "+2344324","123")
 };
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -62,23 +74,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
  
 app.MapHub<ChatHub>("/chatHub");
 
-
 app.MapGet("/test", () =>
 {
-    return "hello";
+    var host = Dns.GetHostEntry(Dns.GetHostName());
+    return host.ToString();
 });
-
 
 app.MapGet("/auth", [Authorize] () =>
 {
     return "You are successfully authorized!";
 });
-
 
 app.MapGet("/profile", [Authorize] (HttpContext context) =>
 {
@@ -99,6 +111,19 @@ app.MapGet("/profile", [Authorize] (HttpContext context) =>
     });
 });
 
+
+app.MapGet("/search", (string? name) =>
+{
+    if (string.IsNullOrWhiteSpace(name))
+        return Results.BadRequest("Имя не может быть пустым.");
+
+    var matchingUsers = users.Where(u => u.Name.ToLower().Contains(name.ToLower())).ToList();
+
+    if (matchingUsers.Count == 0)
+        return Results.NotFound("Пользователи с таким именем не найдены.");
+
+    return Results.Ok(matchingUsers.Select(u => new { u.Name, u.PhoneNumber }));
+});
 
 app.MapPost("/signIn",  (SignInDto signInDto) =>
 {
@@ -125,7 +150,6 @@ app.MapPost("/signIn",  (SignInDto signInDto) =>
  
     return Results.Json(response);
 });
-
 
 app.MapPost("/signUp",  (SignUpDto signUpDto) =>
 {

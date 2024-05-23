@@ -80,6 +80,9 @@ namespace SpaceHackathon_2024
 
             services.AddTransient<StorePage>();
             services.AddTransient<StoreViewModel>();
+            
+            services.AddTransient<SearchColleagePage>();
+            services.AddTransient<SearchColleageViewModel>();
         }
 
         private static void InitializeTestData(IServiceProvider services)

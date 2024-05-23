@@ -36,6 +36,12 @@ namespace SpaceHackathon_2024.Services
             await SaveChangesAsync();
         }
 
+        public async Task AddUserAsync(User user)
+        {
+            Users.Add(user);
+            await SaveChangesAsync();
+        }
+
         public async Task<List<News>> GetNewsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -53,6 +59,7 @@ namespace SpaceHackathon_2024.Services
             StoreItems.Add(storeItem);
             await SaveChangesAsync();
         }
+        
         public async Task<List<StoreItem>> GetStoreItemsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
@@ -71,7 +78,6 @@ namespace SpaceHackathon_2024.Services
             string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             if (!News.Any())
             {
-                
                 await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 2", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 3", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
@@ -81,6 +87,12 @@ namespace SpaceHackathon_2024.Services
                 await AddNewsAsync(new News("Test News 7", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 8", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 9", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+            }
+
+            if (!Users.Any())
+            {
+                await AddUserAsync( new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
+                await AddUserAsync(new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
             }
 
             if (!StoreItems.Any())

@@ -40,10 +40,6 @@ public partial class SignInViewModel : ObservableObject
         
             await Shell.Current.GoToAsync($"ProfilePage", navigationParameter);
         }
-        else
-        {
-            
-        }
     }
 
     [RelayCommand]
