@@ -23,7 +23,7 @@ namespace SpaceHackathon_2024.Views
 
         private async void ProfileButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("ProfilePage", animate:true);
+            await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", animate:true);
         }
         
         private void MessageButton_Clicked(object sender, EventArgs e)

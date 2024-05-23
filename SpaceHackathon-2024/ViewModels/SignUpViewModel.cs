@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SpaceHackathon_2024.Models.Dtos;
 using SpaceHackathon_2024.Services;
+using SpaceHackathon_2024.Views;
 
 namespace SpaceHackathon_2024.ViewModels;
 
@@ -50,7 +51,7 @@ public partial class SignUpViewModel : ObservableObject
             
             Preferences.Default.Set("AccessToken", response.AccessToken);
         
-            await Shell.Current.GoToAsync($"ProfilePage", navigationParameter);
+            await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", navigationParameter);
         }
     }
 
