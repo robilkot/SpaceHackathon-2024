@@ -22,6 +22,10 @@ namespace SpaceHackathon_2024.Services
 
         public DbSet<Hobby> Hobbies => Set<Hobby>();
 
+        public DbSet<ScheduleDay> ScheduleDays => Set<ScheduleDay>();
+
+        public DbSet<WeeklySchedule> WeeklySchedules=> Set<WeeklySchedule>();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var sqlitePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"SpaceHakathon");
@@ -151,6 +155,15 @@ namespace SpaceHackathon_2024.Services
         {
             var user = await Users.FirstOrDefaultAsync(u => u.Surname == surname);
             return user?.KPI;
+        }
+
+        public IEnumerable<ScheduleDay> GetScheduleDays(DateTime beginDate, DateTime endDate)
+        {
+            var scheduleDays = ScheduleDays
+                .Where(sd => sd.Date >= beginDate && sd.Date <= endDate)
+                .ToList();
+
+            return scheduleDays;
         }
         public async Task InitializeTestDataAsync()
         {
