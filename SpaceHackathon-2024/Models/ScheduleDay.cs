@@ -9,8 +9,11 @@ namespace SpaceHackathon_2024.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         public DayTypes Type { get; set; }
+
+        public DateTime ShiftBegin { get; set; }
+        public DateTime ShiftEnd { get; set; }
         public string Description {  get; set; } = string.Empty;
     }
 }

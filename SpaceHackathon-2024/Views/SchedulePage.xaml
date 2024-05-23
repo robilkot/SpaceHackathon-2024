@@ -5,15 +5,26 @@
              xmlns:model="clr-namespace:SpaceHackathon_2024.Models"
              xmlns:viewModels="clr-namespace:SpaceHackathon_2024.ViewModels"
              x:DataType="viewModels:ScheduleViewModel"
+             xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
              Title="SchedulePage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Border" x:Key="DayOff" BasedOn="{StaticResource BaseBorderStyle}">
                 <Setter Property="BackgroundColor" Value="{StaticResource Gray100}"/>
             </Style>
+            <converters:DayToLabelStyleConverter x:Key="DayToLabelStyleConverter" />
+            <converters:DayToTileStyleConverter x:Key="DayToTileStyleConverter" />
+            <converters:DayToWeekDayStringConverter x:Key="DayToWeekDayStringConverter" />
+            <converters:DayToTypeStringConverter x:Key="DayToTypeStringConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="20"
+        Padding="0,10">
+        <Label
+            Padding="10,10,10,0"
+            Style="{StaticResource Header}"
+            Text="Ваш график на месяц"/>
         <!-- Weekly schedule -->
         <CarouselView
             Loop="False"
@@ -31,12 +42,14 @@
                             RowSpacing="10"
                             RowDefinitions="auto,*">
                             <Label
-                                TextColor="Black"
+                                Style="{StaticResource SubHeader}"
                                 Grid.Row="0">
                                 <Label.Text>
                                     <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="StartDay" />
-                                        <Binding Path="EndDay" />
+                                        <Binding Path="StartDay"
+                                                 StringFormat='{}{0:dd.mm.yy}' />
+                                        <Binding Path="EndDay" 
+                                                 StringFormat='{}{0:dd.mm.yy}'/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
@@ -44,21 +57,46 @@
                             <VerticalStackLayout
                                 Grid.Row="1"
                                 Spacing="5"
-                                BindableLayout.ItemsSource="{Binding Days}">
+                                BindableLayout.ItemsSource="{Binding Days}"
+                                Padding="0,10">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate
                                         x:DataType="model:ScheduleDay">
                                         <Border
-                                            Style="{StaticResource DayOff}"
-                                            HeightRequest="50">
+                                            Style="{Binding ., Converter={StaticResource DayToTileStyleConverter}}">
                                             <Grid
-                                                ColumnDefinitions="auto,auto,*,auto">
+                                                MinimumHeightRequest="55"
+                                                Padding="10"
+                                                ColumnSpacing="10"
+                                                ColumnDefinitions="auto,*,auto">
                                                 <Label
                                                     Grid.Column="0"
-                                                    Text="Понедельник"/>
-                                                <Label
-                                                    Grid.Column="1"
-                                                    Text="{Binding Date}"/>
+                                                    VerticalOptions="Center"
+                                                    Style="{Binding ., Converter={StaticResource DayToLabelStyleConverter}}">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{}{0} {1} | {2}">
+                                                            <Binding 
+                                                                Path="Date"
+                                                                StringFormat='{}{0:dd.MM}' />
+                                                            <Binding 
+                                                                Path="." 
+                                                                Converter="{StaticResource DayToWeekDayStringConverter}"
+                                                                StringFormat='{}{0:dd.mm.yy}'/>
+                                                            <Binding 
+                                                                Path="." 
+                                                                Converter="{StaticResource DayToTypeStringConverter}"
+                                                                StringFormat='{}{0:dd.mm.yy}'/>
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+
+                                                <Image
+                                                    HeightRequest="30"
+                                                    WidthRequest="30"
+                                                    Grid.Column="2"
+                                                    IsVisible="{Binding Description, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                                    Source="warn_red_1">
+                                                </Image>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -69,5 +107,10 @@
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
+
+        <Label
+            Padding="10,0"
+            Style="{StaticResource Header}"
+            Text="Отпуск и перенос смен"/>
     </VerticalStackLayout>
 </ContentPage>
