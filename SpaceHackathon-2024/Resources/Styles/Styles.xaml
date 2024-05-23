@@ -20,6 +20,12 @@
         <Setter Property="BackgroundColor" Value="{StaticResource White}"/>
         <Setter Property="Shadow" Value="{StaticResource ContainerShadow}"/>
     </Style>
+    <Style x:Key="BaseBorderStyle" TargetType="Border">
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 8"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource White}"/>
+        <Setter Property="Shadow" Value="{StaticResource ContainerShadow}"/>
+    </Style>
 
     <Style TargetType="Label">
         <Setter Property="BackgroundColor" Value="Transparent" />

@@ -1,4 +1,4 @@
-﻿namespace SpaceHackathon_2024.Models
+﻿    namespace SpaceHackathon_2024.Models
 {
     public class WeeklySchedule
     {

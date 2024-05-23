@@ -6,14 +6,26 @@
              xmlns:viewModels="clr-namespace:SpaceHackathon_2024.ViewModels"
              x:DataType="viewModels:ScheduleViewModel"
              Title="SchedulePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Border" x:Key="DayOff" BasedOn="{StaticResource BaseBorderStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource Gray100}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <!-- Weekly schedule -->
         <CarouselView
+            Loop="False"
+            IsBounceEnabled="True"
             ItemsSource="{Binding Weeks}">
             <CarouselView.ItemTemplate>
                 <DataTemplate
                     x:DataType="model:WeeklySchedule">
                     <Border>
+                        <Border.Shadow>
+                            <Shadow Opacity="0"/>
+                        </Border.Shadow>
                         <Grid
                             Padding="10,0"
                             RowSpacing="10"
@@ -34,12 +46,19 @@
                                 Spacing="5"
                                 BindableLayout.ItemsSource="{Binding Days}">
                                 <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate
+                                        x:DataType="model:ScheduleDay">
                                         <Border
-                                            HeightRequest="30">
-                                            <Grid>
+                                            Style="{StaticResource DayOff}"
+                                            HeightRequest="50">
+                                            <Grid
+                                                ColumnDefinitions="auto,auto,*,auto">
                                                 <Label
-                                                    Text="Day of week"/>
+                                                    Grid.Column="0"
+                                                    Text="Понедельник"/>
+                                                <Label
+                                                    Grid.Column="1"
+                                                    Text="{Binding Date}"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
