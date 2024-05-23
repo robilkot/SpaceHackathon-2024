@@ -11,10 +11,21 @@ public partial class RatingPage : ContentPage
         InitializeComponent();
 
         BindingContext = _viewModel = ratingViewModel;
+    }
 
+    protected override void OnAppearing()
+    {
+        UpdateChart();
+    }
+
+    private void UpdateChart()
+    {
         chartView.Chart = new BarChart
         {
-            Entries = _viewModel.Entries
+            ShowYAxisText = false,
+            MaxValue = 150,
+            MinValue = 0,
+            Entries = _viewModel.Entries,
         };
     }
 }
