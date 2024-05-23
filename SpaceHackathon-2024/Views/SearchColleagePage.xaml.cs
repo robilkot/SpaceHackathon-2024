@@ -11,12 +11,16 @@ namespace SpaceHackathon_2024.Views
             BindingContext = _viewModel = viewModel;
             InitializeComponent();
         }
-        
-        private void SearchButton_Clicked(object sender, EventArgs e)
+
+        private async void SearchButton_Clicked_Async(object sender, EventArgs e)
         {
-            _viewModel.SearchColleage(NameEntry.Text);
+            var name = NameEntry.Text;
+            if (!string.IsNullOrEmpty(name))
+            {
+                await _viewModel.SearchColleageAsync(name);
+            }
         }
-        
+
         private void ProfileButton_Clicked(object sender, EventArgs e)
         {
         }

@@ -44,13 +44,11 @@
     </Shell.TitleView>
 
     <TabBar>
-        <Tab Title="Новости" Icon="envelope">
-            <ShellContent Route="news" Title="Новости" ContentTemplate="{DataTemplate views:AllNewsPage}"/>
-            <ShellContent Route="events" Title="События" ContentTemplate="{DataTemplate views:EventsPage}"/>
+        <ShellContent Route="news" Icon="envelope" Title="Новости" ContentTemplate="{DataTemplate views:AllNewsPage}"/>
+        <Tab Title="Рейтинг" Icon="stats">
+            <ShellContent Route="news" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
+            <ShellContent Route="search" Title="Поиск" ContentTemplate="{DataTemplate views:SearchColleagePage}"/>
         </Tab>
-        
-        <ShellContent Route="rating" Icon="stats" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
-        <ShellContent Route="search" Icon="search" Title="Найти" ContentTemplate="{DataTemplate views:SearchColleagePage}"/>
         <ShellContent Route="schedule" Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
         <ShellContent Route="signin" Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:SignInPage}"/>
     </TabBar>

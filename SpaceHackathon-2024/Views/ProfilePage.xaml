@@ -2,7 +2,11 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SpaceHackathon_2024.Views.ProfilePage">
+             xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:DataType="local:ProfileViewModel"
+             x:Class="SpaceHackathon_2024.Views.ProfilePage"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Name" TargetType="Label">
@@ -41,7 +45,7 @@
                         ColumnSpacing="20"
                         ColumnDefinitions="auto,*">
                         <Image
-                            Source="https://fastly.4sqi.net/img/general/600x600/35109551_JuqAcvozIAbbsC4RN-mo3WtgKWUGR0U0K9g1zKbokCA.jpg"
+                            Source="{Binding CurrentUser.AvatarURL}"
                             Grid.Column="0"
                             WidthRequest="110"
                             Aspect="AspectFit"
@@ -61,13 +65,13 @@
                             <Label
                                 Margin="0,0,0,10"
                                 Style="{StaticResource Name}"
-                                Text="Никита Калабан"/>
+                                Text="{Binding CurrentUser.FullName}"/>
                             <Label
                                 Style="{StaticResource ProfileBold}"
-                                Text="Старший программист"/>
+                                Text="{Binding CurrentUser.Position}"/>
                             <Label
                                 Style="{StaticResource ProfileBold}"
-                                Text="Отдел маркетинга"/>
+                                Text="{Binding CurrentUser.Department}"/>
 
                             <HorizontalStackLayout
                                 Spacing="8"
@@ -85,8 +89,8 @@
                         </VerticalStackLayout>
                     </Grid>
                 </Border>
-                
-                 <!--Achievments-->
+
+                <!--Achievments-->
                 <Label
                     Margin="0,20,0,0"
                     HorizontalOptions="Center"

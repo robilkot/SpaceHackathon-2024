@@ -19,6 +19,8 @@ namespace SpaceHackathon_2024.Services
 
         public DbSet<StoreItem> StoreItems => Set<StoreItem>();
 
+        public DbSet<Hobby> Hobbies => Set<Hobby>();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var sqlitePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"SpaceHakathon");
@@ -28,6 +30,20 @@ namespace SpaceHackathon_2024.Services
                 File.Create(fileName);
 
             optionsBuilder.UseSqlite($"Data Source={fileName}");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Hobbies)
+                .WithMany(h => h.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserHobby",
+                    j => j.HasOne<Hobby>().WithMany().HasForeignKey("HobbyId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                );
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public async Task AddNewsAsync(News news)
@@ -73,6 +89,40 @@ namespace SpaceHackathon_2024.Services
             return storeItems;
         }
 
+        public async Task<List<User>?> SearchUserByName(string name)
+        {
+            var matchingUsers = await Users
+                .Where(u => u.Name.ToLower().Contains(name.ToLower()))
+                .ToListAsync();
+
+            return matchingUsers;
+        }
+
+        public async Task<List<User>?> SearchUserByHobby(string hobbyName)
+        {
+            var matchingUsers = await Users
+                .Where(u => u.Hobbies.Any(h => h.Name.ToLower().Contains(hobbyName.ToLower())))
+                .ToListAsync();
+
+            return matchingUsers;
+        }
+
+        public async Task<User?> GetRandomUserAsync()
+        {
+            var userCount = await Users.CountAsync();
+            if (userCount == 0)
+                return null;
+
+            var random = new Random();
+            var randomIndex = random.Next(0, userCount);
+            var randomUser = await Users
+                                .Include(u => u.Hobbies)
+                                .Skip(randomIndex)
+                                .FirstOrDefaultAsync();
+
+            return randomUser;
+        }
+
         public async Task InitializeTestDataAsync()
         {
             string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -91,8 +141,9 @@ namespace SpaceHackathon_2024.Services
 
             if (!Users.Any())
             {
-                await AddUserAsync( new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
-                await AddUserAsync(new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
+                await AddUserAsync(new User{ Name = "Никита", Surname = "Калабин", AvatarURL = "", Position = "", Department = "", BranchOffice = ""});
+                await AddUserAsync(new User { Name = "John", Surname = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
+                await AddUserAsync(new User { Name = "Alice", Surname = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
             }
 
             if (!StoreItems.Any())
