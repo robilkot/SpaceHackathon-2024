@@ -9,6 +9,8 @@ public partial class AllNewsPage : ContentPage
 		InitializeComponent();
 
         BindingContext = viewModel;
+        
+        AppShell.SetBackButtonBehavior(this, new() { IsVisible = false });
     }
 
     private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)

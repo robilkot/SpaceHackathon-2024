@@ -4,9 +4,9 @@ namespace SpaceHackathon_2024.Models.Dtos;
 
 public record AuthResponseDto
 {
-    [JsonProperty("accessToken")]
-    public string? AccessToken { get; set; }
+    [JsonProperty("access_token")]
+    public string AccessToken { get; set; }
     
-    [JsonProperty("refreshToken")]
-    public string? RefreshToken { get; set; }
+    [JsonProperty("surname")]
+    public string Surname { get; set; }
 }

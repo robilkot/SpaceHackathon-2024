@@ -7,18 +7,13 @@
     x:DataType="local:NewsViewModel"
     x:Class="SpaceHackathon_2024.Views.NewsPage"
     xmlns:extensions="clr-namespace:SpaceHackathon_2024.Helpers.Extensions"
-    Title="News"
-    Shell.NavBarIsVisible="True"
-    Shell.TabBarIsVisible="False"
-    >
+    Title="News">
     <Shell.TitleView>
-        <Grid>
-            <Label 
-                Style="{StaticResource TitleViewText}"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Text="Новость"></Label>
-        </Grid>
+        <Label 
+            Style="{StaticResource TitleViewText}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Text="Новость"></Label>
     </Shell.TitleView>
 
     <ScrollView>

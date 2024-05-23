@@ -6,11 +6,10 @@ namespace SpaceHackathon_2024.Views
     {
         private ChatViewModel _viewModel;
 
-        public ChatPage()
+        public ChatPage(ChatViewModel viewModel)
         {
             InitializeComponent();
-            _viewModel = new ChatViewModel();
-            BindingContext = _viewModel;
+            BindingContext = _viewModel = viewModel;
 
             AppShell.SetBackButtonBehavior(this, new() { IsVisible = false });
         }

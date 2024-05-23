@@ -111,7 +111,7 @@
             </CarouselView>
 
             <VerticalStackLayout
-                Spacing="10"
+                Spacing="15"
                 Padding="10,0">
                 <Label
                     Style="{StaticResource Header}"
@@ -127,7 +127,7 @@
                 </Label>
 
                 <Button
-                    Text="Оформить заявку о переносе"/>
+                    Text="Оформить заявку на перенос"/>
 
 
                 <Label

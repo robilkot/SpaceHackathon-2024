@@ -10,6 +10,13 @@ public partial class SignInPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _viewModel = viewModel;
-        AppShell.SetNavBarIsVisible(this, false);
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        Shell.SetNavBarIsVisible(this, false);
+        Shell.SetTabBarIsVisible(this, false);
     }
 }

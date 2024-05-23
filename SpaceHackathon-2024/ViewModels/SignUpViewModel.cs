@@ -48,16 +48,16 @@ public partial class SignUpViewModel : ObservableObject
             {
                 {"Profile", profileDto},
             };
-            
-            Preferences.Default.Set("AccessToken", response.AccessToken);
-        
-            await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", navigationParameter);
+
+            await Shell.Current.GoToAsync(nameof(AllNewsPage));
+
+            //await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", navigationParameter);
         }
     }
 
     [RelayCommand]
     private async void GoToSignInPage()
     {
-        await Shell.Current.GoToAsync("..", animate:true);
+        await Shell.Current.GoToAsync("..", false);
     }
 }
