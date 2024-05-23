@@ -33,7 +33,7 @@ namespace SpaceHackathon_2024.ViewModels
         private async void InitializeSignalR()
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{_extendedUrl}/chatHub")
+                .WithUrl($"{_url}/chatHub")
                 .Build();
 
             _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
