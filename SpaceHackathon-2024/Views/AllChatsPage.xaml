@@ -40,7 +40,7 @@
                                 Style="{StaticResource Body}"/>
                             <Label
                                 Grid.Row="1"
-                                Text="Подразделение"
+                                Text="{Binding BranchOffice}"
                                 TextColor="{StaticResource Gray400}"
                                 Style="{StaticResource Body}"/>
                         </Grid>
