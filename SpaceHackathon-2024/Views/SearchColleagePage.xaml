@@ -7,48 +7,92 @@
              xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
              x:DataType="local:SearchColleageViewModel">
     <ContentPage.Content>
-        <StackLayout Padding="20">
+        <ScrollView>
             
-            <Entry Placeholder="Введите имя"
-                   x:Name="NameEntry"
-                   HorizontalOptions="FillAndExpand" />
-            
-            <Button Text="Поиск"
-                    Clicked="SearchButton_Clicked_Async"
-                    HorizontalOptions="FillAndExpand"
-                    Margin="0,10,0,0" />
-            
-            <ListView x:Name="ResultsListView"
-                      Margin="0,10,0,0"
-                      HasUnevenRows="True"
-                      ItemsSource="{Binding SearchResults}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:User">
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout>
-                                    <Label Text="{Binding Name}"
-                                           FontAttributes="Bold"
-                                           VerticalOptions="CenterAndExpand" />
-                                    <Label Text="{Binding Surname}"
-                                           VerticalOptions="CenterAndExpand" />
-                                </StackLayout>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                                    <Button Text="Профиль"
-                                            Clicked="ProfileButton_Clicked"
-                                            CommandParameter="{Binding .}"
-                                            HorizontalOptions="End" />
-                                    <Button Text="Сообщение"
-                                            Clicked="MessageButton_Clicked"
-                                            CommandParameter="{Binding .}"
-                                            HorizontalOptions="End" />
-                                </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            
-        </StackLayout>
+            <VerticalStackLayout
+                Padding="10"
+                Spacing="10">
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    Margin="0,10">
+                    <Grid
+                        ColumnSpacing="10"
+                        ColumnDefinitions="*,auto">
+                        <Entry 
+                            Grid.Column="0"
+                            Placeholder="Введите имя"
+                            x:Name="NameEntry"
+                            HorizontalOptions="FillAndExpand" />
+                        <ImageButton
+                            Grid.Column="1"
+                            Source="settings_sliders"
+                            WidthRequest="25"
+                            HeightRequest="25">
+                            
+                        </ImageButton>
+                    </Grid>
+
+                    <Button 
+                        Text="Найти коллегу"
+                        Clicked="SearchButton_Clicked_Async"
+                        HorizontalOptions="FillAndExpand"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout 
+                    x:Name="ResultsListView"
+                    Spacing="10"
+                    BindableLayout.ItemsSource="{Binding SearchResults}">
+                        <BindableLayout.ItemTemplate>
+                        <DataTemplate 
+                            x:DataType="models:User">
+                            <Border
+                                Padding="10">
+                                <Grid
+                                    ColumnSpacing="10"
+                                    ColumnDefinitions="auto, *, auto">
+                                    <Image
+                                        WidthRequest="50"
+                                        HeightRequest="50"
+                                        Aspect="AspectFill"
+                                        Source="{Binding AvatarURL}"
+                                        Grid.Column="0">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                                Center="25,25"
+                                                RadiusX="25"
+                                                RadiusY="25"/>
+                                        </Image.Clip>
+                                    </Image>
+                                    <Grid
+                                        Grid.Column="1"
+                                        VerticalOptions="Center"
+                                        RowDefinitions="auto,auto">
+                                        <Label
+                                            Grid.Row="0"
+                                            Text="{Binding FullName}"
+                                            Style="{StaticResource Body}"/>
+                                        <Label
+                                            Grid.Row="1"
+                                            Text="Подразделение"
+                                            TextColor="{StaticResource Gray400}"
+                                            Style="{StaticResource Body}"/>
+                                    </Grid>
+                                    <ImageButton
+                                        Clicked="ProfileButton_Clicked"
+                                        Grid.Column="2"
+                                        Margin="0,0,5,0"
+                                        Source="angle_right"
+                                        WidthRequest="20"
+                                        HeightRequest="20">
+                                    </ImageButton>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

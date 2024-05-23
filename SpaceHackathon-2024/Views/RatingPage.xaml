@@ -80,6 +80,7 @@
                                 <Image
                                     WidthRequest="50"
                                     HeightRequest="50"
+                                    Aspect="AspectFill"
                                     Source="{Binding AvatarURL}"
                                     Grid.Column="1">
                                     <Image.Clip>
