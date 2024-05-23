@@ -40,9 +40,9 @@
 
     <TabBar>
         <ShellContent Route="news" Icon="envelope" Title="Новости" ContentTemplate="{DataTemplate views:AllNewsPage}"/>
-        <Tab Title="Рейтинг" Icon="stats">
-            <ShellContent Route="news" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
+        <Tab Title="Коллеги" Icon="users_alt">
             <ShellContent Route="search" Title="Поиск" ContentTemplate="{DataTemplate views:SearchColleagePage}"/>
+            <ShellContent Route="news" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
         </Tab>
         <ShellContent Route="schedule" Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
         <ShellContent Route="signin" Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:SignInPage}"/>

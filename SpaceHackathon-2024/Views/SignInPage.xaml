@@ -7,27 +7,57 @@
              x:DataType="viewmodels:SignInViewModel">
             
     <ContentPage.Content>
-        <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+        <Grid
+            BackgroundColor="Black"
+            VerticalOptions="Fill">
+            <Image
+                Aspect="AspectFill"
+                Opacity="0.5"
+                Source="https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"
+                ></Image>
+            <Border
+                HeightRequest="400"
+                Margin="30"
+                Padding="20">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <Image
+                        Margin="0,30"
+                        HeightRequest="30"
+                        Source="mts_logo3">
+                        
+                    </Image>
+                    <Entry 
+                        HeightRequest="50"
+                        Placeholder="Имя пользователя" 
+                        Text="{Binding PhoneNumber }" />
+                    <Entry
+                        HeightRequest="50"
+                        Placeholder="Пароль"
+                        IsPassword="True"
+                        Text="{Binding Password }" />
 
-            <Entry Placeholder="Имя пользователя" Text="{Binding PhoneNumber }" />
-            <Entry Placeholder="Пароль" IsPassword="True" Text="{Binding Password }" />
+                    <Button 
+                        Text="Войти" 
+                        Command="{Binding SignInCommand}" 
+                        HorizontalOptions="Fill" />
 
-            <Button Text="Войти" Command="{Binding SignInCommand}" HorizontalOptions="Fill" />
-
-            <Label HorizontalOptions="Center">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Нет аккаунта?" />
-                        <Span Text="Зарегистрироваться" TextColor="Blue" 
-                              TextDecorations="Underline">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoToSignUpPageCommand}" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-
-        </VerticalStackLayout>
+                    <Label HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Нет аккаунта?" />
+                                <Span Text=" "/>
+                                <Span Text="Зарегистрироваться" TextColor="Blue" 
+                                      TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GoToSignUpPageCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
