@@ -27,6 +27,11 @@
         <Setter Property="Shadow" Value="{StaticResource ContainerShadow}"/>
     </Style>
 
+    <Style TargetType="Button">
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="FontFamily" Value="MTSTextRegular" />
+    </Style>
+
     <Style TargetType="Label">
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="MTSTextRegular" />
