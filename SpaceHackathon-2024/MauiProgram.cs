@@ -69,6 +69,9 @@ namespace SpaceHackathon_2024
             services.AddTransient<AllNewsViewModel>();
 
             services.AddTransient<StoreViewModel>();
+            
+            services.AddTransient<SearchColleagePage>();
+            services.AddTransient<SearchColleageViewModel>();
         }
 
         private static void InitializeTestData(IServiceProvider services)

@@ -74,4 +74,15 @@ public class AccountService
         
         return res;
     }
+    
+    public async Task<List<UserDto>> SearchColleage(string name)
+    {
+        using HttpResponseMessage response = await _client.GetAsync($"{_url}/search?name={name}");
+
+        string jsonInfo = await response.Content.ReadAsStringAsync();
+        
+        List<UserDto> res = JsonConvert.DeserializeObject<List<UserDto>>(jsonInfo);
+        
+        return res;
+    }
 }

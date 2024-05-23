@@ -2,42 +2,190 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Metanit.com</title>
+    <title>Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #loginForm, #signUpForm, #chatForm {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 5px;
+            margin: 5px 0;
+            width: 200px;
+        }
+        #chatroom {
+            height: 300px;
+            overflow-y: scroll;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #chatroom p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-<div id="inputForm">
-    <input type="text" id="message" />
-    <input type="button" id="sendBtn" value="Отправить" disabled="disabled" />
+<div id="loginForm">
+    <h3>Вход</h3>
+    <input type="text" id="loginPhoneNumber" placeholder="Номер телефона" />
+    <input type="password" id="loginPassword" placeholder="Пароль" />
+    <input type="button" id="loginBtn" value="Войти" />
+    <p>Нет аккаунта? <a href="#" onclick="showSignUpForm()">Зарегистрироваться</a></p>
 </div>
-<div id="chatroom"></div>
+
+<div id="signUpForm" style="display: none;">
+    <h3>Регистрация</h3>
+    <input type="text" id="signUpName" placeholder="Имя" />
+    <input type="text" id="signUpPhoneNumber" placeholder="Номер телефона" />
+    <input type="password" id="signUpPassword" placeholder="Пароль" />
+    <input type="button" id="signUpBtn" value="Зарегистрироваться" />
+    <p>Уже есть аккаунт? <a href="#" onclick="showLoginForm()">Войти</a></p>
+</div>
+
+<div id="chatForm" style="display: none;">
+    <h3>Чат</h3>
+    <input type="text" id="message" placeholder="Введите сообщение" />
+    <input type="text" id="recipient" placeholder="Введите имя получателя (или 'group' для группового чата)" />
+    <input type="button" id="createChatBtn" value="Создать чат" />
+    <input type="button" id="sendBtn" value="Отправить" disabled="disabled" />
+    <div id="chatroom"></div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 <script>
-    const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl("/chatHub")
-        .build();
+    let hubConnection;
+    let currentUser = null;
+    let accessToken = null;
+
+    function showSignUpForm() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signUpForm").style.display = "block";
+        document.getElementById("chatForm").style.display = "none";
+    }
+
+    function showLoginForm() {
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signUpForm").style.display = "none";
+        document.getElementById("chatForm").style.display = "none";
+    }
+
+    function showChatForm() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signUpForm").style.display = "none";
+        document.getElementById("chatForm").style.display = "block";
+
+        hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub", { accessTokenFactory: () => accessToken })
+            .build();
+
+        hubConnection.start()
+            .then(function () {
+                document.getElementById("sendBtn").disabled = false;
+                console.log("Connected to SignalR hub");
+            })
+            .catch(function (err) {
+                return console.error("Error starting SignalR connection:", err.toString());
+            });
+
+        hubConnection.on("ReceiveMessage", function (user, message) {
+            let messageElement = document.createElement("p");
+            messageElement.textContent = `${user}: ${message}`;
+            document.getElementById("chatroom").appendChild(messageElement);
+        });
+
+        hubConnection.on("Notify", function (message) {
+            let notificationElement = document.createElement("p");
+            notificationElement.style.fontWeight = "bold";
+            notificationElement.textContent = message;
+            document.getElementById("chatroom").appendChild(notificationElement);
+        });
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", function () {
+        let phoneNumber = document.getElementById("loginPhoneNumber").value;
+        let password = document.getElementById("loginPassword").value;
+
+        fetch("/signIn", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ phoneNumber, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    accessToken = data.access_token;
+                    currentUser = data.username;
+                    showChatForm();
+                } else {
+                    alert("Неверные учетные данные");
+                }
+            })
+            .catch(error => console.error(error));
+    });
+
+    document.getElementById("signUpBtn").addEventListener("click", function () {
+        let name = document.getElementById("signUpName").value;
+        let phoneNumber = document.getElementById("signUpPhoneNumber").value;
+        let password = document.getElementById("signUpPassword").value;
+
+        fetch("/signUp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, phoneNumber, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    accessToken = data.access_token;
+                    currentUser = data.username;
+                    showChatForm();
+                } else {
+                    alert("Ошибка регистрации");
+                }
+            })
+            .catch(error => console.error(error));
+    });
+
+    document.getElementById("createChatBtn").addEventListener("click", function () {
+        let recipient = document.getElementById("recipient").value;
+        if (recipient === "group") {
+            hubConnection.invoke("JoinGroup", currentUser, recipient)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+        } else {
+            // Личная беседа
+        }
+    });
 
     document.getElementById("sendBtn").addEventListener("click", function () {
         let message = document.getElementById("message").value;
-        hubConnection.invoke("Send", message)
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
+        let recipient = document.getElementById("recipient").value;
+        if (recipient === "group") {
+            hubConnection.invoke("SendGroupMessage", recipient, currentUser, message)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+        } else {
+            hubConnection.invoke("SendPrivateMessage", currentUser, message)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+        }
     });
-
-    hubConnection.on("Receive", function(message) {
-
-        let messageElement = document.createElement("p");
-        messageElement.textContent = message;
-        document.getElementById("chatroom").appendChild(messageElement);
-    });
-
-    hubConnection.start()
-        .then(function () {
-            document.getElementById("sendBtn").disabled = false;
-        })
-        .catch(function (err) {
-            return console.error(err.toString());
-        });
 </script>
 </body>
 </html>
