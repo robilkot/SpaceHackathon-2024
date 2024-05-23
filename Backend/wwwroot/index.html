@@ -93,7 +93,7 @@
                 console.log("Connected to SignalR hub");
             })
             .catch(function (err) {
-                return console.error("Error starting SignalR connection:", err.toString());
+                console.error("Error starting SignalR connection:", err.toString());
             });
 
         hubConnection.on("ReceiveMessage", function (user, message) {
@@ -164,7 +164,7 @@
         if (recipient === "group") {
             hubConnection.invoke("JoinGroup", currentUser, recipient)
                 .catch(function (err) {
-                    return console.error(err.toString());
+                    console.error(err.toString());
                 });
         } else {
             // Личная беседа
@@ -177,12 +177,12 @@
         if (recipient === "group") {
             hubConnection.invoke("SendGroupMessage", recipient, currentUser, message)
                 .catch(function (err) {
-                    return console.error(err.toString());
+                    console.error(err.toString());
                 });
         } else {
             hubConnection.invoke("SendPrivateMessage", currentUser, message)
                 .catch(function (err) {
-                    return console.error(err.toString());
+                    console.error(err.toString());
                 });
         }
     });

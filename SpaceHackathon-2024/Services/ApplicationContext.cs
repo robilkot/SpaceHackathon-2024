@@ -73,23 +73,6 @@ namespace SpaceHackathon_2024.Services
             return storeItems;
         }
 
-        public async Task InitUsersDb()
-        {
-            var users = new List<User>
-            {
-                new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" },
-                new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" },
-                new User { Name = "Bob", Surame = "Johnson", AvatarURL = "https://example.com/avatar3.jpg", Position = "Manager", Department = "Management", BranchOffice = "Tokyo" },
-                new User { Name = "Emily", Surame = "Williams", AvatarURL = "https://example.com/avatar4.jpg", Position = "Analyst", Department = "Finance", BranchOffice = "Sydney" },
-                new User { Name = "Michael", Surame = "Brown", AvatarURL = "https://example.com/avatar5.jpg", Position = "Engineer", Department = "Engineering", BranchOffice = "Berlin" }
-            };
-
-            foreach (var user in users)
-            {
-                await AddUserAsync(user);
-            }
-        }
-
         public async Task InitializeTestDataAsync()
         {
             string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -106,7 +89,11 @@ namespace SpaceHackathon_2024.Services
                 await AddNewsAsync(new News("Test News 9", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
             }
 
-            await InitUsersDb();
+            if (!Users.Any())
+            {
+                await AddUserAsync( new User { Name = "John", Surame = "Doe", AvatarURL = "https://example.com/avatar1.jpg", Position = "Developer", Department = "Engineering", BranchOffice = "New York" });
+                await AddUserAsync(new User { Name = "Alice", Surame = "Smith", AvatarURL = "https://example.com/avatar2.jpg", Position = "Designer", Department = "Design", BranchOffice = "London" });
+            }
 
             if (!StoreItems.Any())
             {

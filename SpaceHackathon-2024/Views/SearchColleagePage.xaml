@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SpaceHackathon_2024.Views.SearchColleagePage"
              xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
-             xmlns:Dtos ="clr-namespace:SpaceHackathon_2024.Models.Dtos"
+             xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
              x:DataType="local:SearchColleageViewModel">
     <ContentPage.Content>
         <StackLayout Padding="20">
@@ -26,9 +26,9 @@
                       HasUnevenRows="True"
                       ItemsSource="{Binding SearchResults}">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="Dtos:UserDto">
+                    <DataTemplate x:DataType="models:User">
                         <TextCell Text="{Binding Name}"
-                                  Detail="{Binding PhoneNumber}" />
+                                  Detail="{Binding Surame}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

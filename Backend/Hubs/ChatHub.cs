@@ -4,12 +4,12 @@ namespace Backend.Hubs;
 
 public class ChatHub : Hub
 {
-    public async Task SendPrivateMessage(string message)
+    public async Task SendPrivateMessage(string user, string message)
     {
-        await this.Clients.All.SendAsync("ReceiveMessage", message);
-        Console.WriteLine(message);
+        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        Console.WriteLine($"{user}: {message}");
     }
-    
+        
     public async Task JoinGroup(string username, string groupName)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
@@ -19,6 +19,6 @@ public class ChatHub : Hub
     public async Task SendGroupMessage(string groupName, string user, string message)
     {
         await Clients.Group(groupName).SendAsync("ReceiveMessage", user, message);
-        Console.WriteLine(message);
+        Console.WriteLine($"{user}: {message}");
     }
 }
