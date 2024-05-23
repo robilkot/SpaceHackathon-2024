@@ -32,7 +32,7 @@
                 ColumnDefinitions="auto,*">
                 <Image 
                     Grid.Column="0"
-                    Source="https://cdn.forbes.ru/forbes-static/new/2022/04/IMG-10983445-624a99e258c99.jpg" 
+                    Source="{Binding TargetUser.AvatarURL}" 
                     WidthRequest="50"
                     HeightRequest="50" 
                     Aspect="AspectFill"        
@@ -51,11 +51,11 @@
                     RowDefinitions="auto,auto">
                     <Label
                         Grid.Row="0"
-                        Text="Имя и Фамилии Коллеги"
+                        Text="{Binding TargetUser.Name}"
                         Style="{StaticResource SubHeader}"/>
                     <Label
                         Grid.Row="1"
-                        Text="Подразделение"
+                        Text="{Binding TargetUser.BranchOffice}"
                         TextColor="{StaticResource Gray400}"
                         Style="{StaticResource Body}"/>
                 </Grid>
