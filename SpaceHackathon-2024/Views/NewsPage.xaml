@@ -14,7 +14,7 @@
     <Shell.TitleView>
         <Grid>
             <Label 
-                Style="{StaticResource Header}"
+                Style="{StaticResource TitleViewText}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Text="Новость"></Label>
@@ -23,9 +23,7 @@
 
     <ScrollView>
         <Grid
-            RowDefinitions="auto,*"
-            x:DataType="models:News">
-
+            RowDefinitions="auto,*,auto">
             <Image 
                 Grid.Row="0"
                 Aspect="AspectFill"
@@ -53,10 +51,15 @@
                 Style="{StaticResource Header}" 
                 Text="{Binding SelectedNews.Title}"/>
 
-            <Grid 
+            <Label
                 Grid.Row="1"
+                HeightRequest="100"
+                Text="{Binding SelectedNews.Description}"/>
+
+            <Grid 
+                Grid.Row="2"
                 Padding="10,0,10,10"
-                ColumnDefinitions="auto, *, auto">
+                ColumnDefinitions="auto, auto, auto, *">
 
                 <HorizontalStackLayout
                     Grid.Column="0"
@@ -98,7 +101,7 @@
                     HorizontalOptions="End"
                     TextColor="Gray"
                     Style="{StaticResource NewsTitle}" 
-                    Text="{Binding SelectedNews.PublishDate}"/>
+                    Text="{Binding SelectedNews.PublishDate, StringFormat='{}{0:dd.mm.yy}'}"/>
             </Grid>
         </Grid>
     </ScrollView>

@@ -32,6 +32,12 @@
         <Setter Property="FontFamily" Value="MTSTextRegular" />
     </Style>
 
+    <Style TargetType="Label" x:Key="TitleViewText">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="MTSTextRegular" />
+    </Style>
+
     <Style TargetType="Label" x:Key="Header">
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="TextColor" Value="Black" />
