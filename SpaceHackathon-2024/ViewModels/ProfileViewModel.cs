@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Services;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpaceHackathon_2024.ViewModels;
 
@@ -20,7 +21,7 @@ public partial class ProfileViewModel : ObservableObject
     {
         _context = context;
         Hobbies = new ObservableCollection<Hobby>();
-        LoadRandomUserAsync().ConfigureAwait(false);
+        LoadUserAsync().ConfigureAwait(false);
     }
 
     public ProfileViewModel(User user)
@@ -29,12 +30,15 @@ public partial class ProfileViewModel : ObservableObject
         Hobbies = new ObservableCollection<Hobby>(user.Hobbies);
     }
 
-    public async Task LoadRandomUserAsync()
+    private async Task LoadUserAsync()
     {
-        var user = await _context.GetRandomUserAsync();
-        if (user != null)
+        string surname = Preferences.Default.Get("Surname", "no surname");
+        
+        var userInDb =  await _context.Users.Where(u => u.Surname == surname).FirstAsync();
+
+        if (userInDb is not null)
         {
-            UpdateUser(user);
+            UpdateUser(userInDb);
         }
     }
 
@@ -50,12 +54,14 @@ public partial class ProfileViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _workInfoExpanded;
+    
     [ObservableProperty]
     private double _workInfoExpandedRotation = 90;
 
 
     [ObservableProperty]
     private bool _ratingExpanded;
+    
     [ObservableProperty]
     private double _ratingExpandedRotation = 90;
 

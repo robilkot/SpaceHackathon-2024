@@ -1,5 +1,4 @@
 using Microcharts;
-using SkiaSharp;
 using SpaceHackathon_2024.ViewModels;
 
 namespace SpaceHackathon_2024.Views;
