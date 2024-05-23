@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceHackathon_2024.Models;
 using System.Diagnostics;
-using Java.Util.Jar;
 
 namespace SpaceHackathon_2024.Services
 {
@@ -20,6 +19,8 @@ namespace SpaceHackathon_2024.Services
 
         public DbSet<StoreItem> StoreItems => Set<StoreItem>();
 
+        public DbSet<Hobby> Hobbies => Set<Hobby>();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var sqlitePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"SpaceHakathon");
@@ -29,6 +30,20 @@ namespace SpaceHackathon_2024.Services
                 File.Create(fileName);
 
             optionsBuilder.UseSqlite($"Data Source={fileName}");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Hobbies)
+                .WithMany(h => h.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserHobby",
+                    j => j.HasOne<Hobby>().WithMany().HasForeignKey("HobbyId"),
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId")
+                );
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public async Task AddNewsAsync(News news)
@@ -72,6 +87,40 @@ namespace SpaceHackathon_2024.Services
                 .ToListAsync();
 
             return storeItems;
+        }
+
+        public async Task<List<User>?> SearchUserByName(string name)
+        {
+            var matchingUsers = await Users
+                .Where(u => u.Name.ToLower().Contains(name.ToLower()))
+                .ToListAsync();
+
+            return matchingUsers;
+        }
+
+        public async Task<List<User>?> SearchUserByHobby(string hobbyName)
+        {
+            var matchingUsers = await Users
+                .Where(u => u.Hobbies.Any(h => h.Name.ToLower().Contains(hobbyName.ToLower())))
+                .ToListAsync();
+
+            return matchingUsers;
+        }
+
+        public async Task<User?> GetRandomUserAsync()
+        {
+            var userCount = await Users.CountAsync();
+            if (userCount == 0)
+                return null;
+
+            var random = new Random();
+            var randomIndex = random.Next(0, userCount);
+            var randomUser = await Users
+                                .Include(u => u.Hobbies)
+                                .Skip(randomIndex)
+                                .FirstOrDefaultAsync();
+
+            return randomUser;
         }
 
         public async Task InitializeTestDataAsync()

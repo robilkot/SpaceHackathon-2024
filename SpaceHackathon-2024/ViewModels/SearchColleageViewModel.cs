@@ -18,11 +18,11 @@ namespace SpaceHackathon_2024.ViewModels
 
         public ObservableCollection<User> SearchResults { get; set; }
 
-        public void SearchColleage(string name)
+        public async Task SearchColleageAsync(string name)
         {
-            var matchingUsers = _context.Users.Where(u => u.Name.ToLower().Contains(name.ToLower())).ToList();
+            var matchingUsers = await _context.SearchUserByName(name);
 
-            if (matchingUsers.Count == 0)
+            if (matchingUsers == null || matchingUsers.Count == 0)
                 return;
 
             SearchResults.Clear();
