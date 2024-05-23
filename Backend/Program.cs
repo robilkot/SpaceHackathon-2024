@@ -11,9 +11,10 @@ using System.Text;
 
 var users = new List<User>
 {
-    new User("Nikita", "+911","12345"),
-    new User("Egor", "+112","qwerty"),
-    new User("Egorka", "+2344324","123")
+    new User("Никита", "Хорошун" ,"+911","123"),
+    new User("Никита", "Калабин" ,"+112","123"),
+    new User("Тимур",  "Робилко","+234","123"),
+    new User("Егор",  "Гоков","+119","123")
 };
 
 var builder = WebApplication.CreateBuilder(args);
@@ -142,20 +143,20 @@ app.MapPost("/signIn",  (SignInDto signInDto) =>
     var response = new
     {
         access_token = encodedJwt,
-        username = user.Name
+        surname = user.Surname
     };
  
     return Results.Json(response);
 });
 
-app.MapPost("/signUp",  (SignUpDto signUpDto) =>
+/*app.MapPost("/signUp",  (SignUpDto signUpDto) =>
 {
     User? user = users.FirstOrDefault(p => p.PhoneNumber == signUpDto.PhoneNumber);
     
     if (user is not null) 
         return Results.BadRequest("Phone number already registered");
     
-    users.Add(new User(signUpDto.Name, signUpDto.PhoneNumber, signUpDto.Password));
+    users.Add(new User(signUpDto, signUpDto.PhoneNumber, signUpDto.Password));
  
     var claims = new List<Claim> { new Claim(ClaimTypes.Name, signUpDto.PhoneNumber) };
 
@@ -174,15 +175,15 @@ app.MapPost("/signUp",  (SignUpDto signUpDto) =>
     };
  
     return Results.Json(response);
-});
+});*/
 
 app.Run();
 
 public class AuthOptions
 {
-    public const string ISSUER = "MyAuthServer"; // издатель токена
-    public const string AUDIENCE = "MyAuthClient"; // потребитель токена
-    const string KEY = "mysupersecret_secretsecretsecretkey!123";   // ключ для шифрации
+    public const string ISSUER = "MyAuthServer";
+    public const string AUDIENCE = "MyAuthClient";
+    const string KEY = "mysupersecret_secretsecretsecretkey!123"; 
     public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
 }
