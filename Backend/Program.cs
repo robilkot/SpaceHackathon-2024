@@ -18,6 +18,7 @@ var users = new List<User>
 };
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://0.0.0.0:5040");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

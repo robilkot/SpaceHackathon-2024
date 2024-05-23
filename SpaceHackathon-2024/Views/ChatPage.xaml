@@ -4,9 +4,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
              xmlns:models="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
              x:Class="SpaceHackathon_2024.Views.ChatPage"
              x:DataType="viewmodels:ChatViewModel"
-             Title="Chat">
+             Title="Chat"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto, *, Auto" Padding="10">
             <!-- User Info Bar -->
@@ -24,13 +33,19 @@
                                 VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Message">
-                            <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                                   CornerRadius="15"
-                                   Margin="5"
-                                   Padding="10"
-                                   HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
-                            </Frame>
+                            <StackLayout Orientation="Vertical" Margin="5">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Author}" FontAttributes="Bold" TextColor="Gray"
+                                           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"/>
+                                    <Label Text=":" FontAttributes="Bold" TextColor="Gray"/>
+                                </StackLayout>
+                                <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
+                                       CornerRadius="15"
+                                       Padding="10"
+                                       HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                    <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
+                                </Frame>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

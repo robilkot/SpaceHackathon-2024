@@ -30,9 +30,9 @@ namespace SpaceHackathon_2024.ViewModels
                 .WithUrl("http://10.0.2.2:5040/chatHub")
                 .Build();
 
-            _hubConnection.On<string>("ReceiveMessage", (message) =>
+            _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
             {
-                Messages.Add(new Message { Text = message, IsUserMessage = false });
+                Messages.Add(new Message { Author = user, Text = message, IsUserMessage = false });
             });
 
             try
@@ -49,8 +49,7 @@ namespace SpaceHackathon_2024.ViewModels
         {
             if (!string.IsNullOrEmpty(NewMessage))
             {
-                await _hubConnection.SendAsync("Send", NewMessage);
-                Messages.Add(new Message {Author  = null, Text = NewMessage, IsUserMessage = true });
+                await _hubConnection.SendAsync("SendPrivateMessage", "me", NewMessage);
                 NewMessage = string.Empty;
             }
         }
