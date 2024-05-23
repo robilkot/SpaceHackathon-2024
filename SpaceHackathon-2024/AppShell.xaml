@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SpaceHackathon_2024.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="SpaceHackathon 2024">
+    Title="SpaceHackathon 2024"
+    x:DataType="Shell">
 
     <Shell.TitleView>
         <Grid
@@ -15,8 +16,11 @@
             ColumnDefinitions="auto,*,auto,auto,auto">
             <Image
                 Grid.Column="0"
-                Source="mts_logo"/>
-
+                Source="mts_logo">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogoTapped" />
+                </Image.GestureRecognizers>
+            </Image>
             <Image
                 Grid.Column="2"
                 WidthRequest="25"
@@ -46,6 +50,6 @@
         
         <ShellContent Route="rating" Icon="stats" Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
         <ShellContent Route="schedule" Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
-        <ShellContent Route="profile" Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}"/>
+        <ShellContent Route="signin" Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:SignInPage}"/>
     </TabBar>
 </Shell>
