@@ -31,25 +31,15 @@ public partial class SignInViewModel : ObservableObject
         else
         {
             AuthResponseDto response = await _accountService.SignIn(_phoneNumber, _password);
-
+    
             if (response is not null)
             {
                 Preferences.Default.Set("AccessToken", response.AccessToken);
-
-                ProfileDto profileDto = await _accountService.GetProfileInfo(response.AccessToken);
-
-                var navigationParameter = new Dictionary<string, object>
-            {
-                {"Profile", profileDto},
-            };
-
-               Preferences.Default.Set("AccessToken", response.AccessToken);
-            
-              Preferences.Default.Set("Surname", response.Surname);
-
-                await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", navigationParameter);
+                
+                Preferences.Default.Set("Surname", response.Surname);
+    
+                await Shell.Current.GoToAsync(nameof(AllNewsPage));
             }
-            await Shell.Current.GoToAsync(nameof(AllNewsPage));
         }
     }
 
