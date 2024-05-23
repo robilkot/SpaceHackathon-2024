@@ -2,6 +2,9 @@
 using SpaceHackathon_2024.Services;
 using SpaceHackathon_2024.ViewModels;
 using SpaceHackathon_2024.Views;
+#if ANDROID
+using SpaceHackathon_2024.Platforms.Android;
+#endif
 
 namespace SpaceHackathon_2024
 {
@@ -16,6 +19,10 @@ namespace SpaceHackathon_2024
                 {
                     fonts.AddFont("MTSText-Regular.ttf", "MTSTextRegular");
                     fonts.AddFont("MTSText-Bold.ttf", "MTSTextBold");
+                }).ConfigureMauiHandlers(handlers => {
+                #if ANDROID
+                    handlers.AddHandler(typeof(Shell),typeof(CustomShellRenderer));
+                #endif
                 });
             
             var services = builder.Services;
