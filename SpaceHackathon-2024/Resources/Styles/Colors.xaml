@@ -25,6 +25,8 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    <BackButtonBehavior x:Key="InvisibleBackButton" IsVisible="False"/>
+    <BackButtonBehavior x:Key="VisibleBackButton" IsVisible="True"/>
 
     <Color x:Key="ChartAboveUserColor">#E1E1E1</Color>
     <Color x:Key="ChartBelowUserColor">#12b335</Color>

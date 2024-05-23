@@ -13,6 +13,7 @@
             <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
             <converters:BoolToValueConverter x:Key="TextColorConverter" FalseValue="{StaticResource Gray400}" TrueValue="{StaticResource Gray600}" />
             <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
+            <converters:BoolToValueConverter x:Key="BoolToBackButtonBehaviorConverter" FalseValue="{StaticResource InvisibleBackButton}" TrueValue="{StaticResource VisibleBackButton}" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

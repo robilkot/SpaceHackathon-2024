@@ -1,3 +1,4 @@
+using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.ViewModels;
 
 namespace SpaceHackathon_2024.Views
@@ -23,7 +24,13 @@ namespace SpaceHackathon_2024.Views
 
         private async void ProfileButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", animate:true);
+            var navigationParameter = new Dictionary<string, object>
+            {
+                {"ShowBackButton", true },
+                {"UserSurname", ((sender as Button).CommandParameter as User).Surname }
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(ProfilePage)}", true, navigationParameter);
         }
         
         private void MessageButton_Clicked(object sender, EventArgs e)

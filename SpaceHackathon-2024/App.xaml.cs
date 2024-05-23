@@ -4,6 +4,9 @@ namespace SpaceHackathon_2024
 {
     public partial class App : Application
     {
+        public readonly BackButtonBehavior VisibleBackButtonBehavior = new() { IsVisible = true };
+        public readonly BackButtonBehavior InvisibleBackButtonBehavior = new() { IsVisible = false };
+
         public App()
         {
             InitializeComponent();

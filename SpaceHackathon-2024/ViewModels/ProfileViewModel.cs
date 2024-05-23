@@ -7,12 +7,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SpaceHackathon_2024.ViewModels;
 
+[QueryProperty(nameof(ShowBackButton), "ShowBackButton")]
+[QueryProperty(nameof(UserSurname), "UserSurname")]
 public partial class ProfileViewModel : ObservableObject
 {
     private readonly ApplicationContext _context;
 
     [ObservableProperty]
-    private User currentUser;
+    private bool _showBackButton = false;
+
+    public string UserSurname
+    {
+        set
+        {
+            LoadUserAsync(value);
+        }
+    }
+
+    [ObservableProperty]
+    private User _currentUser;
 
     [ObservableProperty]
     private ObservableCollection<Hobby> hobbies;
@@ -61,9 +74,9 @@ public partial class ProfileViewModel : ObservableObject
         Hobbies = new ObservableCollection<Hobby>(user.Hobbies);
     }
 
-    private async Task LoadUserAsync()
+    private async void LoadUserAsync(string? surname = null)
     {
-        string surname = Preferences.Default.Get("Surname", "no surname");
+        surname ??= Preferences.Default.Get("Surname", "no surname");
         
         var userInDb =  await _context.Users.Where(u => u.Surname == surname).FirstAsync();
 
