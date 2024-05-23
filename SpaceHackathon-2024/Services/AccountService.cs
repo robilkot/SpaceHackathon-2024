@@ -8,7 +8,11 @@ public class AccountService
 {
     private readonly HttpClient _client;
 
-    private const string _url = "http://10.0.2.2:5100";
+    private const string hostAddr = "146.70.202.4";
+
+    private const string _url = "http://10.0.2.2:5040";
+    
+    private const string _extendedUrl = $"http://{hostAddr}:5040";
     
     public AccountService(HttpClient httpClient)
     {
