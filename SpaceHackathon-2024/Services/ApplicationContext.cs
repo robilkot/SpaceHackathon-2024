@@ -39,7 +39,6 @@ namespace SpaceHackathon_2024.Services
         public async Task<List<News>> GetNewsAsync(int pageNumber, int pageSize)
         {
             int skipCount = (pageNumber - 1) * pageSize;
-
             var newsItems = await News
                 .OrderByDescending(n => n.PublishDate)
                 .Skip(skipCount)
@@ -69,9 +68,29 @@ namespace SpaceHackathon_2024.Services
 
         public async Task InitializeTestDataAsync()
         {
+            string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             if (!News.Any())
             {
-                string currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
+                await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
                 await AddNewsAsync(new News("Test News 1", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
             }
 

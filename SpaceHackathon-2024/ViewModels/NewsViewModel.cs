@@ -8,7 +8,7 @@ namespace SpaceHackathon_2024.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        public NewsViewModel(ApplicationContext appContext)
+        public NewsViewModel()
         {
         }
     }
