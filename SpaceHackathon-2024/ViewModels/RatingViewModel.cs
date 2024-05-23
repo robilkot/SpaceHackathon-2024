@@ -3,6 +3,7 @@ using Microcharts;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SpaceHackathon_2024.Models;
+using SpaceHackathon_2024.Services;
 using System.Collections.ObjectModel;
 
 
@@ -26,28 +27,27 @@ namespace SpaceHackathon_2024.ViewModels
 
         // Вы лучше чем Х процентов пользователей (0..1)
         [ObservableProperty]
-        private int _betterThanOthersPercent;
+        private double _betterThanOthersPercent;
 
         // Kpi юзера текущего
         [ObservableProperty]
-        private int _lastMonthKpi;
+        private double _lastMonthKpi;
 
-        public RatingViewModel()
+        public RatingViewModel(ApplicationContext context)
         {
-            // todo delete this
-            BestEmployees.Add(new());
-            BestEmployees.Add(new());
-            BestEmployees.Add(new());
-            BestEmployees.Add(new());
-            BestEmployees.Add(new());
-            BestEmployees.Add(new());
-
-            LastMonthKpi = 89;
-            // todo: get this from backend
-            BetterThanOthersPercent = 73;
-
             _aboveUserColor = (Color)Application.Current!.Resources["ChartAboveUserColor"];
             _belowUserColor = (Color)Application.Current!.Resources["ChartBelowUserColor"];
+
+            _ = InitializeAsync(context);
+            UpdateChart();
+        }
+
+        private async Task InitializeAsync(ApplicationContext context)
+        {
+            BestEmployees = new ObservableCollection<User>(await context.GetTopUsersByKPIAsync(5));
+            string surname = Preferences.Default.Get("Surname", string.Empty);
+            LastMonthKpi = (double)await (context.GetKPIBySurnameAsync(surname));
+            BetterThanOthersPercent = await(context.CalculateUserRatingAsync(LastMonthKpi));
 
             UpdateChart();
         }
