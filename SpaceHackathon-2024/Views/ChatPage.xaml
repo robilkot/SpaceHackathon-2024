@@ -17,6 +17,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -63,7 +64,7 @@
         </Border>
         
         <!-- Messages CollectionView -->
-        <ScrollView Grid.Row="0">
+        <ScrollView Grid.Row="1">
             <CollectionView x:Name="MessagesCollectionView"
                                 ItemsSource="{Binding Messages}"
                                 SelectionMode="None"
@@ -71,9 +72,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Message">
                         <StackLayout Orientation="Vertical" Margin="5">
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
                                 <Label Text="{Binding Author}" FontAttributes="Bold" TextColor="Gray"
-                                           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"/>
+                                           />
                                 <Label Text=":" FontAttributes="Bold" TextColor="Gray"/>
                             </StackLayout>
                             <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
@@ -113,6 +114,7 @@
 
         <!-- Message Input Bar -->
         <Grid
+            VerticalOptions="End"
             Padding="10"
             BackgroundColor="White"
             ColumnSpacing="10"
