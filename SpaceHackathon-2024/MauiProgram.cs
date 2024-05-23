@@ -3,6 +3,7 @@ using SpaceHackathon_2024.Services;
 using SpaceHackathon_2024.ViewModels;
 using SpaceHackathon_2024.Views;
 using Microsoft.Extensions.DependencyInjection;
+using Microcharts.Maui;
 
 #if ANDROID
 using SpaceHackathon_2024.Platforms.Android;
@@ -16,6 +17,7 @@ namespace SpaceHackathon_2024
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMicrocharts()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("MTSText-Regular.ttf", "MTSTextRegular");
@@ -50,6 +52,9 @@ namespace SpaceHackathon_2024
             // Pages configuration
             services.AddSingleton<ApplicationContext>();
 
+            services.AddTransient<NewsViewModel>();
+            services.AddTransient<NewsPage>();
+
             services.AddTransient<SignInPage>();
             services.AddTransient<SignInViewModel>();
 
@@ -62,12 +67,13 @@ namespace SpaceHackathon_2024
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<ProfilePage>();
 
-            services.AddTransient<NewsViewModel>();
-            services.AddTransient<NewsPage>();
-
             services.AddTransient<AllNewsPage>();
             services.AddTransient<AllNewsViewModel>();
 
+            services.AddTransient<RatingPage>();
+            services.AddTransient<RatingViewModel>();
+
+            services.AddTransient<StorePage>();
             services.AddTransient<StoreViewModel>();
         }
 

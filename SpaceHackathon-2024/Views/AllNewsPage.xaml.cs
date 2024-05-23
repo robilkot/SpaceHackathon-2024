@@ -7,6 +7,7 @@ public partial class AllNewsPage : ContentPage
 	public AllNewsPage(AllNewsViewModel viewModel)
 	{
 		InitializeComponent();
+
         BindingContext = viewModel;
     }
 

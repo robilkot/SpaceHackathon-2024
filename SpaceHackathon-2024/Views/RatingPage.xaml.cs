@@ -1,9 +1,25 @@
+using Microcharts;
+using SkiaSharp;
+
 namespace SpaceHackathon_2024.Views;
 
 public partial class RatingPage : ContentPage
 {
-	public RatingPage()
+    ChartEntry[] entries = new[]
+    {
+            new ChartEntry(212)
+            {
+                Label = "Windows",
+                ValueLabel = "112",
+            }
+        };
+    public RatingPage()
 	{
-		InitializeComponent();
+        InitializeComponent();
+
+        chartView.Chart = new BarChart
+        {
+            Entries = entries
+        };
 	}
 }
