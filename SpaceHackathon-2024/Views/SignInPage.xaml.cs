@@ -10,6 +10,7 @@ public partial class SignInPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _viewModel = viewModel;
+        
         AppShell.SetNavBarIsVisible(this, false);
     }
 }
