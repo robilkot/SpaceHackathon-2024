@@ -30,7 +30,7 @@ public partial class ProfileViewModel : ObservableObject
 
         Hobbies = new ObservableCollection<Hobby>();
 
-        LoadRandomUserAsync().ConfigureAwait(false);
+        LoadUserAsync().ConfigureAwait(false);
 
         KpiItems = new ObservableCollection<KeyValueItem>() { 
             new KeyValueItem("KPI за поледний месяц", CurrentUser.KPI.ToString()),
