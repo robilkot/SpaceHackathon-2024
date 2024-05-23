@@ -2,12 +2,16 @@
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
-    xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
-    x:Class="SpaceHackathon_2024.Views.NewsPage"         
+    xmlns:local="clr-namespace:SpaceHackathon_2024.ViewModels"
+    xmlns:models="clr-namespace:SpaceHackathon_2024.Models"
+    x:DataType="local:NewsViewModel"
+    x:Class="SpaceHackathon_2024.Views.NewsPage"  
     xmlns:extensions="clr-namespace:SpaceHackathon_2024.Helpers.Extensions"
-    Title="News">
-    
+    Title="News"
+    Shell.NavBarIsVisible="True"
+    Shell.TabBarIsVisible="False"
+    >
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style 
@@ -20,9 +24,10 @@
                 TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
             </Style>
-            
+
             <DataTemplate 
-                x:Key="NewsTemplate">
+                x:Key="NewsTemplate"
+                x:DataType="models:News">
                 <Border>
                     <Grid
                         RowDefinitions="200, auto"
@@ -31,8 +36,7 @@
                         <Image 
                             Grid.Row="0"
                             Aspect="AspectFill"
-                            Source="https://content.jdmagicbox.com/comp/chittorgarh/s3/9999p1472.1472.160624111734.k6s3/catalogue/mts-office-meera-market-chittorgarh-mobile-phone-dealers-1rxz1t0.jpg"/>
-
+                            Source="{Binding ImageURL}"/>
                         <BoxView
                             Grid.Row="0">
                             <BoxView.Background>
@@ -40,7 +44,7 @@
                                     <GradientStop Color="#00000000"
                                         Offset="0.7" />
                                     <GradientStop Color="#80000000"
-                                        Offset="1.0" />     
+                                        Offset="1.0" />
                                 </LinearGradientBrush>
                             </BoxView.Background>
                         </BoxView>
@@ -50,9 +54,9 @@
                             VerticalOptions="End"
                             LineBreakMode="TailTruncation"
                             FontAttributes="Bold"
-                            TextColor="{StaticResource White}"
+                            TextColor="White"
                             Style="{StaticResource NewsTitle}" 
-                            Text="Название новости"/>
+                            Text="{Binding Title}"/>
 
                         <Grid 
                             Grid.Row="1"
@@ -64,7 +68,6 @@
                                 Spacing="10">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
-                                        <!--todo: binding background color to IsSelected-->
                                         <Border
                                             Padding="5"
                                             BackgroundColor="#EEEEEE">
@@ -98,7 +101,7 @@
                                 Grid.Column="2"
                                 VerticalOptions="Center"
                                 HorizontalOptions="End"
-                                TextColor="{StaticResource Gray500}"
+                                TextColor="Gray"
                                 Style="{StaticResource NewsTitle}" 
                                 Text="25.31.2024"/>
                         </Grid>
@@ -107,17 +110,15 @@
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <!--todo: binding news model to this stuff-->
     <ScrollView>
         <Grid
             RowDefinitions="auto,*">
             <VerticalStackLayout
                 Padding="10"
-                Spacing="10">
-                <Image
-                    Source="https://fastly.4sqi.net/img/general/600x600/35109551_JuqAcvozIAbbsC4RN-mo3WtgKWUGR0U0K9g1zKbokCA.jpg"
-                            />
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding SelectedNews}"
+                BindableLayout.ItemTemplate="{StaticResource NewsTemplate}">
+                <Label Text="{Binding SelectedNews.Title}"></Label>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

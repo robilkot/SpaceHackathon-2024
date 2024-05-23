@@ -1,15 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace SpaceHackathon_2024.ViewModels
 {
+    [QueryProperty(nameof(SelectedNews), "SelectedNews")]
     public partial class NewsViewModel : ObservableObject
     {
-        public NewsViewModel()
+        private readonly ApplicationContext _appContext;
+
+        [ObservableProperty]
+        private News _selectedNews;
+        public NewsViewModel(ApplicationContext appContext)
         {
+            _appContext = appContext;
         }
     }
 }

@@ -21,6 +21,8 @@
                     <TapGestureRecognizer Tapped="OnLogoTapped" />
                 </Image.GestureRecognizers>
             </Image>
+                HeightRequest="25"
+                Source="mts_logo3"/>
             <Image
                 Grid.Column="2"
                 WidthRequest="25"
