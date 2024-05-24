@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceHackathon_2024.Models;
+using SpaceHackathon_2024.Models.Enums;
 using System.Diagnostics;
 
 namespace SpaceHackathon_2024.Services
@@ -23,8 +24,6 @@ namespace SpaceHackathon_2024.Services
         public DbSet<Hobby> Hobbies => Set<Hobby>();
 
         public DbSet<ScheduleDay> ScheduleDays => Set<ScheduleDay>();
-
-        public DbSet<WeeklySchedule> WeeklySchedules=> Set<WeeklySchedule>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -157,13 +156,75 @@ namespace SpaceHackathon_2024.Services
             return user?.KPI;
         }
 
-        public IEnumerable<ScheduleDay> GetScheduleDays(DateTime beginDate, DateTime endDate)
+        public IEnumerable<ScheduleDay> GetScheduleDays(DateOnly beginDate, DateOnly endDate)
         {
             var scheduleDays = ScheduleDays
                 .Where(sd => sd.Date >= beginDate && sd.Date <= endDate)
                 .ToList();
 
             return scheduleDays;
+        }
+
+        public async Task GenerateWeeklySchedulesAsync()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                // Рассчитываем начальный и конечный дни для текущей недели
+                var startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i * 7).Date);
+                var endDate = startDate.AddDays(6); // Неделя состоит из 7 дней
+
+                // Создаем список дней расписания для текущей недели
+                for (int j = 0; j < 7; j++)
+                {
+                    var currentDate = startDate.AddDays(j);
+                    var dayType = GetDayType(currentDate, j);
+                    var scheduleDay = new ScheduleDay
+                    {
+                        Date = currentDate,
+                        Type = dayType,
+                        ShiftBegin = default(DateTime), // Здесь нужно заполнить начальное и конечное время смены в соответствии с вашими требованиями
+                        ShiftEnd = default(DateTime), // Здесь нужно заполнить начальное и конечное время смены в соответствии с вашими требованиями
+                        Description = GetDayDescription(dayType)
+                    };
+                    ScheduleDays.Add(scheduleDay);
+                }
+            }
+        }
+
+
+        private DayTypes GetDayType(DateOnly date, int j)
+        {
+            // Примерная логика выбора типа дня (может быть уточнена)
+            if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return DayTypes.Weekend;
+            }
+            else if (false)
+            {
+                return DayTypes.Holiday;
+            }
+            else
+            {
+                return DayTypes.Working;
+            }
+        }
+
+        private string GetDayDescription(DayTypes dayType)
+        {
+            // Здесь можно задать описание для каждого типа дня (например, выходной, праздник, рабочий и т.д.)
+            switch (dayType)
+            {
+                case DayTypes.Working:
+                    return "Regular work day";
+                case DayTypes.Weekend:
+                    return "Weekend";
+                case DayTypes.Vacation:
+                    return "Vacation";
+                case DayTypes.Holiday:
+                    return "Holiday";
+                default:
+                    return string.Empty;
+            }
         }
         public async Task InitializeTestDataAsync()
         {
@@ -189,6 +250,11 @@ namespace SpaceHackathon_2024.Services
             {
                 await AddStoreItemAsync(new StoreItem { Name = "Test Item 1", Description = "This is a test item.", Cost = 9, ImageURL = " " });
                 await AddStoreItemAsync(new StoreItem { Name = "Test Item 2", Description = "This is another test item.", Cost = 19, ImageURL = " " });
+            }
+
+            if (!ScheduleDays.Any())
+            {
+                await GenerateWeeklySchedulesAsync();
             }
 
             await SaveChangesAsync();

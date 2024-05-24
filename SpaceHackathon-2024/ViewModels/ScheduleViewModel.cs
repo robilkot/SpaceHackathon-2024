@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Models.Enums;
+using SpaceHackathon_2024.Services;
 using System.Collections.ObjectModel;
 
 namespace SpaceHackathon_2024.ViewModels
@@ -10,89 +12,29 @@ namespace SpaceHackathon_2024.ViewModels
         [ObservableProperty]
         private ObservableCollection<WeeklySchedule> _weeks;
 
-        public ScheduleViewModel()
+        public ScheduleViewModel(ApplicationContext context)
         {
-            var weekly = new WeeklySchedule
-            {
-                Days = [
-                new() {
-                    Type = DayTypes.Working,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Working,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Working,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Holiday,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Working,
-                    Description = "Тут нет выходного!",
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Weekend,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Weekend,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                }]
-            };
+            Weeks = new ObservableCollection<WeeklySchedule>();
 
-            var weekly2 = new WeeklySchedule
+            // Create weeks for the next 4 weeks
+            for (int i = 0; i < 4; i++)
             {
-                Days = [
-                new() {
-                    Type = DayTypes.Working,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Vacation,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Vacation,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Vacation,
-                    Description = "День отпуска перенесён по заявке #1220",
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Working,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Working,
-                    Description = "Смена вместо Никиты Хорошуна по заявке #1150",
-                    Date = DateTime.Now,
-                },
-                new() {
-                    Type = DayTypes.Weekend,
-                    Description = string.Empty,
-                    Date = DateTime.Now,
-                }]
-            };
+                DateOnly startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i * 7).Date);
+                DateOnly endDate = startDate.AddDays(6);
 
-            Weeks = [weekly, weekly2];
+                // Get days from the database
+                var days = context.GetScheduleDays(startDate, endDate);
+
+                // Create WeeklySchedule and add it to the Weeks collection
+                var weeklySchedule = new WeeklySchedule
+                {
+                    StartDay = startDate,
+                    EndDay = endDate,
+                    Days = new List<ScheduleDay>(days)
+                };
+
+                Weeks.Add(weeklySchedule);
+            }
         }
     }
 }
