@@ -12,6 +12,12 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter" />
+            <converters:BoolToValueConverter x:Key="BoolToMessageColor" 
+                                             TrueValue="{StaticResource Primary}"
+                                             FalseValue="{StaticResource Gray100}"></converters:BoolToValueConverter>
+            <converters:BoolToValueConverter x:Key="BoolToMessageTextColor" 
+                                             TrueValue="{StaticResource White}"
+                                             FalseValue="{StaticResource Gray950}"></converters:BoolToValueConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -71,19 +77,29 @@
                                 VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Message">
-                        <StackLayout Orientation="Vertical" Margin="5">
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                                <Label Text="{Binding Author}" FontAttributes="Bold" TextColor="Gray"
+                        <VerticalStackLayout
+                            Spacing="3"
+                            Margin="5">
+                            <HorizontalStackLayout
+                                HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                <Label 
+                                    Text="{Binding Author}"
+                                    Style="{StaticResource Body}"
+                                    TextColor="Gray"
                                            />
-                                <Label Text=":" FontAttributes="Bold" TextColor="Gray"/>
-                            </StackLayout>
-                            <Frame BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                                       CornerRadius="15"
-                                       Padding="10"
-                                       HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
-                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource TextColorConverter}}"/>
-                            </Frame>
-                        </StackLayout>
+                                <Label Text=":" 
+                                       FontAttributes="Bold"
+                                       Margin="0,0,5,0"
+                                       TextColor="Gray"/>
+                            </HorizontalStackLayout>
+                            <Border 
+                                BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToMessageColor}}"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource BoolToMessageTextColor}}"/>
+                            </Border>
+                        </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
