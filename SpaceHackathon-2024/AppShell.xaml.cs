@@ -9,6 +9,7 @@ namespace SpaceHackathon_2024
             InitializeComponent();
             
             Routing.RegisterRoute(nameof(AllNewsPage), typeof(AllNewsPage));
+            Routing.RegisterRoute(nameof(NewsPage), typeof(NewsPage));
             Routing.RegisterRoute(nameof(SearchColleagePage), typeof(SearchColleagePage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(SignInPage), typeof(SignInPage));
