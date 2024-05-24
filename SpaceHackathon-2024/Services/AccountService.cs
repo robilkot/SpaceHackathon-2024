@@ -23,7 +23,7 @@ public class AccountService
     {
         _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         
-        using HttpResponseMessage response = await _client.GetAsync($"{_url}/profile");
+        using HttpResponseMessage response = await _client.GetAsync($"{_extendedUrl}/profile");
 
         string jsonInfo = await response.Content.ReadAsStringAsync();
         
@@ -44,7 +44,7 @@ public class AccountService
 
         var requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         
-        using HttpResponseMessage response = await _client.PostAsync($"{_url}/signIn", requestContent);
+        using HttpResponseMessage response = await _client.PostAsync($"{_extendedUrl}/signIn", requestContent);
 
         string jsonInfo = await response.Content.ReadAsStringAsync();
         
@@ -66,7 +66,7 @@ public class AccountService
 
         var requestContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        using HttpResponseMessage response = await _client.PostAsync($"{_url}/signUp", requestContent);
+        using HttpResponseMessage response = await _client.PostAsync($"{_extendedUrl}/signUp", requestContent);
 
         string jsonInfo = await response.Content.ReadAsStringAsync();
         
@@ -77,7 +77,7 @@ public class AccountService
     
     public async Task<List<UserDto>> SearchColleage(string name)
     {
-        using HttpResponseMessage response = await _client.GetAsync($"{_url}/search?name={name}");
+        using HttpResponseMessage response = await _client.GetAsync($"{_extendedUrl}/search?name={name}");
 
         List<UserDto> res = new List<UserDto>();
         
