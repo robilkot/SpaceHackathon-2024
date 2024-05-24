@@ -17,8 +17,6 @@ namespace SpaceHackathon_2024
         protected override void OnStart()
         {
             base.OnStart();
-            Shell.Current.GoToAsync(nameof(AllNewsPage));
-            return;
 
             if (!Preferences.Default.ContainsKey("AccessToken") || string.IsNullOrEmpty(Preferences.Default.Get<String>("AccessToken", string.Empty)))
             {

@@ -6,73 +6,158 @@
              xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
              xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
              x:DataType="local:SearchColleageViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HobbyTile" TargetType="Border">
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 15"/>
+                <Setter Property="BackgroundColor" Value="#EEEEEE"/>
+                <Setter Property="Padding" Value="10,5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
-            
+        <VerticalStackLayout
+            Padding="10"
+            Spacing="10">
+
             <VerticalStackLayout
-                Padding="10"
-                Spacing="10">
-
-                <VerticalStackLayout
-                    Spacing="10"
-                    Margin="0,10">
-                    <Grid
-                        ColumnSpacing="10"
-                        ColumnDefinitions="*,auto">
-                        <Entry 
-                            Grid.Column="0"
-                            Placeholder="Введите имя"
-                            x:Name="NameEntry"
-                            HorizontalOptions="FillAndExpand" />
-                        <ImageButton
-                            Grid.Column="1"
-                            Source="settings_sliders"
-                            WidthRequest="25"
-                            HeightRequest="25">
-                            
-                        </ImageButton>
-                    </Grid>
-
-                    <Button 
-                        Text="Найти коллегу"
-                        Clicked="SearchButton_Clicked_Async"
-                        HorizontalOptions="FillAndExpand"/>
-                </VerticalStackLayout>
-
-                <VerticalStackLayout 
-                    x:Name="ResultsListView"
-                    Spacing="10"
-                    BindableLayout.ItemsSource="{Binding SearchResults}">
-                        <BindableLayout.ItemTemplate>
-                        <DataTemplate 
-                            x:DataType="models:User">
+                Spacing="10"
+                Margin="0,10">
+                <Border
+                    StrokeShape="RoundRectangle 20"
+                    Padding="10,10">
+                    <VerticalStackLayout
+                        Spacing="10">
+                        <Grid
+                            ColumnSpacing="10"
+                            ColumnDefinitions="*,auto">
+                            <Entry 
+                                Grid.Column="0"
+                                Placeholder="Введите имя"
+                                x:Name="NameEntry"
+                                HorizontalOptions="FillAndExpand" />
+                            <ImageButton
+                                Grid.Column="1"
+                                Margin="0,0,5,0"
+                                Source="settings_sliders"
+                                WidthRequest="25"
+                                HeightRequest="25">
+                                <ImageButton.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ToggleExpanderCommand}"/>
+                                </ImageButton.GestureRecognizers>
+                            </ImageButton>
+                        </Grid>
+                         <!--todo template-->
+                        <HorizontalStackLayout
+                            IsVisible="{Binding SearchSettingsExpanded}"
+                            Spacing="5">
                             <Border
-                                Padding="10">
+                                Style="{StaticResource HobbyTile}">
+                                <Border.Shadow>
+                                    <Shadow 
+                                        Opacity="0"/>
+                                </Border.Shadow>
                                 <Grid
+                                    ColumnSpacing="5"
+                                    ColumnDefinitions="auto,auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        VerticalOptions="Center"
+                                        Style="{StaticResource Body}"
+                                        Text="Программирование"></Label>
+                                    <Image
+                                        Grid.Column="1"
+                                        Source="cross_small"/>
+                                </Grid>
+                            </Border>
+                            <Border
+                                Style="{StaticResource HobbyTile}">
+                                <Border.Shadow>
+                                    <Shadow 
+                                        Opacity="0"/>
+                                </Border.Shadow>
+                                <Grid
+                                    ColumnSpacing="5"
+                                    ColumnDefinitions="auto,auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        VerticalOptions="Center"
+                                        Style="{StaticResource Body}"
+                                        Text="Гребля"></Label>
+                                    <Image
+                                        Grid.Column="1"
+                                        Source="cross_small"/>
+                                </Grid>
+                            </Border>
+
+                            <Border
+                                Style="{StaticResource HobbyTile}">
+                                <Border.Shadow>
+                                    <Shadow 
+                                        Opacity="0"/>
+                                </Border.Shadow>
+                                <Image
+                                    Grid.Column="1"
+                                    Rotation="45"
+                                    Source="cross_small"/>
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button 
+                    Text="Найти коллегу"
+                    Clicked="SearchButton_Clicked_Async"
+                    HorizontalOptions="FillAndExpand"/>
+            </VerticalStackLayout>
+
+            <ScrollView>
+                <Grid
+                    RowSpacing="10"
+                    RowDefinitions="auto,*">
+                    <Label
+                        IsVisible="{Binding SearchResults, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                        Grid.Row="0"
+                        HorizontalOptions="Center"
+                        TextColor="{StaticResource Gray400}"
+                        Style="{StaticResource Body}"
+                        Text="{Binding SearchResults.Count,StringFormat='Найдено {0} коллег'}"/>
+                    <VerticalStackLayout 
+                        Grid.Row="1"
+                        x:Name="ResultsListView"
+                        Spacing="10"
+                        BindableLayout.ItemsSource="{Binding SearchResults}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate 
+                            x:DataType="models:User">
+                                <Border
+                                Padding="10">
+                                    <Grid
                                     ColumnSpacing="10"
                                     ColumnDefinitions="auto, *, auto">
-                                    <Image
+                                        <Image
                                         WidthRequest="50"
                                         HeightRequest="50"
                                         Aspect="AspectFill"
                                         Source="{Binding AvatarURL}"
                                         Grid.Column="0">
-                                        <Image.Clip>
-                                            <EllipseGeometry
+                                            <Image.Clip>
+                                                <EllipseGeometry
                                                 Center="25,25"
                                                 RadiusX="25"
                                                 RadiusY="25"/>
-                                        </Image.Clip>
-                                    </Image>
-                                    <Grid
+                                            </Image.Clip>
+                                        </Image>
+                                        <Grid
                                         Grid.Column="1"
                                         VerticalOptions="Center"
                                         RowDefinitions="auto,auto">
-                                        <Label
+                                            <Label
                                             Grid.Row="0"
                                             Text="{Binding FullName}"
                                             Style="{StaticResource Body}"/>
-                                        <Label
+                                            <Label
                                             Grid.Row="1"
                                             Text="Подразделение"
                                             TextColor="{StaticResource Gray400}"
@@ -92,8 +177,8 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                     </VerticalStackLayout>
-
-                </VerticalStackLayout>
-        </ScrollView>
+                </Grid>
+            </ScrollView>
+        </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>
