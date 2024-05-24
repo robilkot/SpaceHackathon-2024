@@ -53,53 +53,6 @@
                 Style="{StaticResource Body}"
                 Text="{Binding SelectedNews.Description}"/>
 
-            <Grid 
-                Grid.Row="2"
-                Padding="10,0,10,10"
-                ColumnDefinitions="auto, auto, *, auto">
-
-                <HorizontalStackLayout
-                    Grid.Column="0"
-                    Spacing="10">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Padding="5"
-                                BackgroundColor="#EEEEEE">
-                                <Border.Shadow>
-                                    <Shadow Opacity="0"/>
-                                </Border.Shadow>
-                                <Grid
-                                    ColumnSpacing="5"
-                                    ColumnDefinitions="auto,auto">
-                                    <Image
-                                        Grid.Column="0"
-                                        Source="star"
-                                        HeightRequest="15"/>
-                                    <Label
-                                        VerticalOptions="Center"
-                                        Grid.Column="1"
-                                        Text="42"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                    <BindableLayout.ItemsSource>
-                        <x:Array Type="{x:Type x:Int32}">
-                            <x:Int32>1</x:Int32>
-                            <x:Int32>1</x:Int32>
-                        </x:Array>
-                    </BindableLayout.ItemsSource>
-                </HorizontalStackLayout>
-                <Label
-                    FontSize="14"
-                    Grid.Column="2"
-                    VerticalOptions="Center"
-                    HorizontalOptions="End"
-                    TextColor="Gray"
-                    Style="{StaticResource NewsTitle}" 
-                    Text="{Binding SelectedNews.PublishDate}"/>
-            </Grid>
         </Grid>
     </ScrollView>
 </ContentPage>
