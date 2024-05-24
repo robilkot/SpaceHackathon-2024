@@ -45,14 +45,18 @@
                                 Style="{StaticResource Body}"/>
                         </Grid>
                         <ImageButton
-                            Clicked="ProfileButton_Clicked"
-                            CommandParameter="{Binding .}"
                             Grid.Column="2"
                             Margin="0,0,5,0"
                             Source="angle_right"
                             WidthRequest="20"
                             HeightRequest="20">
                         </ImageButton>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                x:DataType="viewmodels:AllChatsViewModel"
+                                Command="{Binding OpenChatCommand, Source={x:RelativeSource AncestorType={x:Type viewmodels:AllChatsViewModel}}}"
+                                CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </Border>
             </DataTemplate>

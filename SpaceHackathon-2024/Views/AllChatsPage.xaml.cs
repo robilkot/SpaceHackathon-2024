@@ -11,15 +11,4 @@ public partial class AllChatsPage : ContentPage
 
         BindingContext = viewModel;
 	}
-
-    private async void ProfileButton_Clicked(object sender, EventArgs e)
-    {
-        var navigationParameter = new Dictionary<string, object>
-            {
-                {"ShowBackButton", true },
-                {"TargetUser", (User)(sender as ImageButton).CommandParameter }
-            };
-
-        await Shell.Current.GoToAsync(nameof(ChatPage), true, navigationParameter);
-    }
 }
