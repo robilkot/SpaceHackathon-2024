@@ -138,7 +138,6 @@
 	  <None Update="Properties\launchSettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-
 	  <MauiXaml Update="Views\TicketsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
