@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:Class="SpaceHackathon_2024.Views.SignInPage"
+             x:DataType="viewmodels:SignInViewModel">
+            
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="Black"
+            VerticalOptions="Fill">
+            <Image
+                Aspect="AspectFill"
+                Opacity="0.5"
+                Source="https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"
+                ></Image>
+            <Border
+                HeightRequest="440"
+                Margin="30"
+                Padding="20">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <HorizontalStackLayout
+                        HorizontalOptions="Center"
+                        Margin="0,20"
+                        Spacing="20">
+                        <Image
+                            HeightRequest="25"
+                            Source="mts_logo3">
+                        </Image>
+                        <Image
+                            HeightRequest="55"
+                            Source="mts_hr_logo1">
+                        </Image>
+
+                    </HorizontalStackLayout>
+                    <Entry 
+                        HeightRequest="50"
+                        Placeholder="Имя пользователя" 
+                        Text="{Binding PhoneNumber }" />
+                    <Entry
+                        HeightRequest="50"
+                        Placeholder="Пароль"
+                        IsPassword="True"
+                        Text="{Binding Password }" />
+
+                    <Button 
+                        Text="Войти" 
+                        Command="{Binding SignInCommand}" 
+                        HorizontalOptions="Fill" />
+
+                    <Label 
+                        Text="Нет аккаунта?" 
+                        Style="{StaticResource Body}"
+                        HorizontalOptions="Center">
+                    </Label>
+
+                    <Button 
+                        Margin="0,-10,0,0"
+                        Text="Создать аккаунт" 
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Command="{Binding GoToSignUpPageCommand}" 
+                        HorizontalOptions="Fill" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,7 +3,7 @@ using Android.Runtime;
 
 namespace SpaceHackathon_2024
 {
-    [Application]
+    [Application(UsesCleartextTraffic = true)]
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models ="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
+             x:DataType="local:ProfileViewModel"
+             x:Class="SpaceHackathon_2024.Views.ProfilePage"
+             Shell.BackButtonBehavior="{Binding ShowBackButton, Converter={StaticResource BoolToBackButtonBehaviorConverter}}"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Name" TargetType="Label">
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray900}"/>
+                <Setter Property="FontFamily" Value="MTSSansBold"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="ProfileBold" TargetType="Label" BasedOn="{StaticResource Name}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontAttributes" Value="None"/>
+            </Style>
+
+            <Style x:Key="CollapsableHeaderContainer" TargetType="Grid">
+                <Setter Property="ColumnDefinitions" Value="*,auto"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="Padding" Value="10,5"/>
+            </Style>
+
+            <Style x:Key="CollapsableHeaderText" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray900}"/>
+                <Setter Property="FontFamily" Value="MTSSansRegular"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout
+                Spacing="10"
+                Padding="10">
+                <Border>
+                    <Grid
+                        Padding="10, 20"
+                        ColumnSpacing="20"
+                        ColumnDefinitions="auto,*">
+                        <Image
+                            Source="{Binding CurrentUser.AvatarURL}"
+                            Grid.Column="0"
+                            WidthRequest="110"
+                            HeightRequest="110"
+                            Aspect="AspectFill"
+                            VerticalOptions="Center">
+                            <Image.Clip>
+                                <EllipseGeometry 
+                                    RadiusX="55"
+                                    RadiusY="55"
+                                    Center="55,55">
+                                </EllipseGeometry>
+                            </Image.Clip>
+                        </Image>
+                        <VerticalStackLayout
+                            Spacing="0"
+                            Grid.Column="1">
+                            <Label
+                                Margin="0,0,0,10"
+                                Style="{StaticResource Header}"
+                                Text="{Binding CurrentUser.FullName}"/>
+                            <Label
+                                Style="{StaticResource SubHeader}"
+                                Text="{Binding CurrentUser.Position}"/>
+                            <Label
+                                Style="{StaticResource SubHeader}"
+                                Text="{Binding CurrentUser.Department}"/>
+
+                            <HorizontalStackLayout
+                                Spacing="8"
+                                Margin="0,15,0,0">
+                                <Label
+                                    Style="{StaticResource SubHeader}"
+                                    TextColor="{StaticResource Gray500}"
+                                    FontAttributes="Bold"   
+                                    Text="В отпуске"/>
+                                <Ellipse 
+                                    Fill="{StaticResource Gray500}"
+                                    WidthRequest="12"
+                                    HeightRequest="12"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!--Achievments-->
+                <Label
+                    Margin="0,20,0,0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource SubHeader}"
+                    Text="Ваши достижения:"/>
+                <HorizontalStackLayout
+                    Margin="0,0,0,20"
+                    Spacing="10"
+                    HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Source="grat_1mo"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                    <BindableLayout.ItemsSource>
+                        <x:Array Type="{x:Type x:Int32}">
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>1</x:Int32>
+                            <x:Int32>1</x:Int32>
+                        </x:Array>
+                    </BindableLayout.ItemsSource>
+                </HorizontalStackLayout>
+
+                <!-- Rating -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource Header}"
+                                FontSize="20"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Показатели эффективности"/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding RatingExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding RatingHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding RatingExpanded}"
+                            Spacing="10"
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding KpiItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate >
+                                    <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
+                                        Spacing="5">
+                                        <Label 
+                                            Text="{Binding Key}"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="{Binding Value}"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Working info -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource Header}"
+                                FontSize="20"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Персональная информация "/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding WorkInfoExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding WorkInfoHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding WorkInfoExpanded}"
+                            Spacing="10"
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding PersonalItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
+                                        Spacing="5">
+                                        <Label 
+                                            Text="{Binding Key}"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="{Binding Value}"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Contact info -->
+                <Border>
+                    <Grid
+                        RowDefinitions="auto,*"
+                        Padding="5,0">
+                        <!--Header-->
+                        <Grid
+                            Grid.Row="0"
+                            Style="{StaticResource CollapsableHeaderContainer}">
+                            <Label
+                                Style="{StaticResource Header}"
+                                FontSize="20"
+                                VerticalOptions="Center"
+                                Grid.Column="0"
+                                Text="Контактная информация"/>
+                            <Image
+                                WidthRequest="20"
+                                Grid.Column="1"
+                                Source="angle_right"
+                                Rotation="{Binding ContactInfoExpandedRotation}">
+                            </Image>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding ContactInfoHeaderTappedCommand}"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <!--Body-->
+                        <!--TODO: Binding data-->
+                        <VerticalStackLayout
+                            Margin="0,10,0,0"
+                            Padding="10"
+                            IsVisible="{Binding ContactInfoExpanded}"
+                            Spacing="10"
+                            Grid.Row="1"
+                            BindableLayout.ItemsSource="{Binding ContactItems}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout
+                                        x:DataType="models:KeyValueItem"
+                                        Spacing="5">
+                                        <Label 
+                                            Text="{Binding Key}"/>
+                                        <Label 
+                                            FontSize="16"
+                                            TextColor="{StaticResource Primary}"
+                                            Text="{Binding Value}"/>
+                                        <BoxView
+                                            HeightRequest="1"
+                                            Color="{StaticResource Gray200}"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

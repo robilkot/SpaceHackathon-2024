@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:model ="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="SpaceHackathon_2024.Views.RatingPage"
+             x:DataType="local:RatingViewModel"
+             Title="RatingPage">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="10,20">
+
+            <VerticalStackLayout
+                Spacing="10">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="Ваш KPI за последний месяц"
+                    Style="{StaticResource SubHeader}"/>
+
+                <Grid>
+                    <Image 
+                        Margin="0,-5,0,0"
+                        WidthRequest="140"
+                        HeightRequest="70"
+                        Source="brush_stroke1"/>
+                    <Label
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FontSize="24"
+                        TextColor="{StaticResource White}"
+                        Text="{Binding LastMonthKpi, StringFormat='{0}%'}"
+                        Style="{StaticResource Header}"/>
+                </Grid>
+                <!--<Border
+                    StrokeShape="RoundRectangle 25"
+                    WidthRequest="100"
+                    HeightRequest="50"
+                    BackgroundColor="{StaticResource Primary}">
+                    <Border.Shadow>
+                        <Shadow
+                            Opacity="0"/>
+                    </Border.Shadow>
+                </Border>-->
+
+                <micro:ChartView 
+                    x:Name="chartView" 
+                    Margin="20,0"
+                    HeightRequest="150">
+                </micro:ChartView>
+
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding BetterThanOthersPercent, StringFormat='Вы эффективнее {0}% коллег!'}"
+                    Style="{StaticResource SubHeader}"/>
+            </VerticalStackLayout>
+
+            <Label
+                 Style="{StaticResource Header}"
+                 Text="Лучшие работники компании"/>
+
+            <VerticalStackLayout
+                Spacing="10"
+                BindableLayout.ItemsSource="{Binding BestEmployees}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate
+                        x:DataType="model:User">
+                        <Border
+                            Padding="10">
+                            <Grid
+                                Padding="10,0"
+                                ColumnSpacing="10"
+                                ColumnDefinitions="auto, auto, *, auto">
+                                <Label
+                                    VerticalOptions="Center"
+                                    Grid.Column="0"
+                                    Text="{Binding KPI, StringFormat='{0}%'}"
+                                    Style="{StaticResource Body}"/>
+                                <Image
+                                    WidthRequest="50"
+                                    HeightRequest="50"
+                                    Aspect="AspectFill"
+                                    Source="{Binding AvatarURL}"
+                                    Grid.Column="1">
+                                    <Image.Clip>
+                                        <EllipseGeometry
+                                            Center="25,25"
+                                            RadiusX="25"
+                                            RadiusY="25"/>
+                                    </Image.Clip>
+                                </Image>
+                                <Grid
+                                    Grid.Column="2"
+                                    VerticalOptions="Center"
+                                    RowDefinitions="auto,auto">
+                                    <Label
+                                        Grid.Row="0"
+                                        Text="{Binding FullName}"
+                                        Style="{StaticResource Body}"/>
+                                    <Label
+                                        Grid.Row="1"
+                                        Text="{Binding Department}"
+                                        TextColor="{StaticResource Gray400}"
+                                        Style="{StaticResource Body}"/>
+                                </Grid>
+                                <Image
+                                    Grid.Column="3">
+                                </Image>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

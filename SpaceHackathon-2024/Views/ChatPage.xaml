@@ -1,0 +1,159 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             xmlns:models="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
+             x:Class="SpaceHackathon_2024.Views.ChatPage"
+             x:DataType="viewmodels:ChatViewModel"
+             Title="Chat"
+             Shell.BackButtonBehavior="{Binding ShowBackButton, Converter={StaticResource BoolToBackButtonBehaviorConverter}}"
+             Shell.TabBarIsVisible="False">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter" />
+            <converters:BoolToValueConverter x:Key="BoolToMessageColor" 
+                                             TrueValue="{StaticResource Primary}"
+                                             FalseValue="{StaticResource Gray100}"></converters:BoolToValueConverter>
+            <converters:BoolToValueConverter x:Key="BoolToMessageTextColor" 
+                                             TrueValue="{StaticResource White}"
+                                             FalseValue="{StaticResource Gray950}"></converters:BoolToValueConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- User Info Bar -->
+        <Border
+            Margin="10"
+            Grid.Row="0"
+            Padding="10"
+            VerticalOptions="Start">
+            <Grid
+                ColumnSpacing="10"
+                ColumnDefinitions="auto,*">
+                <Image 
+                    Grid.Column="0"
+                    Source="{Binding TargetUser.AvatarURL}" 
+                    WidthRequest="50"
+                    HeightRequest="50" 
+                    Aspect="AspectFill"        
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start">
+                    <Image.Clip>
+                        <EllipseGeometry 
+                            Center="25,25"
+                            RadiusX="25"
+                            RadiusY="25"/>
+                    </Image.Clip>
+                </Image>
+                <Grid
+                    Grid.Column="2"
+                    VerticalOptions="Center"
+                    RowDefinitions="auto,auto">
+                    <Label
+                        Grid.Row="0"
+                        Text="{Binding TargetUser.Name}"
+                        Style="{StaticResource SubHeader}"/>
+                    <Label
+                        Grid.Row="1"
+                        Text="{Binding TargetUser.BranchOffice}"
+                        TextColor="{StaticResource Gray400}"
+                        Style="{StaticResource Body}"/>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <!-- Messages CollectionView -->
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="MessagesCollectionView"
+                                ItemsSource="{Binding Messages}"
+                                SelectionMode="None"
+                                VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Message">
+                        <VerticalStackLayout
+                            Spacing="3"
+                            Margin="5">
+                            <HorizontalStackLayout
+                                HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                <Label 
+                                    Text="{Binding Author}"
+                                    Style="{StaticResource Body}"
+                                    TextColor="Gray"
+                                           />
+                                <Label Text=":" 
+                                       FontAttributes="Bold"
+                                       Margin="0,0,5,0"
+                                       TextColor="Gray"/>
+                            </HorizontalStackLayout>
+                            <Border 
+                                BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToMessageColor}}"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="10"
+                                HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}">
+                                <Label Text="{Binding Text}" TextColor="{Binding IsUserMessage, Converter={StaticResource BoolToMessageTextColor}}"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Opacity="0.5"
+                            VerticalOptions="Center"
+                            RowSpacing="20"
+                            RowDefinitions="auto,auto">
+                            <Image
+                                Grid.Row="0"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                Source="envelope">
+                                
+                            </Image>
+                            <Label
+                                Grid.Row="1"
+                                Style="{StaticResource Body}"
+                                Text="Отправьте первое сообщение">
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- Message Input Bar -->
+        <Grid
+            VerticalOptions="End"
+            Padding="10"
+            BackgroundColor="White"
+            ColumnSpacing="10"
+            ColumnDefinitions="*,auto"
+            Grid.Row="2"
+            Shadow="{StaticResource ContainerShadow}">
+
+            <Entry
+                HeightRequest="50"
+                Grid.Column="0"
+                x:Name="MessageEntry" 
+                Text="{Binding NewMessage, Mode=TwoWay}"
+                Placeholder="Enter your message"
+                />
+            <Image
+                Grid.Column="1"
+                Source="send"
+                WidthRequest="40"
+                HeightRequest="40">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SendMessageButton_Clicked"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+    </Grid>
+</ContentPage>

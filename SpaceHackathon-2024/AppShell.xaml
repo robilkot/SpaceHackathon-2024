@@ -5,12 +5,49 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SpaceHackathon_2024.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"
-    Title="SpaceHackathon 2024">
+    Title="SpaceHackathon 2024"
+    x:DataType="Shell">
 
-    <TabBar Route="tabs">
-        <ShellContent Title="Задачи" Icon="tasks_white.png" ContentTemplate="{DataTemplate views:TicketsPage}" />
-        <ShellContent Title="Запросы" Icon="mail_white.png" ContentTemplate="{DataTemplate views:TicketsPage}" />
-        <ShellContent Title="Коллеги" Icon="person_white.png" ContentTemplate="{DataTemplate views:TicketsPage}" />
+    <Shell.TitleView>
+        <Grid
+            Padding="0,5,15,5"
+            HeightRequest="50"
+            ColumnSpacing="25"
+            ColumnDefinitions="auto,*,auto,auto">
+            <Image
+                Grid.Column="0"
+                HeightRequest="25"
+                Source="mts_logo3">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogoTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image
+                Grid.Column="2"
+                WidthRequest="25"
+                HeightRequest="25"
+                Source="bell"/>
+            <Image
+                Grid.Column="3"
+                WidthRequest="25"
+                Source="envelope">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnEnvelopeTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+    </Shell.TitleView>
+
+    <TabBar>
+        <ShellContent Icon="envelope" Title="Новости" ContentTemplate="{DataTemplate views:AllNewsPage}"/>
+        <Tab Title="Коллеги" Icon="users_alt">
+            <ShellContent Title="Поиск" ContentTemplate="{DataTemplate views:SearchColleagePage}"/>
+            <ShellContent Title="Рейтинг" ContentTemplate="{DataTemplate views:RatingPage}"/>
+        </Tab>
+        <ShellContent Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
+        <ShellContent Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}"/>
     </TabBar>
+
+    <ShellContent Route="NewsPage" ContentTemplate="{DataTemplate views:NewsPage}" />
+
 </Shell>

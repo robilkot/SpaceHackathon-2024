@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpaceHackathon_2024.Views.SchedulePage"
+             xmlns:model="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:viewModels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:DataType="viewModels:ScheduleViewModel"
+             xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
+             Title="SchedulePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Border" x:Key="DayOff" BasedOn="{StaticResource BaseBorderStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource Gray100}"/>
+            </Style>
+            <converters:DayToLabelStyleConverter x:Key="DayToLabelStyleConverter" />
+            <converters:DayToTileStyleConverter x:Key="DayToTileStyleConverter" />
+            <converters:DayToWeekDayStringConverter x:Key="DayToWeekDayStringConverter" />
+            <converters:DayToTypeStringConverter x:Key="DayToTypeStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="0,10">
+            <Label
+                Padding="10,10,10,0"
+                Style="{StaticResource Header}"
+                Text="Ваш график на месяц"/>
+            <!-- Weekly schedule -->
+            <CarouselView
+                Loop="False"
+                IsBounceEnabled="True"
+                ItemsSource="{Binding Weeks}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate
+                        x:DataType="model:WeeklySchedule">
+                        <Border>
+                            <Border.Shadow>
+                                <Shadow Opacity="0"/>
+                            </Border.Shadow>
+                            <Grid
+                                Padding="10,0"
+                                RowSpacing="10"
+                                RowDefinitions="auto,*">
+                                <Grid
+                                    ColumnDefinitions="auto,*,auto"
+                                    Grid.Row="0">
+                                    <Image
+                                        Grid.Column="0"
+                                        WidthRequest="15"
+                                        HeightRequest="15"
+                                        Source="angle_left"/>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource SubHeader}"
+                                        Grid.Column="1">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="StartDay"
+                                                         StringFormat='{}{0:dd.mm.yy}' />
+                                                <Binding Path="EndDay" 
+                                                         StringFormat='{}{0:dd.mm.yy}'/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Image
+                                        Grid.Column="2"
+                                        WidthRequest="15"
+                                        HeightRequest="15"
+                                        Source="angle_right"/>
+                                </Grid>
+
+                                <VerticalStackLayout
+                                    Grid.Row="1"
+                                    Spacing="5"
+                                    BindableLayout.ItemsSource="{Binding Days}"
+                                    Padding="0,10">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate
+                                            x:DataType="model:ScheduleDay">
+                                            <Border
+                                                Style="{Binding ., Converter={StaticResource DayToTileStyleConverter}}">
+                                                <Grid
+                                                    MinimumHeightRequest="55"
+                                                    Padding="10"
+                                                    ColumnSpacing="10"
+                                                    ColumnDefinitions="auto,*,auto">
+                                                    <Label
+                                                        Grid.Column="0"
+                                                        VerticalOptions="Center"
+                                                        Style="{Binding ., Converter={StaticResource DayToLabelStyleConverter}}">
+                                                        <Label.Text>
+                                                            <MultiBinding StringFormat="{}{0} {1} | {2}">
+                                                                <Binding 
+                                                                    Path="Date"
+                                                                    StringFormat='{}{0:dd.MM}' />
+                                                                <Binding 
+                                                                    Path="." 
+                                                                    Converter="{StaticResource DayToWeekDayStringConverter}"
+                                                                    StringFormat='{}{0:dd.mm.yy}'/>
+                                                                <Binding 
+                                                                    Path="." 
+                                                                    Converter="{StaticResource DayToTypeStringConverter}"
+                                                                    StringFormat='{}{0:dd.mm.yy}'/>
+                                                            </MultiBinding>
+                                                        </Label.Text>
+                                                    </Label>
+
+                                                    <Image
+                                                        HeightRequest="30"
+                                                        WidthRequest="30"
+                                                        Grid.Column="2"
+                                                        IsVisible="{Binding Description, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                                        Source="warn_red_1">
+                                                    </Image>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <VerticalStackLayout
+                Spacing="15"
+                Padding="10,0">
+                <Label
+                    Style="{StaticResource Header}"
+                    Text="Отпуск и перенос смен"/>
+
+                <Label
+                    Text="Вы договорились с коллегой о переносе смены?"
+                    Style="{StaticResource SubHeader}"></Label>
+                
+                <Label
+                    Text="- Оформите заявку&#x0a;- Ожидайте уведомление о подтверждениии&#x0a;- Новый график отобразиться на этой странице"
+                    Style="{StaticResource Body}">
+                </Label>
+
+                <Button
+                    Text="Оформить заявку на перенос"/>
+
+
+                <Label
+                    Margin="0,20,0,0"
+                    Text="Хотите спланировать отпуск?"
+                    Style="{StaticResource SubHeader}"></Label>
+
+                <Label
+                    Text="- Укажите желаемые даты&#x0a;- Ожидайте уведомление о подтверждениии&#x0a;- Дни отпуска будут показаны на этой странице"
+                    Style="{StaticResource Body}">
+                </Label>
+
+                <Button
+                    Text="Спланировать отпуск"
+                    Margin="0,0,0,40"/>
+                
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

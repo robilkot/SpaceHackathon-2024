@@ -2,12 +2,18 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SpaceHackathon_2024"
+             android:Application.WindowSoftInputModeAdjust="Resize"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:converters="clr-namespace:SpaceHackathon_2024.Helpers.Converters"
              x:Class="SpaceHackathon_2024.App">
     <Application.Resources>
         <ResourceDictionary>
             <converters:BoolInverter x:Key="BoolInverter" />
             <converters:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <converters:BoolToValueConverter x:Key="TextColorConverter" FalseValue="{StaticResource Gray400}" TrueValue="{StaticResource Gray600}" />
+            <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
+            <converters:BoolToValueConverter x:Key="BoolToBackButtonBehaviorConverter" FalseValue="{StaticResource InvisibleBackButton}" TrueValue="{StaticResource VisibleBackButton}" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

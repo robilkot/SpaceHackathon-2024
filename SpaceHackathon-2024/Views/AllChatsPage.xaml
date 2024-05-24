@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SpaceHackathon_2024.Models"
+             xmlns:viewmodels="clr-namespace:SpaceHackathon_2024.ViewModels"
+             x:Class="SpaceHackathon_2024.Views.AllChatsPage"
+             x:DataType="viewmodels:AllChatsViewModel"
+             Title="AllChatsPage">
+    
+    <ContentPage.Resources>
+        
+        <ResourceDictionary>
+            
+            <DataTemplate x:Key="UserTile" x:DataType="models:User">
+                <Border
+                    Padding="10">
+                    <Grid
+                        ColumnSpacing="10"
+                        ColumnDefinitions="auto, *, auto">
+                        <Image
+                            WidthRequest="50"
+                            HeightRequest="50"
+                            Aspect="AspectFill"
+                            Source="{Binding AvatarURL}"
+                            Grid.Column="0">
+                            <Image.Clip>
+                                <EllipseGeometry
+                                    Center="25,25"
+                                    RadiusX="25"
+                                    RadiusY="25"/>
+                            </Image.Clip>
+                        </Image>
+                        <Grid
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            RowDefinitions="auto,auto">
+                            <Label
+                                Grid.Row="0"
+                                Text="{Binding FullName}"
+                                Style="{StaticResource Body}"/>
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding BranchOffice}"
+                                TextColor="{StaticResource Gray400}"
+                                Style="{StaticResource Body}"/>
+                        </Grid>
+                        <ImageButton
+                            Grid.Column="2"
+                            Margin="0,0,5,0"
+                            Source="angle_right"
+                            WidthRequest="20"
+                            HeightRequest="20">
+                        </ImageButton>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                x:DataType="viewmodels:AllChatsViewModel"
+                                Command="{Binding OpenChatCommand, Source={x:RelativeSource AncestorType={x:Type viewmodels:AllChatsViewModel}}}"
+                                CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout BindableLayout.ItemTemplate="{StaticResource UserTile}" BindableLayout.ItemsSource="{Binding ActiveChats}">
+    </VerticalStackLayout>
+    
+</ContentPage>
