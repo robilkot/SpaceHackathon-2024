@@ -16,19 +16,24 @@ namespace SpaceHackathon_2024.ViewModels
         {
             Weeks = new ObservableCollection<WeeklySchedule>();
 
+            // Получаем текущую дату и определяем день недели (понедельник - первый день недели)
+            DateTime today = DateTime.Now.Date;
+            int daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
+            var startDate = DateOnly.FromDateTime(today.AddDays(-((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7));
+
             // Create weeks for the next 4 weeks
             for (int i = 0; i < 4; i++)
             {
-                DateOnly startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i * 7).Date);
-                DateOnly endDate = startDate.AddDays(6);
+                DateOnly currentWeekStartDate = startDate.AddDays(i * 7);
+                DateOnly endDate = currentWeekStartDate.AddDays(6);
 
                 // Get days from the database
-                var days = context.GetScheduleDays(startDate, endDate);
+                var days = context.GetScheduleDays(currentWeekStartDate, endDate);
 
                 // Create WeeklySchedule and add it to the Weeks collection
                 var weeklySchedule = new WeeklySchedule
                 {
-                    StartDay = startDate,
+                    StartDay = currentWeekStartDate,
                     EndDay = endDate,
                     Days = new List<ScheduleDay>(days)
                 };

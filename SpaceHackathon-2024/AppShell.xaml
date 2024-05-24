@@ -47,4 +47,7 @@
         <ShellContent Icon="calendar" Title="График" ContentTemplate="{DataTemplate views:SchedulePage}"/>
         <ShellContent Icon="user" Title="Профиль" ContentTemplate="{DataTemplate views:ProfilePage}"/>
     </TabBar>
+
+    <ShellContent Route="NewsPage" ContentTemplate="{DataTemplate views:NewsPage}" />
+
 </Shell>

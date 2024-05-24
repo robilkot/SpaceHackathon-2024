@@ -167,17 +167,23 @@ namespace SpaceHackathon_2024.Services
 
         public async Task GenerateWeeklySchedulesAsync()
         {
+            // Получаем текущую дату и определяем день недели (понедельник - первый день недели)
+            DateTime today = DateTime.Now.Date;
+            int daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
+            var startDate = DateOnly.FromDateTime(today.AddDays(-((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7));
+
+            // Генерируем расписание на 4 недели
             for (int i = 0; i < 4; i++)
             {
-                // Рассчитываем начальный и конечный дни для текущей недели
-                var startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i * 7).Date);
-                var endDate = startDate.AddDays(6); // Неделя состоит из 7 дней
+                // Рассчитываем начальный день для текущей недели
+                var currentWeekStartDate = startDate.AddDays(i * 7);
+                var endDate = currentWeekStartDate.AddDays(6); // Неделя состоит из 7 дней
 
                 // Создаем список дней расписания для текущей недели
                 for (int j = 0; j < 7; j++)
                 {
-                    var currentDate = startDate.AddDays(j);
-                    var dayType = GetDayType(currentDate, j);
+                    var currentDate = currentWeekStartDate.AddDays(j);
+                    var dayType = GetDayType(currentDate, j, i);
                     var scheduleDay = new ScheduleDay
                     {
                         Date = currentDate,
@@ -192,16 +198,25 @@ namespace SpaceHackathon_2024.Services
         }
 
 
-        private DayTypes GetDayType(DateOnly date, int j)
+
+        private DayTypes GetDayType(DateOnly date, int j, int i)
         {
             // Примерная логика выбора типа дня (может быть уточнена)
             if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
                 return DayTypes.Weekend;
             }
-            else if (false)
+            else if (i == 1 && j == 3)
             {
                 return DayTypes.Holiday;
+            }
+            else if (i == 2 && j == 5)
+            {
+                return DayTypes.Holiday;
+            }
+            else if (i == 1 && j == 2)
+            {
+                return DayTypes.Vacation;
             }
             else
             {
@@ -215,13 +230,13 @@ namespace SpaceHackathon_2024.Services
             switch (dayType)
             {
                 case DayTypes.Working:
-                    return "Regular work day";
+                    return "";
                 case DayTypes.Weekend:
-                    return "Weekend";
+                    return "";
                 case DayTypes.Vacation:
-                    return "Vacation";
+                    return "Вас заменят на рабочем месте";
                 case DayTypes.Holiday:
-                    return "Holiday";
+                    return "";
                 default:
                     return string.Empty;
             }
@@ -240,10 +255,10 @@ namespace SpaceHackathon_2024.Services
                 await AddNewsAsync(new News("Test News 6", currentDate, "This is a test news item.", "https://www.mtsbank.ru/upload/static/news/2020/IMG_0744.jpg"));
             }
 
-            await AddUserAsync(new User { KPI = 91d, Name = "Nikita", Surname = "Kalabin", AvatarURL = "https://distribution.faceit-cdn.net/images/f9b1e39c-bab2-49e6-8018-7ca56c33986b.jpeg", BranchOffice = "Департамент Пиццы", Department = "Гикало 9, Минск", Position = "Программист", FullName = "Никита Калабин" });
-            await AddUserAsync(new User { KPI = 93d, Name = "Nikita", Surname = "Kharashun", AvatarURL = "https://fikiwiki.com/uploads/posts/2022-02/1645019125_27-fikiwiki-com-p-kartinki-dlya-stima-na-avu-28.jpg", BranchOffice = "На галере", Department = "Заушановский пер. 12, Минск", Position = "Программист", FullName = "Никита Хорошун" });
-            await AddUserAsync(new User { KPI = 90d, Name = "Egor", Surname = "Gokov", AvatarURL = "https://masterpiecer-images.s3.yandex.net/dc54f7f494f211ee8d7f7a2f0d1382ba:upscaled", BranchOffice = "Офис", Department = "Белинского 54, Минск", Position = "Программист", FullName = "Егор Гоков" });
-            await AddUserAsync(new User { KPI = 110d, Name = "Timur", Surname = "Robilko", AvatarURL = "https://ru-static.z-dn.net/files/d3b/3cc3216ecef61bd569d2250340f708a0.png", BranchOffice = "Дома :)", Department = "Секрет, Минск", Position = "Программист", FullName = "Тимур Робилко" });
+            await AddUserAsync(new User { KPI = 91d, Name = "Nikita", Surname = "Kalabin", AvatarURL = "https://distribution.faceit-cdn.net/images/f9b1e39c-bab2-49e6-8018-7ca56c33986b.jpeg", BranchOffice = "Минск", Department = "Гикало 9, Минск", Position = "Массовая связь", FullName = "Никита Калабин" });
+            await AddUserAsync(new User { KPI = 93d, Name = "Nikita", Surname = "Kharashun", AvatarURL = "https://fikiwiki.com/uploads/posts/2022-02/1645019125_27-fikiwiki-com-p-kartinki-dlya-stima-na-avu-28.jpg", BranchOffice = "Витебск", Department = "Заушановский пер. 12, Минск", Position = "B2b", FullName = "Никита Хорошун" });
+            await AddUserAsync(new User { KPI = 90d, Name = "Egor", Surname = "Gokov", AvatarURL = "https://masterpiecer-images.s3.yandex.net/dc54f7f494f211ee8d7f7a2f0d1382ba:upscaled", BranchOffice = "Минск", Department = "Белинского 54, Минск", Position = "B2B", FullName = "Егор Гоков" });
+            await AddUserAsync(new User { KPI = 110d, Name = "Timur", Surname = "Robilko", AvatarURL = "https://ru-static.z-dn.net/files/d3b/3cc3216ecef61bd569d2250340f708a0.png", BranchOffice = "Витебск", Department = "Секрет, Минск", Position = "Массовая связь", FullName = "Тимур Робилко" });
 
 
             if (!StoreItems.Any())

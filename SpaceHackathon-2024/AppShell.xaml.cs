@@ -17,6 +17,7 @@ namespace SpaceHackathon_2024
             Routing.RegisterRoute(nameof(EventsPage), typeof(EventsPage));
             Routing.RegisterRoute(nameof(RatingPage), typeof(RatingPage));
             Routing.RegisterRoute(nameof(AllChatsPage), typeof(AllChatsPage));
+            Routing.RegisterRoute(nameof(NewsPage), typeof(NewsPage));
         }
         
         private async void OnLogoTapped(object sender, EventArgs e)
