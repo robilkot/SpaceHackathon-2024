@@ -167,17 +167,23 @@ namespace SpaceHackathon_2024.Services
 
         public async Task GenerateWeeklySchedulesAsync()
         {
+            // Получаем текущую дату и определяем день недели (понедельник - первый день недели)
+            DateTime today = DateTime.Now.Date;
+            int daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
+            var startDate = DateOnly.FromDateTime(today.AddDays(-((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7));
+
+            // Генерируем расписание на 4 недели
             for (int i = 0; i < 4; i++)
             {
-                // Рассчитываем начальный и конечный дни для текущей недели
-                var startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i * 7).Date);
-                var endDate = startDate.AddDays(6); // Неделя состоит из 7 дней
+                // Рассчитываем начальный день для текущей недели
+                var currentWeekStartDate = startDate.AddDays(i * 7);
+                var endDate = currentWeekStartDate.AddDays(6); // Неделя состоит из 7 дней
 
                 // Создаем список дней расписания для текущей недели
                 for (int j = 0; j < 7; j++)
                 {
-                    var currentDate = startDate.AddDays(j);
-                    var dayType = GetDayType(currentDate, j);
+                    var currentDate = currentWeekStartDate.AddDays(j);
+                    var dayType = GetDayType(currentDate, j, i);
                     var scheduleDay = new ScheduleDay
                     {
                         Date = currentDate,
@@ -192,16 +198,25 @@ namespace SpaceHackathon_2024.Services
         }
 
 
-        private DayTypes GetDayType(DateOnly date, int j)
+
+        private DayTypes GetDayType(DateOnly date, int j, int i)
         {
             // Примерная логика выбора типа дня (может быть уточнена)
             if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
                 return DayTypes.Weekend;
             }
-            else if (false)
+            else if (i == 1 && j == 3)
             {
                 return DayTypes.Holiday;
+            }
+            else if (i == 2 && j == 5)
+            {
+                return DayTypes.Holiday;
+            }
+            else if (i == 1 && j == 2)
+            {
+                return DayTypes.Vacation;
             }
             else
             {
@@ -215,13 +230,13 @@ namespace SpaceHackathon_2024.Services
             switch (dayType)
             {
                 case DayTypes.Working:
-                    return "Regular work day";
+                    return "";
                 case DayTypes.Weekend:
-                    return "Weekend";
+                    return "";
                 case DayTypes.Vacation:
-                    return "Vacation";
+                    return "Вас заменят на рабочем месте";
                 case DayTypes.Holiday:
-                    return "Holiday";
+                    return "";
                 default:
                     return string.Empty;
             }
