@@ -51,7 +51,8 @@
                             Source="{Binding CurrentUser.AvatarURL}"
                             Grid.Column="0"
                             WidthRequest="110"
-                            Aspect="AspectFit"
+                            HeightRequest="110"
+                            Aspect="AspectFill"
                             VerticalOptions="Center">
                             <Image.Clip>
                                 <EllipseGeometry 
@@ -62,25 +63,24 @@
                             </Image.Clip>
                         </Image>
                         <VerticalStackLayout
-                            VerticalOptions="Center"
                             Spacing="0"
                             Grid.Column="1">
                             <Label
                                 Margin="0,0,0,10"
-                                Style="{StaticResource Name}"
+                                Style="{StaticResource Header}"
                                 Text="{Binding CurrentUser.FullName}"/>
                             <Label
-                                Style="{StaticResource ProfileBold}"
+                                Style="{StaticResource SubHeader}"
                                 Text="{Binding CurrentUser.Position}"/>
                             <Label
-                                Style="{StaticResource ProfileBold}"
+                                Style="{StaticResource SubHeader}"
                                 Text="{Binding CurrentUser.Department}"/>
 
                             <HorizontalStackLayout
                                 Spacing="8"
                                 Margin="0,15,0,0">
                                 <Label
-                                    Style="{StaticResource ProfileBold}"
+                                    Style="{StaticResource SubHeader}"
                                     TextColor="{StaticResource Gray500}"
                                     FontAttributes="Bold"   
                                     Text="В отпуске"/>
@@ -97,7 +97,7 @@
                 <Label
                     Margin="0,20,0,0"
                     HorizontalOptions="Center"
-                    FontSize="14"
+                    Style="{StaticResource SubHeader}"
                     Text="Ваши достижения:"/>
                 <HorizontalStackLayout
                     Margin="0,0,0,20"
@@ -130,7 +130,8 @@
                             Grid.Row="0"
                             Style="{StaticResource CollapsableHeaderContainer}">
                             <Label
-                                Style="{StaticResource CollapsableHeaderText}"
+                                Style="{StaticResource Header}"
+                                FontSize="20"
                                 VerticalOptions="Center"
                                 Grid.Column="0"
                                 Text="Показатели эффективности"/>
@@ -186,7 +187,8 @@
                             Grid.Row="0"
                             Style="{StaticResource CollapsableHeaderContainer}">
                             <Label
-                                Style="{StaticResource CollapsableHeaderText}"
+                                Style="{StaticResource Header}"
+                                FontSize="20"
                                 VerticalOptions="Center"
                                 Grid.Column="0"
                                 Text="Персональная информация "/>
@@ -242,7 +244,8 @@
                             Grid.Row="0"
                             Style="{StaticResource CollapsableHeaderContainer}">
                             <Label
-                                Style="{StaticResource CollapsableHeaderText}"
+                                Style="{StaticResource Header}"
+                                FontSize="20"
                                 VerticalOptions="Center"
                                 Grid.Column="0"
                                 Text="Контактная информация"/>

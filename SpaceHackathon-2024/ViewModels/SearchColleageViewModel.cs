@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SpaceHackathon_2024.Models;
 using SpaceHackathon_2024.Services;
 
@@ -9,6 +10,9 @@ namespace SpaceHackathon_2024.ViewModels
     public partial class SearchColleageViewModel : ObservableObject
     {
         private readonly ApplicationContext _context;
+
+        [ObservableProperty]
+        private bool _searchSettingsExpanded = false;
 
         public SearchColleageViewModel(ApplicationContext context)
         {
@@ -22,7 +26,7 @@ namespace SpaceHackathon_2024.ViewModels
         {
             var matchingUsers = await _context.SearchUserByName(name);
 
-            if (matchingUsers == null || matchingUsers.Count == 0)
+            if (matchingUsers == null)
                 return;
 
             SearchResults.Clear();
@@ -30,6 +34,12 @@ namespace SpaceHackathon_2024.ViewModels
             {
                 SearchResults.Add(user);
             }
+        }
+
+        [RelayCommand]
+        public void ToggleExpander()
+        {
+            SearchSettingsExpanded = !SearchSettingsExpanded;
         }
     }
 }
